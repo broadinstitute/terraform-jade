@@ -1,0 +1,3 @@
+{{with $terraformServiceAccount := vault (printf "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json")}}
+{{$terraformServiceAccount.Data | toJSONPretty}}
+{{end}}

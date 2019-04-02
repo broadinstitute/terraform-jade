@@ -1,0 +1,16 @@
+.terraform/*
+*.backup
+*.swp
+config.sh
+override.tf
+*_override.tf
+*_svc.json
+*.out
+terraform.tf
+provider.tf
+code-dx-vars.tf
+plan.out
+*.crt
+*.key
+jade-us-central-k8s.tf
+jade-us-central-k8s-vars.tf
