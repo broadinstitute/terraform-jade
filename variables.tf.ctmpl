@@ -1,4 +1,4 @@
-
+{{$project := "jade"}}{{with $environment := env "ENVIRONMENT"}}{{$keyname := printf "secret/devops/terraform/%s/%s/override" $environment $project}}{{with vault $keyname}}
 
 variable "google_project" {
   default = "broad-jade-dev"
@@ -16,7 +16,7 @@ variable "project_network_name" {
 
 }
 variable "env" {
-  default = "dev"
+  default = "{{$environment}}"
 }
 variable "broad_range_cidrs" {
   default = [
@@ -68,4 +68,4 @@ variable "broad_routeable_net" {
    default = "69.173.64.0/18"
    description = "Broad's externally routable IP network"
 }
-
+{{end}}{{end}}

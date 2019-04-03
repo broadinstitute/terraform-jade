@@ -13,3 +13,8 @@ resource "google_compute_subnetwork" "jade-subnetwork" {
   region        = "us-central1"
   network       = "${google_compute_network.jade-network.self_link}"
 }
+
+data "google_dns_managed_zone" "jade_zone" {
+  provider            = "google"
+  name = "datarepo-${var.env}"
+}

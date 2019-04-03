@@ -13,11 +13,11 @@ variable "jade_k8s_disk_size" {
 }
 
 variable "master_version" {
-  default = "1.12.5-gke.10"
+  default = "1.12.6-gke.7"
 }
 
 variable "node_version" {
-  default = "1.12.5-gke.10"
+  default = "1.12.6-gke.7"
 }
 
 variable "k8_network_name" {
@@ -34,49 +34,4 @@ variable "jade_k8s_node_pool_machine_type" {
 }
 
 
-variable "broad_range_cidrs" {
-  default = [
-  {
-    cidr_block = "69.173.64.0/19"
-  },
-  {
-    cidr_block = "69.173.96.0/20"
-  },
-  {
-    cidr_block = "69.173.112.0/21"
-  },
-  {
-    cidr_block = "69.173.120.0/22"
-  },
-  {
-    cidr_block = "69.173.124.0/23"
-  },
-  {
-    cidr_block = "69.173.126.0/24"
-  },
-  {
-    cidr_block = "69.173.127.0/25"
-  },
-  {
-    cidr_block = "69.173.127.128/26"
-  },
-  {
-    cidr_block = "69.173.127.192/27"
-  },
-  {
-    cidr_block = "69.173.127.224/30"
-  },
-  {
-    cidr_block = "69.173.127.228/32"
-  },
-  {
-    cidr_block = "69.173.127.230/31"
-  },
-  {
-    cidr_block = "69.173.127.232/29"
-  },
-  {
-    cidr_block = "69.173.127.240/28"
-  }
-  ]
-}{{end}}{{end}}
+{{end}}{{end}}

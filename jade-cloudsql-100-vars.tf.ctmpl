@@ -1,0 +1,33 @@
+{{$project := "jade"}}{{with $environment := env "ENVIRONMENT"}}{{$keyname := printf "secret/devops/terraform/%s/%s/override" $environment $project}}{{with vault $keyname}}
+
+
+variable "jade_cloudsql_100_instance_size" {
+    default = "db-n1-standard-1"
+    description = "The default instance size for jade cloudsql 100 instances"
+}
+
+variable "jade_cloudsql_100_num_instances" {
+default = {{ .Data.jade_cloudsql_100_num_instances }}
+description = "number of jade 100 database instances"
+}
+
+variable "cloudsql_activation_policy" {
+  default = "ALWAYS"
+  description = "The default MySQL activation policy for CloudSQL"
+}
+
+variable "cloudsql_pricing_plan" {
+  default = "PER_USE"
+  description = "The default MySQL pricing plan for CloudSQL"
+}
+
+variable "cloudsql_replication_type" {
+  default = "SYNCHRONOUS"
+  description = "The default MySQL replication type for CloudSQL"
+}
+
+variable "cloudsql_require_ssl" {
+  default = "true"
+  description = "SSL require flag"
+}
+{{end}}{{end}}
