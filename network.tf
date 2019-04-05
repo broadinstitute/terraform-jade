@@ -14,7 +14,8 @@ resource "google_compute_subnetwork" "jade-subnetwork" {
   network       = "${google_compute_network.jade-network.self_link}"
 }
 
-data "google_dns_managed_zone" "jade_zone" {
+resource "google_dns_managed_zone" "jade_zone" {
   provider            = "google"
   name = "datarepo-${var.env}"
+  dns_name = "datarepo-${var.env}.broadinstitute.org"
 }
