@@ -6,6 +6,7 @@
 resource "google_compute_global_address" "jade-k8-ip" {
   provider = "google"
   name = "jade-k8-100"
+  depends_on = ["module.enable-services"]
 }
 
 resource "google_dns_record_set" "jade-a-dns" {
