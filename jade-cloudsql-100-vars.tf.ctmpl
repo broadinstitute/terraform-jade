@@ -2,7 +2,7 @@
 
 
 variable "jade_cloudsql_100_instance_size" {
-    default = "db-n1-standard-1"
+    default = "db-g1-small"
     description = "The default instance size for jade cloudsql 100 instances"
 }
 

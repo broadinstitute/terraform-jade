@@ -8,11 +8,22 @@ resource "google_compute_global_address" "jade-k8-ip" {
   name = "jade-k8-100"
 }
 
-resource "google_dns_record_set" "jade-100-jade-dns" {
+resource "google_dns_record_set" "jade-a-dns" {
   provider     = "google"
-  managed_zone = "${google_dns_managed_zone.jade_zone.name}"
-  name         = "${format("jade-k8-1%02d.%s", count.index+1, google_dns_managed_zone.jade_zone.dns_name)}"
+  managed_zone = "${google_dns_managed_zone.dns_zone.name}"
+  name         = "jade-global.${google_dns_managed_zone.dns_zone.dns_name}"
   type         = "A"
   ttl          = "300"
   rrdatas      = [ "${google_compute_global_address.jade-k8-ip.address}" ]
+  depends_on = ["google_dns_managed_zone.dns_zone"]
+}
+
+resource "google_dns_record_set" "jade-cname-jade-dns" {
+    provider = "google"
+    managed_zone = "${google_dns_managed_zone.dns_zone.name}"
+    name = "jade.${google_dns_managed_zone.dns_zone.dns_name}"
+    type = "CNAME"
+    ttl = "300"
+    rrdatas = ["jade-global.${google_dns_managed_zone.dns_zone.dns_name}"]
+    depends_on = ["google_dns_record_set.jade-a-dns"]
 }
