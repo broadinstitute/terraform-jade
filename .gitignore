@@ -1,6 +1,7 @@
 .terraform/*
 *.backup
 *.swp
+terraform.tf
 config.sh
 override.tf
 *_override.tf
