@@ -5,6 +5,7 @@
 resource "random_id" "jade_100_randomid" {
     count = "${var.jade_cloudsql_100_num_instances}"
     byte_length = 8
+    depends_on = ["module.enable-services"]
 }
 
 resource "google_sql_database_instance" "jade_100_postgres" {
@@ -56,4 +57,5 @@ resource "google_dns_record_set" "jade-100-postgres" {
     type = "A"
     ttl = "300"
     rrdatas = ["${element(google_sql_database_instance.jade_100_postgres.*.first_ip_address, count.index)}"]
+    depends_on = ["google_dns_managed_zone.dns_zone"]
 }
