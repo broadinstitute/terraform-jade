@@ -1,7 +1,7 @@
 {{$project := "jade"}}{{with $environment := env "ENVIRONMENT"}}{{$keyname := printf "secret/devops/terraform/%s/%s/override" $environment $project}}{{with vault $keyname}}
 
-variable "google_project" {
-  default = "broad-jade-dev"
+variable "project" {
+  default = "broad-jade-{{$environment}}"
   description = "The Google project name"
 }
 
