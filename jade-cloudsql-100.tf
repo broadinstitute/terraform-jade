@@ -13,6 +13,7 @@ resource "google_sql_database_instance" "jade_100_postgres" {
     region = "${var.region}"
     database_version = "POSTGRES_9_6"
     name = "${format("jade-postgres-1%02d-%s", count.index+1, element(random_id.jade_100_randomid.*.hex, count.index))}"
+    depends_on = ["module.enable-services"]
 
     settings {
         activation_policy = "${var.cloudsql_activation_policy}"

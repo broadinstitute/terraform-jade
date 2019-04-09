@@ -18,4 +18,5 @@ resource "google_dns_managed_zone" "dns_zone" {
   provider = "google"
   name = "datarepo-${var.env}"
   dns_name = "datarepo-${var.env}.broadinstitute.org."
+  depends_on = ["module.enable-services"]
 }
