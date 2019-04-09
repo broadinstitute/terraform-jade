@@ -1,6 +1,6 @@
 module "enable-services" {
 
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/api-services?ref=ms-dependson"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/api-services?ref=k8s-0.0.3"
 
   providers {
     google = "google-beta"
