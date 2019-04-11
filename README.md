@@ -5,6 +5,8 @@ jade Team Terraform configurations will create a internal gcp network and create
 #### Dependencies
 Terraform Verion 2.X.X or higher
 - for the private ip for cloudsql instance
+Service account for Terraform
+- Needs "Service Networking Admin" permissions
 
 
 #### Before cloning this repo
