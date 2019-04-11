@@ -9,12 +9,12 @@ resource "random_id" "jade_100_randomid" {
 }
 
 resource "google_sql_database_instance" "jade_100_postgres" {
-    provider = "google"
+    provider      = "google-beta"
     count = "${var.jade_cloudsql_100_num_instances}"
     region = "${var.region}"
     database_version = "POSTGRES_9_6"
     name = "${format("jade-postgres-1%02d-%s", count.index+1, element(random_id.jade_100_randomid.*.hex, count.index))}"
-    depends_on = ["module.enable-services"]
+    depends_on = ["module.enable-services","google_service_networking_connection.private_vpc_connection"]
 
     settings {
         activation_policy = "${var.cloudsql_activation_policy}"
@@ -29,13 +29,9 @@ resource "google_sql_database_instance" "jade_100_postgres" {
         }
 
         ip_configuration {
-            ipv4_enabled = true
+            ipv4_enabled = false
             require_ssl = "${var.cloudsql_require_ssl}"
-            authorized_networks = {
-                name = "Broad"
-                value = "${var.broad_routeable_net}"
-            }
-
+            private_network = "${google_compute_network.jade-network.self_link}"
         }
 
         user_labels {
@@ -44,18 +40,4 @@ resource "google_sql_database_instance" "jade_100_postgres" {
             state = "active"
         }
     }
-}
-
-#"${google_dns_managed_zone.dns_zone.name}"
-# CloudSQL DNS entry
-#
-resource "google_dns_record_set" "jade-100-postgres" {
-    provider = "google"
-    count = "${var.jade_cloudsql_100_num_instances}"
-    managed_zone = "${google_dns_managed_zone.dns_zone.name}"
-    name = "${format("jade-postgres1%02d.%s", count.index+1, google_dns_managed_zone.dns_zone.dns_name)}"
-    type = "A"
-    ttl = "300"
-    rrdatas = ["${element(google_sql_database_instance.jade_100_postgres.*.first_ip_address, count.index)}"]
-    depends_on = ["google_dns_managed_zone.dns_zone"]
 }
