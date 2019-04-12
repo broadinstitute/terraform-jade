@@ -2,6 +2,13 @@
 ### Overview
 jade Team Terraform configurations will create a internal gcp network and create a small 3 node Kubernetes cluster
 
+#### Dependencies
+Terraform Verion 2.X.X or higher
+- for the private ip for cloudsql instance
+Service account for Terraform
+- Needs "Service Networking Admin" permissions
+
+
 #### Before cloning this repo
 
 Create one directory for each environment you will want to update: `dev`, `prod`
