@@ -13,11 +13,11 @@ variable "jade_k8s_disk_size" {
 }
 
 variable "master_version" {
-  default = "1.12.6-gke.7"
+  default = "1.12.7-gke.10"
 }
 
 variable "node_version" {
-  default = "1.12.6-gke.7"
+  default = "1.12.7-gke.10"
 }
 
 variable "k8_network_name" {
