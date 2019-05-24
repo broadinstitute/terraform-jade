@@ -5,6 +5,7 @@ env_arg=""
 proj_arg=""
 env_env="${ENVIRONMENT}"
 proj_env="${PROJECT_NAME}"
+initials_env="${INITIALS}"
 
 SCRIPT_DIR="$( cd -P "$( dirname "$BASH_SOURCE[0]" )" && pwd )"
 if [ -f "${SCRIPT_DIR}/config.sh" ]
@@ -14,12 +15,12 @@ fi
 
 usage() {
   echo
-  echo "Usage: ${PROG} [-e ENVIRONMENT] [-p PROJECT]"
+  echo "Usage: ${PROG} [-e ENVIRONMENT] [-p PROJECT] [-i INITIALS]"
   echo
 }
 
 # process getopts
-while getopts :e:p:h FLAG; do
+while getopts :e:p:i:h FLAG; do
    case $FLAG in
     h) usage
        exit 0
@@ -27,6 +28,8 @@ while getopts :e:p:h FLAG; do
     e) env_arg="${OPTARG}"
       ;;
     p) proj_arg="${OPTARG}"
+      ;;
+    i) initials_arg="${OPTARG}"
       ;;
    esac
 done
@@ -62,6 +65,20 @@ else
     fi
 fi
 
+if [ -z "${initials_env}" -o "x${initials_env}" == "x" ]; then
+    if [ ! -z "${initials_arg}" ]; then
+         INITIALS="${initials_arg}"
+    fi
+else
+    if [ ! -z "${initials_arg}" ]; then
+         INITIALS="${initials_arg}"
+    else
+         INITIALS="${initials_env}"
+    fi
+fi
+
+SUFFIX=${INITIALS:-$ENVIRONMENT}
+
 if [ -z "${VAULT_TOKEN}" -o "x${VAULT_TOKEN}" == "x" ]; then
     export VAULT_TOKEN=${2-`cat /root/.vault-token`}
 fi
@@ -69,6 +86,16 @@ fi
 if [ -z "${ENVIRONMENT}" ]; then
     echo "FATAL ERROR: Environment not defined!"
     exit 1
+fi
+
+if [ -z "${INITIALS}" ]; then
+    echo "INITIALS not defined!"
+    read -p "Are you sure you want to continue? " -n 1 -r
+    echo    # (optional) move to a new line
+    if [[ ! $REPLY =~ ^[Yy]$ ]]
+    then
+      [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1
+    fi
 fi
 
 if [ -z "${VAULT_TOKEN}" ]; then
@@ -81,7 +108,7 @@ if [ -z "${PROJECT_NAME}" -o "x${PROJECT_NAME}" == "x" ]; then
     exit 1
 fi
 
-export PROJECT_NAME ENVIRONMENT
+export PROJECT_NAME ENVIRONMENT INITIALS SUFFIX
 #CONFIG_TEMPLATE='config.sh.ctmpl'
 #OVERRIDE_TEMPLATE='env_override.tf.ctmpl'
 #CONFIG='config.sh'
