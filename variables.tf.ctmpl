@@ -9,6 +9,11 @@ variable "project" {
   description = "The Google project name"
 }
 
+variable "suffix" {
+  default = "{{$suffix}}"
+  description = "suffix for deploy"
+}
+
 variable "env_project" {
   default = "broad-jade-{{$environment}}"
   description = "The Google project name"
