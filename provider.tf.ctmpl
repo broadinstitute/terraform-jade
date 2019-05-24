@@ -21,11 +21,11 @@ provider "google-beta" {
 }
 
 provider "google" {
-    alias = "broad-jade-${var.env_project}"
-    credentials = "${file("$environment_svc.json")}"
+    alias = "broad-jade"
+    credentials = "${file("{{$environment}}_svc.json")}"
     project = "${var.env_project}"
     region = "${var.region}"
-    version = "< 1.20"
+    version = "1.20"
 }
 
 {{end}}
