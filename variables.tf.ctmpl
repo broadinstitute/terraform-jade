@@ -9,6 +9,12 @@ variable "project" {
   description = "The Google project name"
 }
 
+variable "env_project" {
+  default = "broad-jade-{{$environment}}"
+  description = "The Google project name"
+}
+
+
 variable "region" {
   default = "us-central1"
   description = "The deployment region"

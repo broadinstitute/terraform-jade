@@ -1,5 +1,7 @@
 {{with $project := env "PROJECT_NAME"}}
 {{with $environment := env "ENVIRONMENT"}}
+{{with $suffix := env "SUFFIX"}}
+
 /*
 * Provider Configurations
 */
@@ -17,5 +19,15 @@ provider "google-beta" {
     region = "${var.region}"
     version = "1.20"
 }
+
+provider "google" {
+    alias = "broad-jade-${var.env_project}"
+    credentials = "${file("$environment_svc.json")}"
+    project = "${var.env_project}"
+    region = "${var.region}"
+    version = "< 1.20"
+}
+
+{{end}}
 {{end}}
 {{end}}
