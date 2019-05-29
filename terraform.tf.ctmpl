@@ -1,3 +1,15 @@
+{{if env "INITIALS" }}
+/*
+* Configuration of the Terraform Backend Storage
+*/
+terraform {
+  backend "gcs" {
+    bucket = "broad-dsp-terraform-state"
+    path = "jade/{{env "ENVIRONMENT"}}-{{ env "INITIALS"}}"
+    credentials = "tfstate_svc.json"
+  }
+}
+{{else}}
 /*
 * Configuration of the Terraform Backend Storage
 */
@@ -8,3 +20,4 @@ terraform {
     credentials = "tfstate_svc.json"
   }
 }
+{{end}}

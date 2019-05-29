@@ -1,5 +1,5 @@
-
-
+{{with $project := env "PROJECT_NAME"}}
+{{with $environment := env "ENVIRONMENT"}}
 
 resource "google_compute_network" "jade-network" {
   project = "${var.project}"
@@ -18,6 +18,13 @@ resource "google_compute_subnetwork" "jade-subnetwork" {
   network       = "${google_compute_network.jade-network.self_link}"
   depends_on = ["module.enable-services"]
 }
-
-
-
+{{if env "INITIALS"}}{{else}}
+resource "google_dns_managed_zone" "dns_zone" {
+  provider = "google"
+  name = "datarepo-${var.env}"
+  dns_name = "datarepo-${var.env}.broadinstitute.org."
+  depends_on = ["module.enable-services"]
+}
+{{end}}
+{{end}}
+{{end}}

@@ -1,4 +1,10 @@
-{{$project := "jade"}}{{with $environment := env "ENVIRONMENT"}}{{$keyname := printf "secret/devops/terraform/%s/%s/override" $environment $project}}{{with vault $keyname}}
+{{$project := "jade"}}
+{{with $environment := env "ENVIRONMENT"}}
+{{with $suffix := env "SUFFIX"}}
+{{$keyname := printf "secret/devops/terraform/%s/%s/override-%s" $environment $project $suffix}}
+
+{{with vault $keyname}}
+
 
 variable "jade_k8s_disk_type" {
   default = "pd-ssd"
@@ -29,9 +35,14 @@ variable "k8_subnet_name" {
 }
 
 variable "jade_k8s_node_pool_machine_type" {
-    default = "n1-standard-1"
+    default = "{{ .Data.jade_k8s_node_pool_machine_type }}"
     description = ""
 }
 
+variable "node_pool_count" {
+    default = "{{ .Data.node_pool_count }}"
+    description = "the amount of nodes in the k8 cluster"
+}
 
-{{end}}{{end}}
+
+{{end}}{{end}}{{end}}

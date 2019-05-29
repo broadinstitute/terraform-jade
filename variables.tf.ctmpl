@@ -1,9 +1,24 @@
-{{$project := "jade"}}{{with $environment := env "ENVIRONMENT"}}{{$keyname := printf "secret/devops/terraform/%s/%s/override" $environment $project}}{{with vault $keyname}}
+{{$project := "jade"}}
+{{with $environment := env "ENVIRONMENT"}}
+{{with $suffix := env "SUFFIX"}}
+{{$keyname := printf "secret/devops/terraform/%s/%s/override-%s" $environment $project $suffix}}
+{{with vault $keyname}}
 
 variable "project" {
+  default = "broad-jade-{{$suffix}}"
+  description = "The Google project name"
+}
+
+variable "suffix" {
+  default = "{{$suffix}}"
+  description = "suffix for deploy"
+}
+
+variable "env_project" {
   default = "broad-jade-{{$environment}}"
   description = "The Google project name"
 }
+
 
 variable "region" {
   default = "us-central1"
@@ -68,4 +83,4 @@ variable "broad_routeable_net" {
    default = "69.173.64.0/18"
    description = "Broad's externally routable IP network"
 }
-{{end}}{{end}}
+{{end}}{{end}}{{end}}

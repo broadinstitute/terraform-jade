@@ -32,7 +32,7 @@ module "my-k8s-cluster" {
   node_pool_machine_type ="${var.jade_k8s_node_pool_machine_type}"
 
   # number of nodes in your node pool
-  node_pool_count = "3"
+  node_pool_count = "${var.node_pool_count}"
 }
 
 resource "google_compute_disk" "jade-100-data" {
