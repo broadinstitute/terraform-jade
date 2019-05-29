@@ -35,7 +35,7 @@ variable "k8_subnet_name" {
 }
 
 variable "jade_k8s_node_pool_machine_type" {
-    default = "n1-standard-1"
+    default = "{{ .Data.jade_k8s_node_pool_machine_type }}"
     description = ""
 }
 
