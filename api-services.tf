@@ -1,9 +1,9 @@
 module "enable-services" {
 
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/api-services?ref=k8s-0.0.3"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/api-services?ref=services-0.1.2"
 
   providers {
-    google = "google-beta"
+    google.target = "google-beta"
   }
   project = "${var.project}"
   services = [
