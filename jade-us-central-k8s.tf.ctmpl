@@ -1,4 +1,8 @@
-{{$project := "jade"}}{{with $environment := env "ENVIRONMENT"}}{{$keyname := printf "secret/devops/terraform/%s/%s/override" $environment $project}}{{with vault $keyname}}
+{{$project := "jade"}}
+{{with $environment := env "ENVIRONMENT"}}
+{{with $suffix := env "SUFFIX"}}
+{{$keyname := printf "secret/devops/terraform/%s/%s/override-%s" $environment $project $suffix}}
+{{with vault $keyname}}
 {{if .Data.jade_k8s_enable }}
 module "my-k8s-cluster" {
   # terraform-shared repo
@@ -42,4 +46,4 @@ resource "google_compute_disk" "jade-100-data" {
   type = "${var.jade_k8s_disk_type}"
   zone = "${var.jade_k8s_disk_zone}"
 }
-{{end}}{{end}}{{end}}
+{{end}}{{end}}{{end}}{{end}}
