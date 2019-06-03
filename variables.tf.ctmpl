@@ -5,7 +5,7 @@
 {{with vault $keyname}}
 
 variable "project" {
-  default = "broad-jade-{{$suffix}}"
+  default = "{{ .Data.project }}"
   description = "The Google project name"
 }
 
