@@ -19,6 +19,7 @@ module "enable-services" {
     "sqladmin.googleapis.com",
     "container.googleapis.com",
     "storage-api.googleapis.com",
-    "storage-component.googleapis.com"
+    "storage-component.googleapis.com",
+    "servicenetworking.googleapis.com"
   ]
 }
