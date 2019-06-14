@@ -9,18 +9,19 @@ resource "random_id" "jade_100_randomid" {
 }
 
 resource "google_sql_database_instance" "jade_100_postgres" {
-    provider = "google"
+    provider = "google-beta"
     count = "${var.jade_cloudsql_100_num_instances}"
     region = "${var.region}"
     database_version = "POSTGRES_9_6"
     name = "${format("jade-postgres-1%02d-%s", count.index+1, element(random_id.jade_100_randomid.*.hex, count.index))}"
-    depends_on = ["module.enable-services"]
+    depends_on = ["module.enable-services", "google_service_networking_connection.private_vpc_connection"]
 
     settings {
         activation_policy = "${var.cloudsql_activation_policy}"
         pricing_plan = "${var.cloudsql_pricing_plan}"
         replication_type = "${var.cloudsql_replication_type}"
         tier = "${var.jade_cloudsql_100_instance_size}"
+
 
         backup_configuration {
             binary_log_enabled = false
@@ -29,7 +30,8 @@ resource "google_sql_database_instance" "jade_100_postgres" {
         }
 
         ip_configuration {
-            ipv4_enabled = true
+            ipv4_enabled = false
+            private_network = "${google_compute_network.jade-network.self_link}"
             require_ssl = "${var.cloudsql_require_ssl}"
             authorized_networks = {
                 name = "Broad"
