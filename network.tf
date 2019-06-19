@@ -36,3 +36,7 @@ resource "google_service_networking_connection" "private_vpc_connection" {
   service       = "servicenetworking.googleapis.com"
   reserved_peering_ranges = ["${google_compute_global_address.sql_private_ip_address.name}"]
 }
+
+
+
+
