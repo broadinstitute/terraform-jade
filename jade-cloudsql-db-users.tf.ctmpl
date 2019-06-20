@@ -37,7 +37,7 @@ resource "google_sql_user" "jade-db-user" {
 }
 
 resource "vault_generic_secret" "jade-db-login-secret" {
-    path = "secret/dsde/datarepo/dev/db-secrets-{{$suffix}}.json"
+    path = "secret/dsde/datarepo/dev/api-secrets-{{$suffix}}.json"
     data_json = <<EOT
 {
   "datarepoPassword": "${google_sql_user.jade-db-user.password}",
