@@ -45,12 +45,10 @@ resource "vault_generic_secret" "jade-db-login-secret" {
   "datarepoUsername": "${google_sql_user.jade-db-user.name}",
   "dropAllOnStart": "false",
   "oauthClientId": "970791974390-1581mjhtp2b3jmg4avhor1vabs13b7ur.apps.googleusercontent.com",
-  "oauthClientSecret": "VaGFWmQBIB99KgsvHYitTCAW",
   "samStewardsGroupEmail": "JadeStewards-dev@dev.test.firecloud.org",
   "stairwayPassword": "${google_sql_user.jade-db-user.password}",
   "stairwayUri": "jdbc:postgresql://cloudsql-proxy-service.data-repo:5432/stairway",
   "stairwayUsername": "${google_sql_user.jade-db-user.name}",
-  "stewardRefreshToken": "1/gPyBaJeD84IvB8xSj6HeIuBvn5wHwW8O8YO35l9XN4BR20Le3GbBU4McwiRtVLuk",
   "instance_name": "${google_sql_database_instance.jade_100_postgres.name}",
   "connection_name": "${google_sql_database_instance.jade_100_postgres.connection_name}",
   "ip": "${google_sql_database_instance.jade_100_postgres.ip_address.0.ip_address}"
