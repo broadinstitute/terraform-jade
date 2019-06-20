@@ -21,12 +21,11 @@ re-render the templates. To render the templates, first `cd` into the root direc
 of this repo in the environment you want to modify, then run:
 
 ```
-docker run --rm -it -v "$PWD":/working -v ${HOME}/.vault-token:/root/.vault-token broadinstitute/dsde-toolbox ./mkEnv.sh -p jade -e <env>
+docker run --rm -it -v "$PWD":/working -v ${HOME}/.vault-token:/root/.vault-token broadinstitute/dsde-toolbox ./mkEnv.sh -e <env> [-s <suffix>]
 ```
 
-replacing `<env>` with the name of the environment.
-Variables for `<env>` are below.
-- `dev`
+where `<env>` is the environment used to pull secrets from valut (either `dev` or `prod`) and where the optional `<suffix>` is set to the project suffix (e.g. `integration` when the project is broad-jade-integration). When the suffix is the same as the env, you do not need to specify the -s parameter (e.g. broad-jade-dev). For our terra production instance, the suffix is terra (i.e. broad-jade-terra).
+
 ### Run Terraform Init
 
 The _first_ time you use a repo, and every time one of the terraform

@@ -2,9 +2,8 @@
 
 PROG=$( basename $0 )
 env_arg=""
-proj_arg=""
 env_env="${ENVIRONMENT}"
-proj_env="${PROJECT_NAME}"
+proj_env="jade"  # force the project to be jade
 initials_env="${INITIALS}"
 
 SCRIPT_DIR="$( cd -P "$( dirname "$BASH_SOURCE[0]" )" && pwd )"
@@ -15,12 +14,12 @@ fi
 
 usage() {
   echo
-  echo "Usage: ${PROG} [-e ENVIRONMENT] [-p PROJECT] [-i INITIALS]"
+  echo "Usage: ${PROG} [-e ENVIRONMENT] [-s SUFFIX]"
   echo
 }
 
 # process getopts
-while getopts :e:p:i:h FLAG; do
+while getopts :e:p:s:h FLAG; do
    case $FLAG in
     h) usage
        exit 0
@@ -29,7 +28,7 @@ while getopts :e:p:i:h FLAG; do
       ;;
     p) proj_arg="${OPTARG}"
       ;;
-    i) initials_arg="${OPTARG}"
+    s) initials_arg="${OPTARG}"
       ;;
    esac
 done
