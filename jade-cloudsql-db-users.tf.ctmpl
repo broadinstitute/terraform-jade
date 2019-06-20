@@ -1,0 +1,58 @@
+{{$project := "jade"}}
+{{with $environment := env "ENVIRONMENT"}}
+{{with $suffix := env "SUFFIX"}}
+{{$keyname := printf "secret/devops/terraform/%s/%s/override-%s" $environment $project $suffix}}
+{{with vault $keyname}}
+
+
+resource "google_sql_database" "jade-datarepo-db" {
+    name = "datarepo"
+    project = "${var.project}"
+    instance = "${google_sql_database_instance.jade_100_postgres.name}"
+    charset = "UTF8"
+    collation = "en_US.UTF8"
+    depends_on = ["google_sql_database_instance.jade_100_postgres"]
+}
+
+resource "google_sql_database" "jade-stairway-db" {
+    name = "stairway"
+    project = "${var.project}"
+    instance = "${google_sql_database_instance.jade_100_postgres.name}"
+    charset = "UTF8"
+    collation = "en_US.UTF8"
+    depends_on = ["google_sql_database_instance.jade_100_postgres"]
+}
+
+resource "random_id" "jade-db-password" {
+    byte_length = 16
+    depends_on = ["google_sql_database_instance.jade_100_postgres"]
+}
+
+resource "google_sql_user" "jade-db-user" {
+    name = "drmanager"
+    password =  "${random_id.jade-db-password.hex}"
+    project = "${var.project}"
+    instance = "${google_sql_database_instance.jade_100_postgres.name}"
+    depends_on = ["google_sql_database_instance.jade_100_postgres"]
+}
+
+resource "vault_generic_secret" "jade-db-login-secret" {
+    path = "secret/dsde/datarepo/dev/api-secrets-{{$suffix}}.json"
+    data_json = <<EOT
+{
+  "datarepoPassword": "${google_sql_user.jade-db-user.password}",
+  "datarepoUri": "jdbc:postgresql://cloudsql-proxy-service.data-repo:5432/datarepo",
+  "datarepoUsername": "${google_sql_user.jade-db-user.name}",
+  "dropAllOnStart": "false",
+  "oauthClientId": "970791974390-1581mjhtp2b3jmg4avhor1vabs13b7ur.apps.googleusercontent.com",
+  "samStewardsGroupEmail": "JadeStewards-dev@dev.test.firecloud.org",
+  "stairwayPassword": "${google_sql_user.jade-db-user.password}",
+  "stairwayUri": "jdbc:postgresql://cloudsql-proxy-service.data-repo:5432/stairway",
+  "stairwayUsername": "${google_sql_user.jade-db-user.name}",
+  "instance_name": "${google_sql_database_instance.jade_100_postgres.name}",
+  "connection_name": "${google_sql_database_instance.jade_100_postgres.connection_name}",
+  "ip": "${google_sql_database_instance.jade_100_postgres.ip_address.0.ip_address}"
+}
+EOT
+}
+{{end}}{{end}}{{end}}

@@ -28,6 +28,10 @@ provider "google" {
     version = "1.20"
 }
 
+provider "vault" {
+    address = "https://clotho.broadinstitute.org:8200"
+}
+
 {{end}}
 {{end}}
 {{end}}

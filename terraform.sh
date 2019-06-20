@@ -36,4 +36,4 @@ if [ ! -d "${DATA_FQP}" ];
     exit 2
 fi
 
-$SUDO docker run $TTY --rm -v $DATA_FQP:/data $EXTRA_ENV $DOCKER_IMAGE $@
+$SUDO docker run $TTY --rm -v ${HOME}/.vault-token:/root/.vault-token -v $DATA_FQP:/data $EXTRA_ENV $DOCKER_IMAGE $@
