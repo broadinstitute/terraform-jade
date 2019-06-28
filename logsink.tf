@@ -1,6 +1,6 @@
 module "vault-log-sinks" {
   # "github.com/" + org + "/" + repo name + ".git" + "//" + path within repo to base dir + "?ref=" + git object ref
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=ms-sink-permissions"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=gcs_bq_log_sink-0.0.2"
 
   # Alias of the provider you want to use--the provider's project controls the resource project
   providers {
@@ -19,8 +19,10 @@ module "vault-log-sinks" {
   # The name of the application
   application_name = "jade"
 
-  log_filter = "resource.type=(\"container\" OR \"cloudsql_database\" OR \"http_load_balancer\" OR \"k8s_cluster\")"
+  log_filter = "resource.type=\"cloudsql_database\""
   # Name of the google project
   project = "${var.env_project}"
+
+  bigquery_retention_days = 60
 
 }
