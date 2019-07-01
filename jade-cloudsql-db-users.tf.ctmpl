@@ -51,7 +51,8 @@ resource "vault_generic_secret" "jade-db-login-secret" {
   "stairwayUsername": "${google_sql_user.jade-db-user.name}",
   "instance_name": "${google_sql_database_instance.jade_100_postgres.name}",
   "connection_name": "${google_sql_database_instance.jade_100_postgres.connection_name}",
-  "ip": "${google_sql_database_instance.jade_100_postgres.ip_address.0.ip_address}"
+  "ip": "${google_sql_database_instance.jade_100_postgres.ip_address.0.ip_address}",
+  "springProfilesActive": "google"
 }
 EOT
 }
