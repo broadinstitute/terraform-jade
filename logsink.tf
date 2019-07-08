@@ -14,7 +14,7 @@ module "vault-log-sinks" {
   enable_bigquery = 1
 
   # The name of the person or team responsible for the lifecycle of this infrastructure
-  owner = "jhert"
+  owner = "jade-data-repo"
 
   # The name of the application
   application_name = "jade"
