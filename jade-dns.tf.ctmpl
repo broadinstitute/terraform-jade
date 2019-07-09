@@ -1,5 +1,5 @@
-
-
+{{with $environment := env "ENVIRONMENT"}}
+{{with $suffix := env "SUFFIX"}}
 
 
 data "google_dns_managed_zone" "dns_zone" {
@@ -27,9 +27,19 @@ resource "google_dns_record_set" "jade-a-dns" {
   rrdatas      = [ "${google_compute_global_address.jade-k8-ip.address}" ]
 }
 
+{{ if ne $environment $suffix }}
+resource "google_dns_record_set" "jade-cname-jade-dns" {
+    provider = "google.broad-jade"
+    managed_zone = "${data.google_dns_managed_zone.dns_zone.name}"
+    name = "jade-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"
+    type = "CNAME"
+    ttl = "300"
+    rrdatas = ["jade-global-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"]
+    depends_on = ["google_dns_record_set.jade-a-dns"]
+}
+{{end}}
 
-
-
+{{ if eq $environment $suffix }}
 resource "google_dns_record_set" "jade-cname-jade-dns" {
     provider = "google.broad-jade"
     managed_zone = "${data.google_dns_managed_zone.dns_zone.name}"
@@ -39,7 +49,7 @@ resource "google_dns_record_set" "jade-cname-jade-dns" {
     rrdatas = ["jade-global-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"]
     depends_on = ["google_dns_record_set.jade-a-dns"]
 }
+{{end}}
 
-
-
-
+{{end}}
+{{end}}

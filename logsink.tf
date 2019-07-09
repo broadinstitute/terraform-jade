@@ -10,8 +10,8 @@ module "vault-log-sinks" {
   /*
   * REQUIRED VARIABLES
   */
-  enable_gcs = 1
-  enable_bigquery = 1
+  enable_gcs = "${var.enable_gcs}"
+  enable_bigquery = "${var.enable_bigquery}"
 
   # The name of the person or team responsible for the lifecycle of this infrastructure
   owner = "jade-data-repo"
