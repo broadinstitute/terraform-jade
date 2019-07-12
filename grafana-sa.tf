@@ -14,6 +14,6 @@ resource "google_project_iam_member" "grafana-sa-role" {
 }
 
 resource "vault_generic_secret" "grafana-sa-key-secret" {
-    path = "secret/dsde/datarepo/${var.env}/grafana-sa.json"
+    path = "secret/dsde/datarepo/${var.env}/grafana-sa-${var.suffix}.json"
     data_json = "${base64decode(google_service_account_key.grafana-sa-key.private_key)}"
 }
