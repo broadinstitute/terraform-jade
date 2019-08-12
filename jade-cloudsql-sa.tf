@@ -1,5 +1,3 @@
-{{with $suffix := env "SUFFIX"}}
-
 resource "google_service_account" "sql-service-account" {
   account_id   = "proxy-sa"
   display_name = "sqlproxy service account"
@@ -16,7 +14,6 @@ resource "google_project_iam_member" "sql-sa-role" {
 }
 
 resource "vault_generic_secret" "sql-sa-key-secret" {
-    path      = "secret/dsde/datarepo/${var.env}/proxy-sa-{{$suffix}}.json"
+    path      = "secret/dsde/datarepo/${var.env}/proxy-sa-${var.suffix}.json"
     data_json = base64decode(google_service_account_key.sql-sa-key.private_key)
 }
-{{end}}

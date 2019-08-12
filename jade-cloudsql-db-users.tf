@@ -1,10 +1,3 @@
-{{$project := "jade"}}
-{{with $environment := env "ENVIRONMENT"}}
-{{with $suffix := env "SUFFIX"}}
-{{$keyname := printf "secret/devops/terraform/%s/%s/override-%s" $environment $project $suffix}}
-{{with vault $keyname}}
-
-
 resource "google_sql_database" "jade-datarepo-db" {
     name        = "datarepo"
     project     = var.project
@@ -37,7 +30,7 @@ resource "google_sql_user" "jade-db-user" {
 }
 
 resource "vault_generic_secret" "jade-db-login-secret" {
-    path      = "secret/dsde/datarepo/{{$environment}}/api-secrets-{{$suffix}}.json"
+    path      = "secret/dsde/datarepo/${var.env}/api-secrets-${var.suffix}.json"
     data_json = <<EOT
 {
   "datarepoPassword": google_sql_user.jade-db-user.password,
@@ -47,8 +40,7 @@ resource "vault_generic_secret" "jade-db-login-secret" {
   "instanceName": google_sql_database_instance.jade_100_postgres.name,
   "connectionName": google_sql_database_instance.jade_100_postgres.connection_name,
   "ip": google_sql_database_instance.jade_100_postgres.ip_address.0.ip_address,
-  "springProfilesActive": "google,cloudsql,{{$suffix}}
+  "springProfilesActive": "google,cloudsql,${var.suffix}
 }
 EOT
 }
-{{end}}{{end}}{{end}}

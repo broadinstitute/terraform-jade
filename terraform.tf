@@ -4,7 +4,7 @@
 terraform {
   backend "gcs" {
     bucket = "broad-dsp-terraform-state"
-    path = "jade/{{env "ENVIRONMENT"}}-{{env "SUFFIX"}}"
+    path = "jade/${var.env}-${var.suffix}"
     credentials = "tfstate_svc.json"
   }
 }
