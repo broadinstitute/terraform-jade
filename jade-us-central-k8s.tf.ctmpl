@@ -9,7 +9,7 @@ module "my-k8s-cluster" {
   source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s?ref=k8s-0.1.0-tf-0.12"
   dependencies = [module.enable-services]
 
-  providers {
+  providers = {
     google = "google-beta"
   }
   # Name for your cluster (use dashes not underscores)
@@ -27,11 +27,8 @@ module "my-k8s-cluster" {
   # CIDRs of networks allowed to talk to the k8s master
   master_authorized_network_cidrs = var.broad_range_cidrs
 
-  #gke master verion
-  master_version = var.master_version
-
-  #gke node verion
-  node_version = var.node_version
+  # k8s_version for master and nodes
+  k8s_version = "1.13.7-gke.8"
 
   #instance size
   node_pool_machine_type = var.jade_k8s_node_pool_machine_type
