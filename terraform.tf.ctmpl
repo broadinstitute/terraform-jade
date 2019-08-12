@@ -1,0 +1,10 @@
+/*
+* Configuration of the Terraform Backend Storage
+*/
+terraform {
+  backend "gcs" {
+    bucket = "broad-dsp-terraform-state"
+    path = "jade/{{env "ENVIRONMENT"}}-{{env "SUFFIX"}}"
+    credentials = "tfstate_svc.json"
+  }
+}
