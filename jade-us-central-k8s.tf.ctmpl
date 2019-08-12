@@ -6,8 +6,11 @@
 {{if .Data.jade_k8s_enable }}
 module "my-k8s-cluster" {
   # terraform-shared repo
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s?ref=k8s-0.1.0-tf-0.12"
-  depends_on = ["module.enable-services"]
+  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s?ref=k8s-0.1.0-tf-0.12"
+  depends_on = [
+    module.enable-services
+  ]
+
   providers {
     google = "google-beta"
   }
@@ -15,35 +18,35 @@ module "my-k8s-cluster" {
   cluster_name = "dev-us-central1-k8s"
 
   # Network where the cluster will live (must be full resource path)
-  cluster_network = "${google_compute_network.jade-network.name}"
+  cluster_network = google_compute_network.jade-network.name
 
   # Subnet where the cluster will live (must be full resource path)
-  cluster_subnetwork = "${google_compute_subnetwork.jade-subnetwork.name}"
+  cluster_subnetwork = google_compute_subnetwork.jade-subnetwork.name
 
   # CIDR to use for the hosted master netwok. must be a /28 that does NOT overlap with the network k8s is on
   master_ipv4_cidr_block = "10.127.0.0/28"
 
   # CIDRs of networks allowed to talk to the k8s master
-  master_authorized_network_cidrs = "${var.broad_range_cidrs}"
+  master_authorized_network_cidrs = var.broad_range_cidrs
 
   #gke master verion
-  master_version = "${var.master_version}"
+  master_version = var.master_version
 
   #gke node verion
-  node_version = "${var.node_version}"
+  node_version = var.node_version
 
   #instance size
-  node_pool_machine_type ="${var.jade_k8s_node_pool_machine_type}"
+  node_pool_machine_type = var.jade_k8s_node_pool_machine_type
 
   # number of nodes in your node pool
-  node_pool_count = "${var.node_pool_count}"
+  node_pool_count = var.node_pool_count
 }
 
 resource "google_compute_disk" "jade-100-data" {
-  provider = "google"
-  name = "${format("jade%02d-data-disk", count.index+1)}"
-  size = "${var.jade_k8s_disk_size}"
-  type = "${var.jade_k8s_disk_type}"
-  zone = "${var.jade_k8s_disk_zone}"
+  provider  = "google"
+  name      = format("jade%02d-data-disk", count.index+1)
+  size      = var.jade_k8s_disk_size
+  type      = var.jade_k8s_disk_type
+  zone      = var.jade_k8s_disk_zone
 }
 {{end}}{{end}}{{end}}{{end}}
