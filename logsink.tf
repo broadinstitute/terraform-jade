@@ -1,6 +1,6 @@
 module "vault-log-sinks" {
   # "github.com/" + org + "/" + repo name + ".git" + "//" + path within repo to base dir + "?ref=" + git object ref
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.2-tf-0.12"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.3-tf-0.12"
 
   # Alias of the provider you want to use--the provider's project controls the resource project
   providers = {
@@ -26,4 +26,3 @@ module "vault-log-sinks" {
 
   bigquery_retention_days = 60
 }
-

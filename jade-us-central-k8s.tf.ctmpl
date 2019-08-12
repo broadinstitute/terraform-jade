@@ -28,7 +28,7 @@ module "my-k8s-cluster" {
   master_authorized_network_cidrs = var.broad_range_cidrs
 
   # k8s_version for master and nodes
-  k8s_version = "1.13.7-gke.8"
+  k8s_version = var.k8s_version
 
   #instance size
   node_pool_machine_type = var.jade_k8s_node_pool_machine_type
@@ -37,11 +37,7 @@ module "my-k8s-cluster" {
   node_pool_count = var.node_pool_count
 }
 
-resource "google_compute_disk" "jade-100-data" {
-  provider  = "google"
-  name      = format("jade%02d-data-disk", count.index+1)
-  size      = var.jade_k8s_disk_size
-  type      = var.jade_k8s_disk_type
-  zone      = var.jade_k8s_disk_zone
-}
-{{end}}{{end}}{{end}}{{end}}
+{{end}}
+{{end}}
+{{end}}
+{{end}}
