@@ -10,14 +10,12 @@ provider "google" {
     credentials = "${file("{{$environment}}_svc.json")}"
     project = "${var.project}"
     region = "${var.region}"
-    version = "1.20"
 }
 
 provider "google-beta" {
     credentials = "${file("{{$environment}}_svc.json")}"
     project = "${var.project}"
     region = "${var.region}"
-    version = "1.20"
 }
 
 provider "google" {
@@ -25,7 +23,6 @@ provider "google" {
     credentials = "${file("{{$environment}}_svc.json")}"
     project = "${var.env_project}"
     region = "${var.region}"
-    version = "1.20"
 }
 
 provider "vault" {

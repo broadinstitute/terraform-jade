@@ -1,8 +1,8 @@
 #!/bin/bash
 
-DEFAULT_TERRAFORM_VERSION="0.11"
+DEFAULT_TERRAFORM_VERSION="0.12.6"
 #DOCKER_IMAGE='broadinstitute/terraform:latest'
-DOCKER_IMAGE="${DOCKER_IMAGE:-broadinstitute/terraform:${TERRAFORM_VERSION:-${DEFAULT_TERRAFORM_VERSION}}}"
+DOCKER_IMAGE="${DOCKER_IMAGE:-gcr.io/broad-dsp-gcr-public/terraform0.12:${TERRAFORM_VERSION:-${DEFAULT_TERRAFORM_VERSION}}}"
 SUDO=
 
 SCRIPT_DIR="$( cd -P "$( dirname "$BASH_SOURCE[0]" )" && pwd )"
