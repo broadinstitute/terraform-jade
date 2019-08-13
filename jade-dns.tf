@@ -1,7 +1,3 @@
-{{with $environment := env "ENVIRONMENT"}}
-{{with $suffix := env "SUFFIX"}}
-
-
 data "google_dns_managed_zone" "dns_zone" {
     provider     = google.broad-jade
     project      = var.env_project
@@ -27,9 +23,9 @@ resource "google_dns_record_set" "jade-a-dns" {
   rrdatas      = [google_compute_global_address.jade-k8-ip.address]
 }
 
-{{ if ne $environment $suffix }}
-resource "google_dns_record_set" "jade-cname-jade-dns" {
+resource "google_dns_record_set" "jade-cname-jade-dns-external" {
     provider      = google.broad-jade
+    count         = "${var.env != var.suffix ? "1" : "0"}"
     managed_zone  = data.google_dns_managed_zone.dns_zone.name
     name          = "jade-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"
     type          = "CNAME"
@@ -37,11 +33,10 @@ resource "google_dns_record_set" "jade-cname-jade-dns" {
     rrdatas       = ["jade-global-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"]
     depends_on    = [google_dns_record_set.jade-a-dns]
 }
-{{end}}
 
-{{ if eq $environment $suffix }}
-resource "google_dns_record_set" "jade-cname-jade-dns" {
+resource "google_dns_record_set" "jade-cname-jade-dns-local" {
     provider      = google.broad-jade
+    count         = "${var.env == var.suffix ? "1" : "0"}"
     managed_zone  = data.google_dns_managed_zone.dns_zone.name
     name          = "jade.${data.google_dns_managed_zone.dns_zone.dns_name}"
     type          = "CNAME"
@@ -49,7 +44,3 @@ resource "google_dns_record_set" "jade-cname-jade-dns" {
     rrdatas       = ["jade-global-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"]
     depends_on    = [google_dns_record_set.jade-a-dns]
 }
-{{end}}
-
-{{end}}
-{{end}}

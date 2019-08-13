@@ -1,12 +1,6 @@
-{{$project := "jade"}}
-{{with $environment := env "ENVIRONMENT"}}
-{{with $suffix := env "SUFFIX"}}
-{{$keyname := printf "secret/devops/terraform/%s/%s/override-%s" $environment $project $suffix}}
-{{with vault $keyname}}
-{{if .Data.jade_k8s_enable }}
 module "my-k8s-cluster" {
   # terraform-shared repo
-  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s?ref=k8s-0.1.0-tf-0.12"
+  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s?ref=k8s-0.1.1-tf-0.12"
   dependencies = [module.enable-services]
 
   providers = {
@@ -36,8 +30,3 @@ module "my-k8s-cluster" {
   # number of nodes in your node pool
   node_pool_count = var.node_pool_count
 }
-
-{{end}}
-{{end}}
-{{end}}
-{{end}}

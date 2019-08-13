@@ -1,8 +1,3 @@
-{{with $project := env "PROJECT_NAME"}}
-{{with $environment := env "ENVIRONMENT"}}
-{{with $suffix := env "SUFFIX"}}
-
-
 resource "google_compute_network" "jade-network" {
   project                 = var.project
   provider                = google
@@ -38,14 +33,10 @@ resource "google_service_networking_connection" "private_vpc_connection" {
   reserved_peering_ranges = [google_compute_global_address.sql_private_ip_address.name]
 }
 
-{{ if eq $environment $suffix }}
 resource "google_dns_managed_zone" "dns_zone" {
   provider    = google
+  count         = "${var.env == var.suffix ? "1" : "0"}"
   name        = "datarepo-${var.env}"
   dns_name    = "datarepo-${var.env}.broadinstitute.org."
   depends_on  = [module.enable-services]
 }
-{{end}}
-{{end}}
-{{end}}
-{{end}}
