@@ -1,6 +1,6 @@
 module "my-k8s-cluster" {
   # terraform-shared repo
-  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s?ref=k8s-0.1.1-tf-0.12"
+  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s?ref=k8s-0.1.2-tf-0.12"
   dependencies = [module.enable-services]
 
   providers = {
@@ -29,4 +29,8 @@ module "my-k8s-cluster" {
 
   # number of nodes in your node pool
   node_pool_count = var.node_pool_count
+
+  # leave as defined or k8s module breaks
+  enable_private_endpoint = false
+  enable_private_nodes = false
 }

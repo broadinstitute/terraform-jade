@@ -82,4 +82,3 @@ resource "google_dns_record_set" "jade-100-postgres" {
     count.index,
   )]
 }
-
