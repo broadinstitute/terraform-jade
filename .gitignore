@@ -15,7 +15,4 @@ jade-cloudsql-100-vars.tf
 jade-us-central-k8s-vars.tf
 tfstate_svc.json
 variables.tf
-jade-dns.tf
-jade-us-central-k8s.tf
-network.tf
 terraform.tf
