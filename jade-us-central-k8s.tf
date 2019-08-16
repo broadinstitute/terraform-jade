@@ -1,6 +1,6 @@
 module "my-k8s-cluster" {
   # terraform-shared repo
-  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s?ref=k8s-0.1.3-tf-0.12"
+  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s?ref=dm-fix-tf-for-real-this-time"
   dependencies = [module.enable-services]
 
   providers = {
@@ -29,20 +29,4 @@ module "my-k8s-cluster" {
 
   # number of nodes in your node pool
   node_pool_count = var.node_pool_count
-
-  # leave as defined or k8s module breaks
-  enable_private_endpoint = false
-  enable_private_nodes = true
-
-  ###
-  ip_allocation_policy = [{
-     use_ip_aliases                = null
-     create_subnetwork             = null
-     cluster_ipv4_cidr_block       = null
-     cluster_secondary_range_name  = null
-     node_ipv4_cidr_block          = null
-     services_ipv4_cidr_block      = null
-     services_secondary_range_name = null
-     subnetwork_name               = null
-   }]
 }
