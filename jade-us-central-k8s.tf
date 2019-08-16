@@ -1,6 +1,6 @@
 module "my-k8s-cluster" {
   # terraform-shared repo
-  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s?ref=k8s-0.1.2-tf-0.12"
+  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s?ref=k8s-0.1.3-tf-0.12"
   dependencies = [module.enable-services]
 
   providers = {
@@ -16,7 +16,7 @@ module "my-k8s-cluster" {
   cluster_subnetwork = google_compute_subnetwork.jade-subnetwork.name
 
   # CIDR to use for the hosted master netwok. must be a /28 that does NOT overlap with the network k8s is on
-  master_ipv4_cidr_block = "10.127.0.0/28"
+  private_master_ipv4_cidr_block = "10.127.0.0/28"
 
   # CIDRs of networks allowed to talk to the k8s master
   master_authorized_network_cidrs = var.broad_range_cidrs
@@ -32,5 +32,17 @@ module "my-k8s-cluster" {
 
   # leave as defined or k8s module breaks
   enable_private_endpoint = false
-  enable_private_nodes = false
+  enable_private_nodes = true
+
+  ###
+  ip_allocation_policy = [{
+     use_ip_aliases                = null
+     create_subnetwork             = null
+     cluster_ipv4_cidr_block       = null
+     cluster_secondary_range_name  = null
+     node_ipv4_cidr_block          = null
+     services_ipv4_cidr_block      = null
+     services_secondary_range_name = null
+     subnetwork_name               = null
+   }]
 }
