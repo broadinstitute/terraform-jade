@@ -1,11 +1,10 @@
 module "enable-services" {
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/api-services?ref=services-0.2.0-tf-0.12"
 
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/api-services?ref=services-0.1.2"
-
-  providers {
-    google.target = "google-beta"
+  providers = {
+    google.target = google-beta
   }
-  project = "${var.project}"
+  project = var.project
   services = [
     "iamcredentials.googleapis.com",
     "cloudresourcemanager.googleapis.com",
@@ -20,6 +19,7 @@ module "enable-services" {
     "container.googleapis.com",
     "storage-api.googleapis.com",
     "storage-component.googleapis.com",
-    "servicenetworking.googleapis.com"
+    "servicenetworking.googleapis.com",
   ]
 }
+

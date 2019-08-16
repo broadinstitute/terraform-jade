@@ -1,13 +1,11 @@
 .terraform/*
 *.backup
 *.swp
-terraform.tf
 config.sh
 override.tf
 *_override.tf
 *_svc.json
 *.out
-provider.tf
 code-dx-vars.tf
 plan.out
 *.crt
@@ -15,10 +13,6 @@ plan.out
 env_svc.json
 jade-cloudsql-100-vars.tf
 jade-us-central-k8s-vars.tf
-jade-us-central-k8s.tf
-network.tf
-jade-cloudsql-db-users.tf
 tfstate_svc.json
 variables.tf
-jade-cloudsql-sa.tf
-jade-dns.tf
+terraform.tf
