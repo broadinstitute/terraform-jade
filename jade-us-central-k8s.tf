@@ -1,6 +1,6 @@
 module "my-k8s-cluster" {
   # terraform-shared repo
-  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s?ref=dm-fix-tf-for-real-this-time"
+  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s?ref=k8s-0.1.4-tf-0.12"
   dependencies = [module.enable-services]
 
   providers = {
