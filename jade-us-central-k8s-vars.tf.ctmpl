@@ -40,5 +40,9 @@ variable "node_pool_count" {
     description = "the amount of nodes in the k8 cluster"
 }
 
+variable "k8s_cluster_name" {
+  default = "{{$environment}}-us-central1-k8s"
+}
+
 
 {{end}}{{end}}{{end}}

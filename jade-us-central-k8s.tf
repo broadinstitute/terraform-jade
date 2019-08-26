@@ -7,8 +7,7 @@ module "my-k8s-cluster" {
     google = "google-beta"
   }
   # Name for your cluster (use dashes not underscores)
-  cluster_name = "dev-us-central1-k8s"
-
+  cluster_name = var.k8s_cluster_name
   # Network where the cluster will live (must be full resource path)
   cluster_network = google_compute_network.jade-network.name
 
