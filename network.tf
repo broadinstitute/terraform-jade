@@ -12,7 +12,7 @@ resource "google_compute_subnetwork" "jade-subnetwork" {
   name              = var.k8_subnet_name
   ip_cidr_range     = "10.0.0.0/22"
   region            = "us-central1"
-  enable_flow_logs  = true
+  enable_flow_logs  = var.enable_flow_logs
   private_ip_google_access = true
   network           = google_compute_network.jade-network.self_link
   depends_on        = [module.enable-services]
@@ -42,4 +42,3 @@ resource "google_dns_managed_zone" "dns_zone" {
   dns_name    = "datarepo-${var.env}.broadinstitute.org."
   depends_on  = [module.enable-services]
 }
-
