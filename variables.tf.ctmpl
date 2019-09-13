@@ -9,6 +9,11 @@ variable "project" {
   description = "The Google project name"
 }
 
+variable "enable_flow_logs" {
+  default = "{{ .Data.enable_flow_logs }}"
+  description = "flag for enabling flowlog"
+}
+
 variable "suffix" {
   default = "{{$suffix}}"
   description = "suffix for deploy"
