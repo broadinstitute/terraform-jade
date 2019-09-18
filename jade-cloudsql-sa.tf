@@ -30,7 +30,7 @@ resource "google_service_account_key" "sql-backup-key" {
 
 resource "google_project_iam_member" "sql-backup-role" {
     project = var.project
-    role    = "roles/cloudsql.editor"
+    role    = "roles/cloudsql.admin"
     member  = "serviceAccount:${google_service_account.sql-backup-account.email}"
 }
 
