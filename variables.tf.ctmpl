@@ -71,6 +71,9 @@ variable "enable_bigquery" {
   default = "{{ .Data.enable_bigquery }}"
 }
 
+variable "enable_pubsub" {
+  default = "{{ .Data.enable_pubsub }}"
+}
 
 {{end}}
 {{end}}
