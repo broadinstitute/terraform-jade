@@ -48,11 +48,6 @@ resource "google_sql_database_instance" "jade_100_postgres" {
         name  = "kubernetes"
         value = google_compute_global_address.jade-k8-ip.address
       }
-
-      authorized_networks {
-        name  = "kubernetes"
-        value = google_compute_global_address.jade-k8-ip.address
-      }
     }
 
     user_labels = {
