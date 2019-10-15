@@ -44,3 +44,41 @@ resource "google_dns_record_set" "jade-cname-jade-dns-local" {
     rrdatas       = ["jade-global-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"]
     depends_on    = [google_dns_record_set.jade-a-dns]
 }
+
+# Public IP Address for Grafana Ingress
+resource "google_compute_global_address" "grafana-k8-ip" {
+  provider     = google
+  name        = "grafana-k8-100"
+  depends_on  = [module.enable-services]
+}
+
+resource "google_dns_record_set" "grafana-a-dns" {
+  provider     = google.broad-jade
+  managed_zone = data.google_dns_managed_zone.dns_zone.name
+  name         = "grafana-global-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"
+  type         = "A"
+  ttl          = "300"
+  rrdatas      = [google_compute_global_address.grafana-k8-ip.address]
+}
+
+resource "google_dns_record_set" "grafana-cname-grafana-dns-external" {
+    provider      = google.broad-jade
+    count         = "${var.env != var.suffix ? "1" : "0"}"
+    managed_zone  = data.google_dns_managed_zone.dns_zone.name
+    name          = "grafana-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"
+    type          = "CNAME"
+    ttl           = "300"
+    rrdatas       = ["grafana-global-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"]
+    depends_on    = [google_dns_record_set.grafana-a-dns]
+}
+
+resource "google_dns_record_set" "grafana-cname-grafana-dns-local" {
+    provider      = google.broad-jade
+    count         = "${var.env == var.suffix ? "1" : "0"}"
+    managed_zone  = data.google_dns_managed_zone.dns_zone.name
+    name          = "grafana.${data.google_dns_managed_zone.dns_zone.dns_name}"
+    type          = "CNAME"
+    ttl           = "300"
+    rrdatas       = ["grafana-global-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"]
+    depends_on    = [google_dns_record_set.grafana-a-dns]
+}
