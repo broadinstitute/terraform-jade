@@ -2,7 +2,7 @@
 {{with $environment := env "ENVIRONMENT"}}
 {{with $suffix := env "SUFFIX"}}
 {{$keyname := printf "secret/devops/terraform/%s/%s/override-%s" $environment $project $suffix}}
-{{with vault $keyname}}
+{{with secret $keyname}}
 
 variable "jade_cloudsql_100_instance_size" {
     default = "db-g1-small"
@@ -33,4 +33,6 @@ variable "cloudsql_require_ssl" {
   default = "true"
   description = "SSL require flag"
 }
-{{end}}{{end}}{{end}}
+{{end}}
+{{end}}
+{{end}}

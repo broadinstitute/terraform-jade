@@ -2,8 +2,7 @@
 {{with $environment := env "ENVIRONMENT"}}
 {{with $suffix := env "SUFFIX"}}
 {{$keyname := printf "secret/devops/terraform/%s/%s/override-%s" $environment $project $suffix}}
-
-{{with vault $keyname}}
+{{with secret $keyname}}
 
 
 variable "jade_k8s_disk_type" {
@@ -45,4 +44,6 @@ variable "k8s_cluster_name" {
 }
 
 
-{{end}}{{end}}{{end}}
+{{end}}
+{{end}}
+{{end}}
