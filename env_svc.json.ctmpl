@@ -1,1 +1,8 @@
-{{with $project := env "PROJECT_NAME"}}{{with $environment := env "ENVIRONMENT"}}{{with $terraformServiceAccount := vault (printf "secret/devops/terraform/%s/%s/terraform-service-account.json" $environment $project)}}{{$terraformServiceAccount.Data | toJSONPretty}}{{end}}{{end}}{{end}}
+{{with $project := "jade" }}
+{{with $environment := env "ENVIRONMENT"}}
+{{$keyname := (printf "secret/devops/terraform/%s/%s/terraform-service-account.json" $environment $project)}}
+{{with secret $keyname}}
+{{.Data | toJSONPretty}}
+{{end}}
+{{end}}
+{{end}}
