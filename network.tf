@@ -12,11 +12,20 @@ resource "google_compute_subnetwork" "jade-subnetwork" {
   name              = var.k8_subnet_name
   ip_cidr_range     = "10.0.0.0/22"
   region            = "us-central1"
-  enable_flow_logs  = var.enable_flow_logs
   private_ip_google_access = true
   network           = google_compute_network.jade-network.self_link
   depends_on        = [module.enable-services]
+
+  dynamic "log_config" {
+    for_each = var.enable_flow_logs ? ["If only TF supported if/else"] : []
+    content {
+      aggregation_interval = "INTERVAL_10_MIN"
+      flow_sampling        = 0.5
+      metadata             = "INCLUDE_ALL_METADATA"
+    }
+  }
 }
+
 
 resource "google_compute_global_address" "sql_private_ip_address" {
   provider = "google-beta"
