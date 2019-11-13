@@ -94,7 +94,27 @@ locals {
     grafana-global-{{$suffix}} = {
       type = "A"
       rrdatas = "${google_compute_global_address.grafana-k8-ip.address}"
+    },
+{{ if ne $environment $suffix }}
+    jade-{{$suffix}} = {
+      type = "CNAME"
+      rrdatas = "jade-global-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"
+    },
+    grafana-{{$suffix}} = {
+      type = "CNAME"
+      rrdatas = "grafana-global-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"
     }
+{{end}}
+{{ if eq $environment $suffix }}
+    jade = {
+      type = "CNAME"
+      rrdatas = "jade-global-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"
+    },
+    grafana = {
+      type = "CNAME"
+      rrdatas = "grafana-global-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"
+    }
+{{end}}
   }
 }
 {{end}}
