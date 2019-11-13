@@ -18,7 +18,7 @@ variable "jade_k8s_disk_size" {
 }
 
 variable "k8s_version" {
-  default = "1.14.6-gke.2"
+  default = "1.14.8-gke.12"
 }
 
 variable "k8_network_name" {
