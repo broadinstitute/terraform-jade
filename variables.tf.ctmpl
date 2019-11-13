@@ -85,6 +85,18 @@ variable "enable_pubsub" {
   default = "{{ .Data.enable_pubsub }}"
 }
 
+locals {
+  records = {
+    jade-global-{{$suffix}} = {
+      type = "A"
+      rrdatas = "${google_compute_global_address.jade-k8-ip.address}"
+    },
+    grafana-global-{{$suffix}} = {
+      type = "A"
+      rrdatas = "${google_compute_global_address.grafana-k8-ip.address}"
+    }
+  }
+}
 {{end}}
 {{end}}
 {{end}}
