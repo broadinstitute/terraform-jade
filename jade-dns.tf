@@ -1,9 +1,3 @@
-data "google_dns_managed_zone" "dns_zone" {
-    provider     = google.broad-jade
-    project      = var.env_project
-    name         = "datarepo-${var.env}"
-}
-
 resource "google_dns_managed_zone" "dns_zone" {
   provider    = google
   count       = "${var.env == var.suffix ? "1" : "0"}"

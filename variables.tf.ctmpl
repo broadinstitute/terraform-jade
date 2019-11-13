@@ -98,21 +98,21 @@ locals {
 {{ if ne $environment $suffix }}
     jade-{{$suffix}} = {
       type = "CNAME"
-      rrdatas = "jade-global-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"
+      rrdatas = "jade-global-{{$suffix}}.datarepo-{{$environment}}.broadinstitute.org."
     },
     grafana-{{$suffix}} = {
       type = "CNAME"
-      rrdatas = "grafana-global-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"
+      rrdatas = "grafana-global-{{$suffix}}.datarepo-{{$environment}}.broadinstitute.org."
     }
 {{end}}
 {{ if eq $environment $suffix }}
     jade = {
       type = "CNAME"
-      rrdatas = "jade-global-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"
+      rrdatas = "jade-global-{{$suffix}}.datarepo-{{$environment}}.broadinstitute.org."
     },
     grafana = {
       type = "CNAME"
-      rrdatas = "grafana-global-${var.suffix}.${data.google_dns_managed_zone.dns_zone.dns_name}"
+      rrdatas = "grafana-global-{{$suffix}}.datarepo-{{$environment}}.broadinstitute.org."
     }
 {{end}}
   }
