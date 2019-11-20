@@ -85,6 +85,37 @@ variable "enable_pubsub" {
   default = "{{ .Data.enable_pubsub }}"
 }
 
-{{end}}
-{{end}}
-{{end}}
+locals {
+  records = {
+    jade-global-{{$suffix}} = {
+      type = "A"
+      rrdatas = "${google_compute_global_address.jade-k8-ip.address}"
+    },
+    grafana-global-{{$suffix}} = {
+      type = "A"
+      rrdatas = "${google_compute_global_address.grafana-k8-ip.address}"
+    },
+{{ if eq $environment $suffix }}
+    jade = {
+      type = "CNAME"
+      rrdatas = "jade-global-{{$suffix}}.datarepo-{{$environment}}.broadinstitute.org."
+    },
+    grafana = {
+      type = "CNAME"
+      rrdatas = "grafana-global-{{$suffix}}.datarepo-{{$environment}}.broadinstitute.org."
+    }
+{{ else }}
+    jade-{{$suffix}} = {
+      type = "CNAME"
+      rrdatas = "jade-global-{{$suffix}}.datarepo-{{$environment}}.broadinstitute.org."
+    },
+    grafana-{{$suffix}} = {
+      type = "CNAME"
+      rrdatas = "grafana-global-{{$suffix}}.datarepo-{{$environment}}.broadinstitute.org."
+    }
+{{ end }}
+  }
+}
+{{ end }}
+{{ end }}
+{{ end }}

@@ -57,23 +57,3 @@ resource "google_sql_database_instance" "jade_100_postgres" {
     }
   }
 }
-
-#"${google_dns_managed_zone.dns_zone.name}"
-# CloudSQL DNS entry
-#
-resource "google_dns_record_set" "jade-100-postgres" {
-  provider     = google.broad-jade
-  count        = var.jade_cloudsql_100_num_instances
-  managed_zone = data.google_dns_managed_zone.dns_zone.name
-  name = format(
-    "jade-postgres1%02d-${var.suffix}.%s",
-    count.index + 1,
-    data.google_dns_managed_zone.dns_zone.dns_name,
-  )
-  type = "A"
-  ttl  = "300"
-  rrdatas = [element(
-    google_sql_database_instance.jade_100_postgres.*.first_ip_address,
-    count.index,
-  )]
-}
