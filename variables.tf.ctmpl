@@ -95,16 +95,6 @@ locals {
       type = "A"
       rrdatas = "${google_compute_global_address.grafana-k8-ip.address}"
     },
-{{ if ne $environment $suffix }}
-    jade-{{$suffix}} = {
-      type = "CNAME"
-      rrdatas = "jade-global-{{$suffix}}.datarepo-{{$environment}}.broadinstitute.org."
-    },
-    grafana-{{$suffix}} = {
-      type = "CNAME"
-      rrdatas = "grafana-global-{{$suffix}}.datarepo-{{$environment}}.broadinstitute.org."
-    }
-{{end}}
 {{ if eq $environment $suffix }}
     jade = {
       type = "CNAME"
@@ -114,9 +104,18 @@ locals {
       type = "CNAME"
       rrdatas = "grafana-global-{{$suffix}}.datarepo-{{$environment}}.broadinstitute.org."
     }
-{{end}}
+{{ else }}
+    jade-{{$suffix}} = {
+      type = "CNAME"
+      rrdatas = "jade-global-{{$suffix}}.datarepo-{{$environment}}.broadinstitute.org."
+    },
+    grafana-{{$suffix}} = {
+      type = "CNAME"
+      rrdatas = "grafana-global-{{$suffix}}.datarepo-{{$environment}}.broadinstitute.org."
+    }
+{{ end }}
   }
 }
-{{end}}
-{{end}}
-{{end}}
+{{ end }}
+{{ end }}
+{{ end }}
