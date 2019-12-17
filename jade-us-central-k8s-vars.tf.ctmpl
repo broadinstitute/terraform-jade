@@ -4,6 +4,14 @@
 {{$keyname := printf "secret/devops/terraform/%s/%s/override-%s" $environment $project $suffix}}
 {{with secret $keyname}}
 
+variable "k8_network_name" {
+  default = "{{$environment}}-network"
+}
+
+variable "k8_subnet_name" {
+  default = "{{$environment}}-subnet"
+}
+
 variable "version_prefix" {
   type = string
   default = "1.14.8"
