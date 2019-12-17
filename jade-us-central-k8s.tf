@@ -1,11 +1,7 @@
-module "my-k8s-master" {
+module "k8s-master" {
   # terraform-shared repo
   source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s?ref=k8s-master-0.1.0-tf-0.12"
   dependencies = [module.enable-services]
-
-  providers = {
-    google = "google-beta.new"
-  }
 
   name = var.master_name
   location = var.region
@@ -16,15 +12,11 @@ module "my-k8s-master" {
   private_ipv4_cidr_block = var.private_ipv4_cidr_block
 }
 
-module "my-k8s-nodes" {
+module "k8s-nodes" {
   # terraform-shared repo
   source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s?ref=k8s-node-pool-0.1.0-tf-0.12"
-  dependencies = [module.enable-services]
-
-  providers = {
-    google = "google-beta.new"
-  }
-
+  dependencies = [module.enable-services,module.k8s-master]
+  
   name = var.node_name
   master_name = var.master_name
   location = var.region
