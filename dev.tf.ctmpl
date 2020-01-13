@@ -14,8 +14,36 @@ variable "initials" {
   ]
 }
 
-output "test" {
-  value = google_sql_database.jade-stairway-initials-db["ms"]
+locals {
+  initialrecords = {
+    jade-global-monster = {
+      type = "A"
+      rrdatas = "${google_compute_global_address.jade-initials-ip["monster"].address}"
+    },
+    jade-monster = {
+      type = "CNAME"
+      rrdatas = "jade-global-monster.datarepo-{{$environment}}.broadinstitute.org."
+    },
+    jade-global-ms = {
+      type = "A"
+      rrdatas = "${google_compute_global_address.jade-initials-ip["ms"].address}"
+    },
+    jade-ms = {
+      type = "CNAME"
+      rrdatas = "jade-global-ms.datarepo-{{$environment}}.broadinstitute.org."
+    }
+  }
+}
+
+module "initials-dns-set" {
+  # terraform-shared repo
+  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/external-dns?ref=external-dns-0.0.2-tf-0.12"
+
+  target_project = var.env_project
+  region = var.region
+  target_credentials = file("${var.env}_svc.json")
+  target_dns_zone_name = "datarepo-${var.env}"
+  records = local.initialrecords
 }
 
 resource "google_compute_global_address" "jade-initials-ip" {
