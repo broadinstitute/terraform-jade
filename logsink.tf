@@ -10,8 +10,8 @@ module "vault-log-sinks" {
   /*
   * REQUIRED VARIABLES
   */
-  enable_gcs      = var.enable_gcs
-  enable_bigquery = var.enable_bigquery
+  enable_gcs      = var.audit_enable_gcs
+  enable_bigquery = var.audit_enable_bigquery
 
 
   # The name of the person or team responsible for the lifecycle of this infrastructure
@@ -40,8 +40,8 @@ module "lb-log-sinks" {
   /*
   * REQUIRED VARIABLES
   */
-  enable_pubsub = var.enable_pubsub
-  enable_bigquery = 1
+  enable_pubsub = var.load_balancer_enable_pubsub
+  enable_bigquery = var.load_balancer_enable_bigquery
 
   # The name of the person or team responsible for the lifecycle of this infrastructure
   owner = "jade"
@@ -63,8 +63,8 @@ module "user-activity-sinks" {
     google = google
   }
 
-  enable_pubsub = 0
-  enable_bigquery = 1
+  enable_pubsub = var.user_activity_enable_pubsub
+  enable_bigquery = var.user_activity_enable_bigquery
   owner = "jade"
   application_name = "datarepo"
   log_filter = "resource.type=\"container\" \"LoggerInterceptor\""

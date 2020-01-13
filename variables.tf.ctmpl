@@ -70,19 +70,34 @@ variable "broad_routeable_net" {
   description = "Broad's externally routable IP network"
 }
 
-variable "enable_gcs" {
+variable "audit_enable_gcs" {
   type = number
-  default = "{{ .Data.enable_gcs }}"
+  default = "{{ .Data.audit_enable_gcs }}"
 }
 
-variable "enable_bigquery" {
+variable "audit_enable_bigquery" {
   type = number
-  default = "{{ .Data.enable_bigquery }}"
+  default = "{{ .Data.audit_enable_bigquery }}"
 }
 
-variable "enable_pubsub" {
+variable "load_balancer_enable_pubsub" {
   type = number
-  default = "{{ .Data.enable_pubsub }}"
+  default = "{{ .Data.load_balancer_enable_pubsub }}"
+}
+
+variable "load_balancer_enable_bigquery" {
+  type = number
+  default = "{{ .Data.load_balancer_enable_bigquery }}"
+}
+
+variable "user_activity_enable_pubsub" {
+  type = number
+  default = "{{ .Data.user_activity_enable_pubsub }}"
+}
+
+variable "user_activity_enable_bigquery" {
+  type = number
+  default = "{{ .Data.user_activity_enable_bigquery }}"
 }
 
 locals {
