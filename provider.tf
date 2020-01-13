@@ -15,3 +15,11 @@ provider "google-beta" {
 provider "vault" {
     address = "https://clotho.broadinstitute.org:8200"
 }
+
+provider "google" {
+    alias       = "broad-jade"
+    credentials = file("${var.env}_svc.json")
+    project     = var.env_project
+    region      = var.region
+    version     = "~> 3.2.0"
+}
