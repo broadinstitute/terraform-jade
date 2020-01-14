@@ -20,7 +20,7 @@ EOT
 
 
 resource "vault_generic_secret" "jade-db-login-secret" {
-    path      = "secret/dsde/datarepo/${var.env}/helm-datarepodb-dev-${var.suffix}"
+    path      = "secret/dsde/datarepo/${var.env}/helm-datarepodb-${var.suffix}"
     data_json = <<EOT
 {
   "datarepousername": "${google_sql_user.jade-db-user.name}",

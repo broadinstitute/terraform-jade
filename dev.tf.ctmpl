@@ -10,7 +10,8 @@ variable "initials" {
   type = list(string)
   default = [
   "monster",
-  "ms"
+  "ms",
+  "mk"
   ]
 }
 
@@ -31,6 +32,14 @@ locals {
     jade-ms = {
       type = "CNAME"
       rrdatas = "jade-global-ms.datarepo-{{$environment}}.broadinstitute.org."
+    },
+    jade-global-mk = {
+      type = "A"
+      rrdatas = "${google_compute_global_address.jade-initials-ip["mk"].address}"
+    },
+    jade-mk = {
+      type = "CNAME"
+      rrdatas = "jade-global-mk.datarepo-{{$environment}}.broadinstitute.org."
     }
   }
 }
