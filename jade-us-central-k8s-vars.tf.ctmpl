@@ -4,23 +4,6 @@
 {{$keyname := printf "secret/devops/terraform/%s/%s/override-%s" $environment $project $suffix}}
 {{with secret $keyname}}
 
-
-variable "jade_k8s_disk_type" {
-  default = "pd-ssd"
-}
-
-variable "jade_k8s_disk_zone" {
-  default = "us-central1-a"
-}
-
-variable "jade_k8s_disk_size" {
-  default = "50"
-}
-
-variable "k8s_version" {
-  default = "1.14.8-gke.12"
-}
-
 variable "k8_network_name" {
   default = "{{$environment}}-network"
 }
@@ -29,20 +12,57 @@ variable "k8_subnet_name" {
   default = "{{$environment}}-subnet"
 }
 
-variable "jade_k8s_node_pool_machine_type" {
-    default = "{{ .Data.jade_k8s_node_pool_machine_type }}"
-    description = ""
+variable "version_prefix" {
+  type = string
+  default = "1.15.4"
 }
 
-variable "node_pool_count" {
-    default = "{{ .Data.node_pool_count }}"
-    description = "the amount of nodes in the k8 cluster"
+variable "master_name" {
+  type = string
+  default = "{{$environment}}-master"
 }
 
-variable "k8s_cluster_name" {
-  default = "{{$environment}}-us-central1-k8s"
+variable "node_name" {
+  type = string
+  default = "{{$environment}}-node"
 }
 
+variable "node_count" {
+  type = number
+  default = "{{ .Data.node_pool_count }}"
+}
+
+variable "machine_type" {
+  type = string
+  default = "{{ .Data.jade_k8s_node_pool_machine_type }}"
+}
+
+variable "private_ipv4_cidr_block" {
+  type = string
+  default = "10.127.0.0/28"
+}
+
+variable "disk_size_gb" {
+  type = number
+  default = "50"
+}
+
+variable "node_labels" {
+  type = map(string)
+  default = {
+    project = "{{ $project }}"
+    environment = "{{$environment}}"
+  }
+}
+
+variable "node_tags" {
+  type = list(string)
+  default = [
+    "{{ $project }}",
+    "{{$environment}}",
+    "kubernetes"
+  ]
+}
 
 {{end}}
 {{end}}

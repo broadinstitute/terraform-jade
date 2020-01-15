@@ -1,31 +1,28 @@
-module "my-k8s-cluster" {
+module "k8s-master" {
   # terraform-shared repo
-  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s?ref=k8s-0.2.0-tf-0.12"
+  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s-master?ref=k8s-master-0.1.0-tf-0.12"
   dependencies = [module.enable-services]
 
-  providers = {
-    google = "google-beta"
-  }
-  # Name for your cluster (use dashes not underscores)
-  cluster_name = var.k8s_cluster_name
-  # Network where the cluster will live (must be full resource path)
-  cluster_network = google_compute_network.jade-network.name
+  name = var.master_name
+  location = var.region
+  version_prefix = var.version_prefix
+  network = google_compute_network.jade-network.name
+  subnetwork = google_compute_subnetwork.jade-subnetwork.name
+  authorized_network_cidrs = var.broad_range_cidrs
+  private_ipv4_cidr_block = var.private_ipv4_cidr_block
+}
 
-  # Subnet where the cluster will live (must be full resource path)
-  cluster_subnetwork = google_compute_subnetwork.jade-subnetwork.name
+module "k8s-nodes" {
+  # terraform-shared repo
+  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s-node-pool?ref=k8s-node-pool-0.1.0-tf-0.12"
+  dependencies = [module.enable-services,module.k8s-master]
 
-  # CIDR to use for the hosted master netwok. must be a /28 that does NOT overlap with the network k8s is on
-  private_master_ipv4_cidr_block = "10.127.0.0/28"
-
-  # CIDRs of networks allowed to talk to the k8s master
-  master_authorized_network_cidrs = var.broad_range_cidrs
-
-  # k8s_version for master and nodes
-  k8s_version = var.k8s_version
-
-  #instance size
-  node_pool_machine_type = var.jade_k8s_node_pool_machine_type
-
-  # number of nodes in your node pool
-  node_pool_count = var.node_pool_count
+  name = var.node_name
+  master_name = var.master_name
+  location = var.region
+  node_count = var.node_count
+  machine_type = var.machine_type
+  disk_size_gb = var.disk_size_gb
+  labels = var.node_labels
+  tags = var.node_tags
 }

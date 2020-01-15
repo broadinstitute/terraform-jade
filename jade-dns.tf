@@ -1,10 +1,3 @@
-resource "google_dns_managed_zone" "dns_zone" {
-  provider    = google
-  count       = "${var.env == var.suffix ? "1" : "0"}"
-  name        = "datarepo-${var.env}"
-  dns_name    = "datarepo-${var.env}.broadinstitute.org."
-  depends_on  = [module.enable-services]
-}
 
 # Public IP Address
 resource "google_compute_global_address" "jade-k8-ip" {
