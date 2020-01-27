@@ -12,7 +12,8 @@ variable "initials" {
   "monster",
   "ms",
   "mk",
-  "rc"
+  "rc",
+  "mm"
   ]
 }
 
@@ -49,6 +50,14 @@ locals {
     jade-rc = {
       type = "CNAME"
       rrdatas = "jade-global-rc.datarepo-{{$environment}}.broadinstitute.org."
+    },
+    jade-global-mm = {
+      type = "A"
+      rrdatas = "${google_compute_global_address.jade-initials-ip["mm"].address}"
+    },
+    jade-mm = {
+      type = "CNAME"
+      rrdatas = "jade-global-mm.datarepo-{{$environment}}.broadinstitute.org."
     }
   }
 }
