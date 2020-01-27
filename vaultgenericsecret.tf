@@ -17,8 +17,6 @@ resource "vault_generic_secret" "sql-sa-key-secret" {
 EOT
 }
 
-
-
 resource "vault_generic_secret" "jade-db-login-secret" {
     path      = "secret/dsde/datarepo/${var.env}/helm-datarepodb-${var.suffix}"
     data_json = <<EOT
