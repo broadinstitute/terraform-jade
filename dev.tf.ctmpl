@@ -13,7 +13,8 @@ variable "initials" {
   "ms",
   "mk",
   "rc",
-  "mm"
+  "mm",
+  "fb"
   ]
 }
 
@@ -58,6 +59,14 @@ locals {
     jade-mm = {
       type = "CNAME"
       rrdatas = "jade-global-mm.datarepo-{{$environment}}.broadinstitute.org."
+    },
+    jade-global-fb = {
+      type = "A"
+      rrdatas = "${google_compute_global_address.jade-initials-ip["fb"].address}"
+    },
+    jade-fb = {
+      type = "CNAME"
+      rrdatas = "jade-global-fb.datarepo-{{$environment}}.broadinstitute.org."
     }
   }
 }
