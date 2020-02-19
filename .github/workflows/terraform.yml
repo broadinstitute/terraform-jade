@@ -27,15 +27,7 @@ jobs:
           SUFFIX: dev
       - name: consul-templete render
         run: |
-          find /home/runner/work/terraform-jade -name "*.ctmpl" -print | while read file
-          do
-            rootname="${file%.ctmpl}"
-            echo "$file -> $rootname"
-            /tmp/consul-template \
-                -once \
-                -log-level=err \
-                -template=${file}:${rootname}
-          done
+          find /home/runner/work/terraform-jade -name "*.ctmpl" -print 
         env:
           CONSUL_TOKEN: ${{ secrets.CONSUL_TOKEN }}
           ENVIRONMENT: dev
