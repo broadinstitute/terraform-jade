@@ -27,7 +27,7 @@ jobs:
           SUFFIX: dev
       - name: consul-templete render
         run: |
-          find . -name "*.ctmpl" -type f -exec sh -c '/tmp/consul-templete -once -log-level=err -template="$3":"${3%.$1}.$2"' sh "tf.ctmpl" "tf"  {} ';'
+          find . -name "*.ctmpl" -type f -exec sh -c '/tmp/consul-template -once -log-level=err -template="$3":"${3%.$1}.$2"' sh "tf.ctmpl" "tf"  {} ';'
         env:
           CONSUL_TOKEN: ${{ secrets.CONSUL_TOKEN }}
           ENVIRONMENT: dev
