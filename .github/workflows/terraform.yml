@@ -27,9 +27,7 @@ jobs:
           SUFFIX: dev
       - name: consul-templete render
         run: |
-#          find /home/runner/work/terraform-jade -name "*.ctmpl" -print
-          /tmp/consul-template -once -log-level=err \
-          -template=/home/runner/work/terraform-jade/terraform-jade/variables.tf.ctmpl:/home/runner/work/terraform-jade/terraform-jade/variables.tf
+          ./tmp/consul-template -once -log-level=err -template=/home/runner/work/terraform-jade/terraform-jade/variables.tf.ctmpl:/home/runner/work/terraform-jade/terraform-jade/variables.tf
           ls -al /home/runner/work/terraform-jade/terraform-jade/variables*
           cat /home/runner/work/terraform-jade/terraform-jade/variables.tf
         env:
