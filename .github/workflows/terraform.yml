@@ -8,13 +8,6 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
-      - name: 'Terraform Format'
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: 0.12.13
-          tf_actions_subcommand: 'fmt'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 'consul-templete Download/Install'
         run: |
           curl -o consul-templete --location https://releases.hashicorp.com/consul-template/0.24.1/consul-template_0.24.1_linux_amd64.tgz | tar -xz
@@ -26,6 +19,13 @@ jobs:
           find . -name "*.ctmpl" -type f -exec sh -c './consul-template -once -log-level=err -template="$3":"${3%.$1}.$2"' sh "tf.ctmpl" "tf"  {} ';'
         env:
           CONSUL_TOKEN: ${{ secrets.CONSUL_TOKEN }}
+      - name: 'Terraform Format'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.13
+          tf_actions_subcommand: 'fmt'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 'Terraform Init'
         uses: hashicorp/terraform-github-actions@master
         with:
