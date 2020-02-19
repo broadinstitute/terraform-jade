@@ -31,6 +31,7 @@ jobs:
           /tmp/consul-template -once -log-level=err \
           -template=/home/runner/work/terraform-jade/terraform-jade/variables.tf.ctmpl:/home/runner/work/terraform-jade/terraform-jade/variables.tf
           ls -al /home/runner/work/terraform-jade/terraform-jade/variables*
+          cat /home/runner/work/terraform-jade/terraform-jade/variables.tf
         env:
           CONSUL_TOKEN: ${{ secrets.CONSUL_TOKEN }}
           ENVIRONMENT: dev
