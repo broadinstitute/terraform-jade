@@ -19,7 +19,7 @@ jobs:
         run: |
           curl -O --location https://releases.hashicorp.com/consul-template/0.24.1/consul-template_0.24.1_linux_amd64.tgz
           tar -xzf consul-template_0.24.1_linux_amd64.tgz
-          chmod u+x ./consul-templete
+          chmod u+x consul-templete
         env:
           CONSUL_TOKEN: ${{ secrets.CONSUL_TOKEN }}
           ENVIRONMENT: dev
