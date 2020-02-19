@@ -30,12 +30,11 @@ jobs:
           ls *.ctmpl | while read file
           do
             rootname="${file%.ctmpl}"
-            newname=`echo $rootname | sed -e "s;^env_;${ENVIRONMENT}_;"`
-            echo "$rootname -> $newname"
+            echo "$file -> $rootname"
             /tmp/consul-template \
                 -once \
                 -log-level=err \
-                -template=${file}:${newname}
+                -template=${file}:${rootname}
           done
         env:
           CONSUL_TOKEN: ${{ secrets.CONSUL_TOKEN }}
