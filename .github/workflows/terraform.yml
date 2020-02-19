@@ -20,14 +20,14 @@ jobs:
           wget https://releases.hashicorp.com/consul-template/0.24.1/consul-template_0.24.1_linux_amd64.zip
           unzip consul-template_0.24.1_linux_amd64.zip
           chmod u+x consul-template
-          cp consul-template /bin/consul-template
+          cp consul-template /tmp/consul-template
         env:
           CONSUL_TOKEN: ${{ secrets.CONSUL_TOKEN }}
           ENVIRONMENT: dev
           SUFFIX: dev
       - name: consul-templete render
         run: |
-          find . -name "*.ctmpl" -type f -exec sh -c 'consul-templete -once -log-level=err -template="$3":"${3%.$1}.$2"' sh "tf.ctmpl" "tf"  {} ';'
+          find . -name "*.ctmpl" -type f -exec sh -c '/tmp/consul-templete -once -log-level=err -template="$3":"${3%.$1}.$2"' sh "tf.ctmpl" "tf"  {} ';'
         env:
           CONSUL_TOKEN: ${{ secrets.CONSUL_TOKEN }}
           ENVIRONMENT: dev
