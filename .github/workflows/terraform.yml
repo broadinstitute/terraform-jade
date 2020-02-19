@@ -27,7 +27,7 @@ jobs:
           SUFFIX: dev
       - name: consul-templete render
         run: |
-          ls *.ctmpl | while read file
+          find /home/runner/work/terraform-jade -name "*.ctmpl" -print | while read file
           do
             rootname="${file%.ctmpl}"
             echo "$file -> $rootname"
