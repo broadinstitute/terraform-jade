@@ -18,15 +18,15 @@ jobs:
       - name: 'consul-templete Download/Install'
         run: |
           curl -O --location https://releases.hashicorp.com/consul-template/0.24.1/consul-template_0.24.1_linux_amd64.tgz
-          tar -xzf consul-template_0.24.1_linux_amd64.tgz
-          chmod u+x consul-templete
+          tar -C /usr/bin -xzf consul-template_0.24.1_linux_amd64.tgz
+          chmod u+x /usr/bin/consul-templete
         env:
           CONSUL_TOKEN: ${{ secrets.CONSUL_TOKEN }}
           ENVIRONMENT: dev
           SUFFIX: dev
       - name: consul-templete render
         run: |
-          find . -name "*.ctmpl" -type f -exec sh -c './consul-template -once -log-level=err -template="$3":"${3%.$1}.$2"' sh "tf.ctmpl" "tf"  {} ';'
+          find . -name "*.ctmpl" -type f -exec sh -c '/usr/bin/consul-templete -once -log-level=err -template="$3":"${3%.$1}.$2"' sh "tf.ctmpl" "tf"  {} ';'
         env:
           CONSUL_TOKEN: ${{ secrets.CONSUL_TOKEN }}
           ENVIRONMENT: dev
