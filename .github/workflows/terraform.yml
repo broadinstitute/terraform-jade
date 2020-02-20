@@ -82,4 +82,5 @@ jobs:
           tf_actions_version: 0.12.13
           tf_actions_subcommand: 'plan'
         env:
+          VAULT_TOKEN: ${{ secrets.CONSUL_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
