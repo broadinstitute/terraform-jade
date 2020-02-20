@@ -34,9 +34,9 @@ jobs:
             rootname="${file%.ctmpl}"
             newname=`echo $rootname | sed -e "s;^env_;${ENVIRONMENT}_;"`
             echo "$rootname -> $newname"
-            /usr/local/bin/consul-template \
+            /tmp/consul-template \
                 -once \
-                -config=/etc/consul-template/config/config.json \
+                -vault-addr "${VAULT_ADDR}" \
                 -log-level=err \
                 -template=${file}:${newname}
           done
