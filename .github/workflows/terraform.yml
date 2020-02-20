@@ -29,7 +29,7 @@ jobs:
           SUFFIX: dev
       - name: consul-template render env_creds template
         run: |
-        ls env_*.ctmpl | while read file
+          ls env_*.ctmpl | while read file
           do
             rootname="${file%.ctmpl}"
             newname=`echo $rootname | sed -e "s;^env_;${ENVIRONMENT}_;"`
