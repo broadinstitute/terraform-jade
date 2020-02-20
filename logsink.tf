@@ -40,7 +40,7 @@ module "lb-log-sinks" {
   /*
   * REQUIRED VARIABLES
   */
-  enable_pubsub = var.load_balancer_enable_pubsub
+  enable_pubsub   = var.load_balancer_enable_pubsub
   enable_bigquery = var.load_balancer_enable_bigquery
 
   # The name of the person or team responsible for the lifecycle of this infrastructure
@@ -63,12 +63,12 @@ module "user-activity-sinks" {
     google = google
   }
 
-  enable_pubsub = var.user_activity_enable_pubsub
-  enable_bigquery = var.user_activity_enable_bigquery
-  owner = "jade"
+  enable_pubsub    = var.user_activity_enable_pubsub
+  enable_bigquery  = var.user_activity_enable_bigquery
+  owner            = "jade"
   application_name = "datarepo"
-  log_filter = "resource.type=\"container\" \"LoggerInterceptor\""
-  project = var.project
+  log_filter       = "resource.type=\"container\" \"LoggerInterceptor\""
+  project          = var.project
 
   # need a random number to prevent a collision with one of the things above
   nonce = 49

@@ -4,13 +4,13 @@ resource "google_service_account" "sql-service-account" {
 }
 
 resource "google_service_account_key" "sql-sa-key" {
-    service_account_id = google_service_account.sql-service-account.name
+  service_account_id = google_service_account.sql-service-account.name
 }
 
 resource "google_project_iam_member" "sql-sa-role" {
-    project = var.project
-    role    = "roles/cloudsql.client"
-    member  = "serviceAccount:${google_service_account.sql-service-account.email}"
+  project = var.project
+  role    = "roles/cloudsql.client"
+  member  = "serviceAccount:${google_service_account.sql-service-account.email}"
 }
 
 #separate backup account
@@ -20,11 +20,11 @@ resource "google_service_account" "sql-backup-account" {
 }
 
 resource "google_service_account_key" "sql-backup-key" {
-    service_account_id = google_service_account.sql-backup-account.name
+  service_account_id = google_service_account.sql-backup-account.name
 }
 
 resource "google_project_iam_member" "sql-backup-role" {
-    project = var.project
-    role    = "roles/cloudsql.admin"
-    member  = "serviceAccount:${google_service_account.sql-backup-account.email}"
+  project = var.project
+  role    = "roles/cloudsql.admin"
+  member  = "serviceAccount:${google_service_account.sql-backup-account.email}"
 }
