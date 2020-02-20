@@ -27,9 +27,27 @@ jobs:
           VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
           ENVIRONMENT: dev
           SUFFIX: dev
-      - name: consul-templete render
+      - name: consul-template render env_creds template
         run: |
-          find . -name "*.ctmpl" -print | while read file
+        ls env_*.ctmpl | while read file
+          do
+            rootname="${file%.ctmpl}"
+            newname=`echo $rootname | sed -e "s;^env_;${ENVIRONMENT}_;"`
+            echo "$rootname -> $newname"
+            /usr/local/bin/consul-template \
+                -once \
+                -config=/etc/consul-template/config/config.json \
+                -log-level=err \
+                -template=${file}:${newname}
+          done
+        env:
+          VAULT_TOKEN: ${{ secrets.CONSUL_TOKEN }}
+          VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+          ENVIRONMENT: dev
+          SUFFIX: dev
+      - name: consul-template render other templates
+        run: |
+          find . -name "*.ctmpl" -print | grep -Ev "^./env"| while read file
           do
             rootname="${file%.ctmpl}"
             echo "$file -> $rootname"
