@@ -29,9 +29,16 @@ jobs:
           SUFFIX: dev
       - name: consul-templete render
         run: |
-          /tmp/consul-template -once -log-level=err  -vault-addr "${VAULT_ADDR}" -template=/home/runner/work/terraform-jade/terraform-jade/variables.tf.ctmpl:/home/runner/work/terraform-jade/terraform-jade/variables.tf
-          ls -al /home/runner/work/terraform-jade/terraform-jade/variables*
-          cat /home/runner/work/terraform-jade/terraform-jade/variables.tf
+          find . -name "*.ctmpl" -print | while read file
+          do
+            rootname="${file%.ctmpl}"
+            echo "$file -> $rootname"
+            /tmp/consul-template \
+                -once \
+                -vault-addr "${VAULT_ADDR}" \
+                -log-level=err \
+                -template=${file}:${rootname}
+          done
         env:
           VAULT_TOKEN: ${{ secrets.CONSUL_TOKEN }}
           VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
