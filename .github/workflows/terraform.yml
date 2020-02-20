@@ -19,8 +19,8 @@ jobs:
         run: |
           wget https://releases.hashicorp.com/consul-template/0.24.1/consul-template_0.24.1_linux_amd64.zip
           unzip consul-template_0.24.1_linux_amd64.zip
-          chmod u+x consul-template | sleep 2
-          consul-template --version
+          chmod u+x consul-template
+          ./consul-template --version
         env:
           CONSUL_TOKEN: ${{ secrets.CONSUL_TOKEN }}
           VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
