@@ -20,18 +20,20 @@ jobs:
           wget https://releases.hashicorp.com/consul-template/0.24.1/consul-template_0.24.1_linux_amd64.zip
           unzip consul-template_0.24.1_linux_amd64.zip
           chmod u+x consul-template
-          cp -v consul-template /tmp/consul-template
+          consul-template --version
         env:
           CONSUL_TOKEN: ${{ secrets.CONSUL_TOKEN }}
+          VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
           ENVIRONMENT: dev
           SUFFIX: dev
       - name: consul-templete render
         run: |
-          /tmp/consul-template -once -log-level=err -template=/home/runner/work/terraform-jade/terraform-jade/variables.tf.ctmpl:/home/runner/work/terraform-jade/terraform-jade/variables.tf
+          consul-template -once -log-level=err -template=/home/runner/work/terraform-jade/terraform-jade/variables.tf.ctmpl:/home/runner/work/terraform-jade/terraform-jade/variables.tf
           ls -al /home/runner/work/terraform-jade/terraform-jade/variables*
           cat /home/runner/work/terraform-jade/terraform-jade/variables.tf
         env:
           CONSUL_TOKEN: ${{ secrets.CONSUL_TOKEN }}
+          VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
           ENVIRONMENT: dev
           SUFFIX: dev
       - name: 'Terraform Init'
