@@ -23,17 +23,17 @@ jobs:
           cp -v consul-template /tmp/consul-template
           /tmp/consul-template --version
         env:
-          CONSUL_TOKEN: ${{ secrets.CONSUL_TOKEN }}
+          VAULT_TOKEN: ${{ secrets.CONSUL_TOKEN }}
           VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
           ENVIRONMENT: dev
           SUFFIX: dev
       - name: consul-templete render
         run: |
-          /tmp/consul-template -once -log-level=err -template=/home/runner/work/terraform-jade/terraform-jade/variables.tf.ctmpl:/home/runner/work/terraform-jade/terraform-jade/variables.tf
+          /tmp/consul-template -once -log-level=err  -vault-addr "${VAULT_ADDR}" -template=/home/runner/work/terraform-jade/terraform-jade/variables.tf.ctmpl:/home/runner/work/terraform-jade/terraform-jade/variables.tf
           ls -al /home/runner/work/terraform-jade/terraform-jade/variables*
           cat /home/runner/work/terraform-jade/terraform-jade/variables.tf
         env:
-          CONSUL_TOKEN: ${{ secrets.CONSUL_TOKEN }}
+          VAULT_TOKEN: ${{ secrets.CONSUL_TOKEN }}
           VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
           ENVIRONMENT: dev
           SUFFIX: dev
