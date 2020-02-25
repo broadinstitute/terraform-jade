@@ -17,7 +17,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 'consul-templete Download/Install'
         run: |
-
           wget https://releases.hashicorp.com/consul-template/0.24.1/consul-template_0.24.1_linux_amd64.zip
           unzip consul-template_0.24.1_linux_amd64.zip
           chmod u+x consul-template
@@ -29,12 +28,16 @@ jobs:
           --request POST \
           --data '{"role_id":"'"${ROLE_ID}"'","secret_id":"'"${SECRET_ID}"'"}' \
           ${VAULT_ADDR}/v1/auth/approle/login | jq -r .auth.client_token)"
+          echo ${VAUlT_TOKEN}
         env:
           ROLE_ID: ${{ secrets.ROLE_ID }}
           SECRET_ID: ${{ secrets.SECRET_ID }}
           VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
       - name: consul-template render env_creds template
         run: |
+          env | grep VAUlT_TOKEN
+          echo ${VAUlT_TOKEN}
+          print
           ls env_*.ctmpl | while read file
           do
             rootname="${file%.ctmpl}"
