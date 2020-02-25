@@ -108,31 +108,11 @@ if [ -z "${PROJECT_NAME}" -o "x${PROJECT_NAME}" == "x" ]; then
 fi
 
 export PROJECT_NAME ENVIRONMENT INITIALS SUFFIX
-#CONFIG_TEMPLATE='config.sh.ctmpl'
-#OVERRIDE_TEMPLATE='env_override.tf.ctmpl'
-#CONFIG='config.sh'
 
-#OVERRIDE="${ENVIRONMENT}_override.tf"
-#SVCFILE="${ENVIRONMENT}_svc.json"
-#CREDENTIAL_PATH="secret/devops/terraform/${ENVIRONMENT}/${PROJECT_NAME}/credentials"
-
-echo "Rendering environment ctmpls"
-# process all env_ ctmpls
-ls env_*.ctmpl | while read file
-do
-    rootname="${file%.ctmpl}"
-    newname=`echo $rootname | sed -e "s;^env_;${ENVIRONMENT}_;"`
-    echo "$rootname -> $newname"
-    /usr/local/bin/consul-template \
-        -once \
-        -config=/etc/consul-template/config/config.json \
-        -log-level=err \
-        -template=${file}:${newname}
-done
 
 echo "Rendering other ctmpls"
 # process all other ctmpls that do not start with env_
-find . -name "*.ctmpl" -print | grep -Ev "^./env" | while read file
+find . -name "*.ctmpl" -print | while read file
 do
     rootname="${file%.ctmpl}"
     echo "$file -> $rootname"
@@ -142,16 +122,3 @@ do
         -log-level=err \
         -template=${file}:${rootname}
 done
-
-# doing metadata dir as well in case
-#cd metadata
-#ls *.ctmpl | while read file
-#do
-#    rootname="${file%.ctmpl}"
-#    echo "$file -> $rootname"
-#    /usr/local/bin/consul-template \
-#        -once \
-#        -config=/etc/consul-template/config/config.json \
-#        -log-level=err \
-#        -template=${file}:${rootname}
-#done
