@@ -28,7 +28,6 @@ jobs:
           --request POST \
           --data '{"role_id":"'"${ROLE_ID}"'","secret_id":"'"${SECRET_ID}"'"}' \
           ${VAULT_ADDR}/v1/auth/approle/login | jq -r .auth.client_token)"
-          echo ${VAUlT_TOKEN}
         env:
           ROLE_ID: ${{ secrets.ROLE_ID }}
           SECRET_ID: ${{ secrets.SECRET_ID }}
@@ -45,6 +44,7 @@ jobs:
             echo "$rootname -> $newname"
             /tmp/consul-template \
                 -once \
+                -vault-token=${VAUlT_TOKEN} \
                 -vault-addr "${VAULT_ADDR}" \
                 -log-level=err \
                 -template=${file}:${newname}
@@ -61,6 +61,7 @@ jobs:
             echo "$file -> $rootname"
             /tmp/consul-template \
                 -once \
+                -vault-token=${VAUlT_TOKEN} \
                 -vault-addr "${VAULT_ADDR}" \
                 -log-level=err \
                 -template=${file}:${rootname}
