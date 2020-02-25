@@ -1,12 +1,12 @@
 provider "google" {
-  credentials = file("${var.env}_svc.json")
+  credentials = file("env_svc.json")
   project     = var.project
   region      = var.region
   version     = "~> 3.2.0"
 }
 
 provider "google-beta" {
-  credentials = file("${var.env}_svc.json")
+  credentials = file("env_svc.json")
   project     = var.project
   region      = var.region
   version     = "~> 3.2.0"
@@ -18,7 +18,7 @@ provider "vault" {
 
 provider "google" {
   alias       = "broad-jade"
-  credentials = file("${var.env}_svc.json")
+  credentials = file("env_svc.json")
   project     = var.env_project
   region      = var.region
   version     = "~> 3.2.0"

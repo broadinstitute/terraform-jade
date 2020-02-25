@@ -29,7 +29,7 @@ module "dns-set" {
 
   target_project       = var.env_project
   region               = var.region
-  target_credentials   = file("${var.env}_svc.json")
+  target_credentials   = file("env_svc.json")
   target_dns_zone_name = "datarepo-${var.env}"
   records              = local.records
 }

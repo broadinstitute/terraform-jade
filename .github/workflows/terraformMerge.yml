@@ -4,7 +4,7 @@ on:
     branches:
       - master
 jobs:
-  terraform:
+  terraform_apply_dev:
     name: 'Terraform'
     runs-on: ubuntu-latest
     steps:
@@ -24,43 +24,33 @@ jobs:
           chmod u+x consul-template
           cp -v consul-template /tmp/consul-template
           /tmp/consul-template --version
-        env:
-          VAULT_TOKEN: ${{ secrets.CONSUL_TOKEN }}
-          VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
-          ENVIRONMENT: dev
-          SUFFIX: dev
-      - name: consul-template render env_creds template
+      - name: set VAULT_TOKEN
         run: |
-          ls env_*.ctmpl | while read file
-          do
-            rootname="${file%.ctmpl}"
-            newname=`echo $rootname | sed -e "s;^env_;${ENVIRONMENT}_;"`
-            echo "$rootname -> $newname"
-            /tmp/consul-template \
-                -once \
-                -vault-addr "${VAULT_ADDR}" \
-                -log-level=err \
-                -template=${file}:${newname}
-          done
+          NEW_TOKEN=$(curl \
+            --request POST \
+            --data '{"role_id":"'"${ROLE_ID}"'","secret_id":"'"${SECRET_ID}"'"}' \
+            ${VAULT_ADDR}/v1/auth/approle/login | jq -r .auth.client_token)
+          echo $NEW_TOKEN
+          echo ::set-env name=VAULT_TOKEN::$NEW_TOKEN
         env:
-          VAULT_TOKEN: ${{ secrets.CONSUL_TOKEN }}
+          ROLE_ID: ${{ secrets.ROLE_ID }}
+          SECRET_ID: ${{ secrets.SECRET_ID }}
           VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
-          ENVIRONMENT: dev
-          SUFFIX: dev
-      - name: consul-template render other templates
+      - name: consul-template render templates
         run: |
-          find . -name "*.ctmpl" -print | grep -Ev "^./env"| while read file
+          find . -name "*.ctmpl" -print | while read file
           do
             rootname="${file%.ctmpl}"
             echo "$file -> $rootname"
             /tmp/consul-template \
                 -once \
-                -vault-addr "${VAULT_ADDR}" \
-                -log-level=err \
+                -vault-addr=${VAULT_ADDR} \
+                -log-level=debug \
                 -template=${file}:${rootname}
           done
         env:
-          VAULT_TOKEN: ${{ secrets.CONSUL_TOKEN }}
+          ROLE_ID: ${{ secrets.ROLE_ID }}
+          SECRET_ID: ${{ secrets.SECRET_ID }}
           VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
           ENVIRONMENT: dev
           SUFFIX: dev
