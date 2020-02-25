@@ -25,10 +25,10 @@ jobs:
           /tmp/consul-template --version
       - name: get vault token from approle
         run: |
-          export VAULT_TOKEN=$(curl \
+          echo "::set-env name=VAULT_TOKEN::=$(curl \
           --request POST \
           --data '{"role_id":"'"${ROLE_ID}"'","secret_id":"'"${SECRET_ID}"'"}' \
-          ${VAULT_ADDR}/v1/auth/approle/login | jq -r .auth.client_token)
+          ${VAULT_ADDR}/v1/auth/approle/login | jq -r .auth.client_token)"
         env:
           ROLE_ID: ${{ secrets.ROLE_ID }}
           SECRET_ID: ${{ secrets.SECRET_ID }}
@@ -86,5 +86,4 @@ jobs:
           tf_actions_version: 0.12.13
           tf_actions_subcommand: 'plan'
         env:
-          VAULT_TOKEN: ${{ secrets.CONSUL_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
