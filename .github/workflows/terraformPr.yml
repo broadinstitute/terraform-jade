@@ -25,7 +25,6 @@ jobs:
           /tmp/consul-template --version
       - name: get vault token from approle
         run: |
-          apk add jq
           export VAULT_TOKEN=$(curl \
           --request POST \
           --data '{"role_id":"'"${ROLE_ID}"'","secret_id":"'"${SECRET_ID}"'"}' \
