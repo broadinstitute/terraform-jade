@@ -26,11 +26,12 @@ jobs:
           /tmp/consul-template --version
       - name: set VAULT_TOKEN
         run: |
-          NEW_TOKEN=$(curl \
+          VAULT_TOKEN=$(curl \
             --request POST \
             --data '{"role_id":"'"${ROLE_ID}"'","secret_id":"'"${SECRET_ID}"'"}' \
             ${VAULT_ADDR}/v1/auth/approle/login | jq -r .auth.client_token)
-          echo ::set-env name=VAULT_TOKEN::$NEW_TOKEN
+          echo ::add-mask::${VAULT_TOKEN}
+          echo ::set-env name=VAULT_TOKEN::${VAULT_TOKEN}
         env:
           ROLE_ID: ${{ secrets.ROLE_ID }}
           SECRET_ID: ${{ secrets.SECRET_ID }}
