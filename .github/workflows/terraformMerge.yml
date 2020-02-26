@@ -30,7 +30,6 @@ jobs:
             --request POST \
             --data '{"role_id":"'"${ROLE_ID}"'","secret_id":"'"${SECRET_ID}"'"}' \
             ${VAULT_ADDR}/v1/auth/approle/login | jq -r .auth.client_token)
-          echo $NEW_TOKEN
           echo ::set-env name=VAULT_TOKEN::$NEW_TOKEN
         env:
           ROLE_ID: ${{ secrets.ROLE_ID }}
