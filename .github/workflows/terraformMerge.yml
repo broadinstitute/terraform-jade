@@ -17,14 +17,8 @@ jobs:
           tf_actions_subcommand: 'fmt'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'consul-templete Download/Install'
-        run: |
-          wget https://releases.hashicorp.com/consul-template/0.24.1/consul-template_0.24.1_linux_amd64.zip
-          unzip consul-template_0.24.1_linux_amd64.zip
-          chmod u+x consul-template
-          cp -v consul-template /tmp/consul-template
-          /tmp/consul-template --version
       - name: set VAULT_TOKEN
+        id: token
         run: |
           VAULT_TOKEN=$(curl \
             --request POST \
@@ -32,28 +26,17 @@ jobs:
             ${VAULT_ADDR}/v1/auth/approle/login | jq -r .auth.client_token)
           echo ::add-mask::${VAULT_TOKEN}
           echo ::set-env name=VAULT_TOKEN::${VAULT_TOKEN}
+          echo ::set-output name=vault_token::${VAULT_TOKEN}
         env:
           ROLE_ID: ${{ secrets.ROLE_ID }}
           SECRET_ID: ${{ secrets.SECRET_ID }}
           VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
-      - name: consul-template render templates
-        run: |
-          find . -name "*.ctmpl" -print | while read file
-          do
-            rootname="${file%.ctmpl}"
-            echo "$file -> $rootname"
-            /tmp/consul-template \
-                -once \
-                -vault-addr=${VAULT_ADDR} \
-                -log-level=debug \
-                -template=${file}:${rootname}
-          done
-        env:
-          ROLE_ID: ${{ secrets.ROLE_ID }}
-          SECRET_ID: ${{ secrets.SECRET_ID }}
-          VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
-          ENVIRONMENT: dev
-          SUFFIX: dev
+      - name: consul-template render templates for terraform
+        uses: broadinstitute/github-action-consul-template@master
+        with:
+          vault-address: ${{ secrets.VAULT_ADDR }}
+          vault-token: ${{ steps.token.outputs.vault_token }}
+          environment: dev
       - name: 'Terraform Init'
         uses: hashicorp/terraform-github-actions@master
         with:
