@@ -1,4 +1,4 @@
-name: 'Terraform GitHub Actions to validate TF files'
+name: 'Terraform GitHub Actions to validate/plan TF files'
 on:
   - pull_request
 jobs:

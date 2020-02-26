@@ -1,6 +1,8 @@
-name: 'Terraform GitHub Actions to validate TF files'
+name: 'Terraform GitHub Actions to apply TF files'
 on:
-  - pull_request
+  push:
+    branches:
+      - master
 jobs:
   terraform_apply:
     name: 'Terraform'
