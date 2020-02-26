@@ -2,7 +2,7 @@ name: 'Terraform GitHub Actions to validate TF files'
 on:
   - pull_request
 jobs:
-  terraform_plan_dev:
+  terraform_plan:
     name: 'Terraform'
     runs-on: ubuntu-latest
     steps:
