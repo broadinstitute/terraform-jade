@@ -5,7 +5,7 @@ on:
       - master
 jobs:
   terraform_apply:
-    name: 'Terraform'
+    name: 'Terraform plan'
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
