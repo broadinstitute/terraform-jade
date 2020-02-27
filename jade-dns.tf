@@ -22,9 +22,8 @@ resource "google_dns_record_set" "jade-a-dns-temp" {
 
 resource "google_dns_record_set" "jade-cname-jade-dns-external-temp" {
     provider      = google.broad-jade
-    count         = "${var.env != var.suffix ? "1" : "0"}"
     managed_zone  = data.google_dns_managed_zone.dns_zone.name
-    name          = "jade-${var.suffix}-temp.${data.google_dns_managed_zone.dns_zone.dns_name}"
+    name          = "jade-temp.${data.google_dns_managed_zone.dns_zone.dns_name}"
     type          = "CNAME"
     ttl           = "300"
     rrdatas       = ["jade-global-${var.suffix}-temp.${data.google_dns_managed_zone.dns_zone.dns_name}"]
