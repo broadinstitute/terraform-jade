@@ -4,7 +4,7 @@
 {{$keyname := printf "secret/devops/terraform/%s/%s/override-%s" $environment $project $suffix}}
 {{ with secret $keyname }}
 
-{{ if eq $environment "dev" }}
+{{ if eq $environment "integration" }}
 
 variable "dbs" {
   type = list(string)
@@ -15,7 +15,7 @@ variable "dbs" {
 }
 
 
-resource "google_sql_database" "jade-datarepo-db" {
+resource "google_sql_database" "jade-datarepo-dbs" {
     for_each    = toset(var.dbs)
     name        = "${each.key}"
     project     = var.project
