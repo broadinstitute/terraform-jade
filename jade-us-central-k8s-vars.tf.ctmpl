@@ -39,7 +39,7 @@ variable "machine_type" {
 
 variable "private_ipv4_cidr_block" {
   type = string
-  default = "10.127.0.0/28"
+  default = "{{ .Data.private_ipv4_cidr_block }}"
 }
 
 variable "disk_size_gb" {
