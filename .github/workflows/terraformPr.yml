@@ -12,6 +12,10 @@ jobs:
         uses: broadinstitute/turnstyle@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          poll-interval-seconds: 10
+      - name: sleep
+        run: sleep 60
       - name: 'Terraform Format'
         uses: hashicorp/terraform-github-actions@master
         with:
