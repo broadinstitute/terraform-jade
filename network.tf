@@ -34,9 +34,9 @@ resource "google_service_networking_connection" "private_vpc_connection" {
 }
 
 resource "google_dns_managed_zone" "dns_zone" {
-  provider    = google
-  count       = "${var.env == var.suffix ? "1" : "0"}"
-  name        = "datarepo-${var.env}"
-  dns_name    = "datarepo-${var.env}.broadinstitute.org."
-  depends_on  = [module.enable-services]
+  provider   = google
+  count      = "${var.env == var.suffix ? "1" : "0"}"
+  name       = "datarepo-${var.env}"
+  dns_name   = "datarepo-${var.env}.broadinstitute.org."
+  depends_on = [module.enable-services]
 }
