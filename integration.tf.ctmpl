@@ -13,24 +13,85 @@ variable "dbs" {
   "stairway-integration"
   ]
 }
+#### multi namespace start
 
+variable "namespaces" {
+  type = list(string)
+  default = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5"
+  ]
+}
+
+resource "google_sql_database" "jade-datarepo-multi-db" {
+  for_each    = toset(var.namespaces)
+  name        = "datarepo-${each.key}"
+  project     = var.project
+  instance    = google_sql_database_instance.jade_100_postgres[0].name
+  charset     = "UTF8"
+  collation   = "en_US.UTF8"
+  depends_on  = [google_sql_database_instance.jade_100_postgres]
+}
+
+resource "google_sql_database" "jade-stairway-multi-db" {
+  for_each    = toset(var.namespaces)
+  name        = "stairway-${each.key}"
+  project     = var.project
+  instance    = google_sql_database_instance.jade_100_postgres[0].name
+  charset     = "UTF8"
+  collation   = "en_US.UTF8"
+  depends_on  = [google_sql_database_instance.jade_100_postgres]
+}
+
+resource "google_compute_global_address" "jade-ip" {
+  for_each   = toset(var.namespaces)
+  provider   = google
+  name       = "${var.env}-ip-${each.key}"
+  depends_on = [module.enable-services]
+}
+
+resource "google_dns_record_set" "jade-dns-a" {
+  for_each     = toset(var.namespaces)
+  provider     = google.broad-jade
+  managed_zone = data.google_dns_managed_zone.dns_zone.name
+  name         = "jade-global-${each.key}.${data.google_dns_managed_zone.dns_zone.dns_name}"
+  type         = "A"
+  ttl          = "300"
+  rrdatas      = [google_compute_global_address.jade-ip[each.key].address]
+}
+
+resource "google_dns_record_set" "jade-dns-cname" {
+  for_each      = toset(var.namespaces)
+  provider      = google.broad-jade
+  managed_zone  = data.google_dns_managed_zone.dns_zone.name
+  name          = "jade-${each.key}.${data.google_dns_managed_zone.dns_zone.dns_name}"
+  type          = "CNAME"
+  ttl           = "300"
+  rrdatas       = ["jade-global-${each.key}.${data.google_dns_managed_zone.dns_zone.dns_name}"]
+  depends_on    = [google_dns_record_set.jade-dns-a]
+}
+
+#### mutlinamespace stop
 
 resource "google_sql_database" "jade-datarepo-dbs" {
-    for_each    = toset(var.dbs)
-    name        = "${each.key}"
-    project     = var.project
-    instance    = google_sql_database_instance.jade_100_postgres[0].name
-    charset     = "UTF8"
-    collation   = "en_US.UTF8"
-    depends_on  = [google_sql_database_instance.jade_100_postgres]
+  for_each    = toset(var.dbs)
+  name        = "${each.key}"
+  project     = var.project
+  instance    = google_sql_database_instance.jade_100_postgres[0].name
+  charset     = "UTF8"
+  collation   = "en_US.UTF8"
+  depends_on  = [google_sql_database_instance.jade_100_postgres]
 }
 
 
 ### START TEMP DNS
 data "google_dns_managed_zone" "dns_zone" {
-    provider     = google.broad-jade
-    project      = var.env_project
-    name         = "datarepo-${var.env}"
+  provider     = google.broad-jade
+  project      = var.env_project
+  name         = "datarepo-${var.env}"
 }
 
 resource "google_compute_global_address" "jade-k8-ip-temp" {
@@ -49,13 +110,13 @@ resource "google_dns_record_set" "jade-a-dns-temp" {
 }
 
 resource "google_dns_record_set" "jade-cname-jade-dns-external-temp" {
-    provider      = google.broad-jade
-    managed_zone  = data.google_dns_managed_zone.dns_zone.name
-    name          = "jade-temp.${data.google_dns_managed_zone.dns_zone.dns_name}"
-    type          = "CNAME"
-    ttl           = "300"
-    rrdatas       = ["jade-global-${var.suffix}-temp.${data.google_dns_managed_zone.dns_zone.dns_name}"]
-    depends_on    = [google_dns_record_set.jade-a-dns-temp]
+  provider      = google.broad-jade
+  managed_zone  = data.google_dns_managed_zone.dns_zone.name
+  name          = "jade-temp.${data.google_dns_managed_zone.dns_zone.dns_name}"
+  type          = "CNAME"
+  ttl           = "300"
+  rrdatas       = ["jade-global-${var.suffix}-temp.${data.google_dns_managed_zone.dns_zone.dns_name}"]
+  depends_on    = [google_dns_record_set.jade-a-dns-temp]
 }
 
 
