@@ -55,5 +55,10 @@ resource "google_sql_database_instance" "jade_100_postgres" {
       role  = "database"
       state = "active"
     }
+
+    database_flags {
+      name  = "max_connections"
+      value = 1024
+    }
   }
 }
