@@ -17,3 +17,4 @@ tfstate_svc.json
 variables.tf
 terraform.tf
 dev.tf
+integration.tf

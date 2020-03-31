@@ -1,0 +1,80 @@
+{{ $project := "jade" }}
+{{ with $environment := env "ENVIRONMENT" }}
+{{with $suffix := env "SUFFIX"}}
+{{$keyname := printf "secret/devops/terraform/%s/%s/override-%s" $environment $project $suffix}}
+{{ with secret $keyname }}
+
+{{ if eq $environment "integration" }}
+
+#### multi namespace start
+
+variable "namespaces" {
+  type = list(string)
+  default = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "temp"
+  ]
+}
+
+resource "google_sql_database" "jade-datarepo-multi-db" {
+  for_each    = toset(var.namespaces)
+  name        = "datarepo-${each.key}"
+  project     = var.project
+  instance    = google_sql_database_instance.jade_100_postgres[0].name
+  charset     = "UTF8"
+  collation   = "en_US.UTF8"
+  depends_on  = [google_sql_database_instance.jade_100_postgres]
+}
+
+resource "google_sql_database" "jade-stairway-multi-db" {
+  for_each    = toset(var.namespaces)
+  name        = "stairway-${each.key}"
+  project     = var.project
+  instance    = google_sql_database_instance.jade_100_postgres[0].name
+  charset     = "UTF8"
+  collation   = "en_US.UTF8"
+  depends_on  = [google_sql_database_instance.jade_100_postgres]
+}
+
+resource "google_compute_global_address" "jade-ip" {
+  for_each   = toset(var.namespaces)
+  provider   = google
+  name       = "${var.env}-ip-${each.key}"
+  depends_on = [module.enable-services]
+}
+
+resource "google_dns_record_set" "jade-dns-a" {
+  for_each     = toset(var.namespaces)
+  provider     = google.broad-jade
+  managed_zone = data.google_dns_managed_zone.dns_zone.name
+  name         = "jade-global-${each.key}.${data.google_dns_managed_zone.dns_zone.dns_name}"
+  type         = "A"
+  ttl          = "300"
+  rrdatas      = [google_compute_global_address.jade-ip[each.key].address]
+}
+
+resource "google_dns_record_set" "jade-dns-cname" {
+  for_each      = toset(var.namespaces)
+  provider      = google.broad-jade
+  managed_zone  = data.google_dns_managed_zone.dns_zone.name
+  name          = "jade-${each.key}.${data.google_dns_managed_zone.dns_zone.dns_name}"
+  type          = "CNAME"
+  ttl           = "300"
+  rrdatas       = ["jade-global-${each.key}.${data.google_dns_managed_zone.dns_zone.dns_name}"]
+  depends_on    = [google_dns_record_set.jade-dns-a]
+}
+
+data "google_dns_managed_zone" "dns_zone" {
+  provider     = google.broad-jade
+  project      = var.env_project
+  name         = "datarepo-${var.env}"
+}
+
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}

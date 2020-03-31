@@ -1,4 +1,3 @@
-
 # Public IP Address
 resource "google_compute_global_address" "jade-k8-ip" {
   provider   = google
