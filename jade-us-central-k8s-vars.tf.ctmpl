@@ -64,6 +64,11 @@ variable "node_tags" {
   ]
 }
 
+variable "gke_release_channel" {
+  description = "Release channel"
+  default     = "REGULAR"
+}
+
 {{end}}
 {{end}}
 {{end}}
