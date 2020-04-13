@@ -5,6 +5,7 @@
 {{ with secret $keyname }}
 
 {{ if eq $environment "dev" }}
+{{ if eq $environment $suffix }}
 
 variable "initials" {
   type = list(string)
@@ -144,6 +145,7 @@ resource "google_sql_database" "jade-stairway-initials-db" {
     collation   = "en_US.UTF8"
     depends_on  = [google_sql_database_instance.jade_100_postgres]
 }
+{{ end }}
 {{ end }}
 {{ end }}
 {{ end }}
