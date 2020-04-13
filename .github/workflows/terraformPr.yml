@@ -17,6 +17,7 @@ jobs:
         with:
           tf_actions_version: 0.12.13
           tf_actions_subcommand: 'fmt'
+          tf_actions_fmt_write: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: set VAULT_TOKEN
