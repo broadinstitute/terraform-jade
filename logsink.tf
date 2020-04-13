@@ -67,7 +67,7 @@ module "user-activity-sinks" {
   enable_bigquery  = var.user_activity_enable_bigquery
   owner            = "jade"
   application_name = "datarepo"
-  log_filter       = "resource.type=\"container\" \"LoggerInterceptor\""
+  log_filter       = "resource.type=\"k8s_container\" \"LoggerInterceptor\""
   project          = var.project
 
   # need a random number to prevent a collision with one of the things above
