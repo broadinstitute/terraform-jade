@@ -57,7 +57,7 @@ module "lb-log-sinks" {
 }
 
 module "user-activity-sinks" {
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.5-tf-0.12"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.7-tf-0.12"
 
   providers = {
     google = google
