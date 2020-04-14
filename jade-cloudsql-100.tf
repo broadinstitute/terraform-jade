@@ -12,7 +12,7 @@ resource "google_sql_database_instance" "jade_100_postgres" {
   provider         = google-beta
   count            = var.jade_cloudsql_100_num_instances
   region           = var.region
-  database_version = "POSTGRES_11"
+  database_version = "POSTGRES_9_6"
   name = format(
     "jade-postgres-1%02d-%s",
     count.index + 1,
