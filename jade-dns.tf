@@ -1,14 +1,17 @@
-# Public IP Address
-resource "google_compute_global_address" "jade-k8-ip" {
-  provider   = google
-  name       = "jade-k8-100"
-  depends_on = [module.enable-services]
+variable "ips" {
+  type = list(string)
+  default = [
+  "jade",
+  "argocd",
+  "grafana"
+  ]
 }
 
-# Public IP Address for Grafana Ingress
-resource "google_compute_global_address" "grafana-k8-ip" {
+# Public IP Address
+resource "google_compute_global_address" "jade-k8-ip" {
+  for_each    = toset(var.ips)
   provider   = google
-  name       = "grafana-k8-100"
+  name       = "${each.key}-k8-100"
   depends_on = [module.enable-services]
 }
 
