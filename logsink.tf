@@ -1,6 +1,6 @@
 module "vault-log-sinks" {
   # "github.com/" + org + "/" + repo name + ".git" + "//" + path within repo to base dir + "?ref=" + git object ref
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.5-tf-0.12"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.8-tf-0.12"
 
   # Alias of the provider you want to use--the provider's project controls the resource project
   providers = {
@@ -30,7 +30,7 @@ module "vault-log-sinks" {
 
 module "lb-log-sinks" {
   # "github.com/" + org + "/" + repo name + ".git" + "//" + path within repo to base dir + "?ref=" + git object ref
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.5-tf-0.12"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.8-tf-0.12"
 
   # Alias of the provider you want to use--the provider's project controls the resource project
   providers = {
@@ -57,7 +57,7 @@ module "lb-log-sinks" {
 }
 
 module "user-activity-sinks" {
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.7-tf-0.12"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.8-tf-0.12"
 
   providers = {
     google = google
@@ -70,6 +70,4 @@ module "user-activity-sinks" {
   log_filter       = "resource.type=\"k8s_container\" \"LoggerInterceptor\""
   project          = var.project
 
-  # need a random number to prevent a collision with one of the things above
-  nonce = 49
 }
