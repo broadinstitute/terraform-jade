@@ -45,7 +45,7 @@ variable "env" {
   default = "{{$environment}}"
 }
 variable "broad_range_cidrs" {
-  type = "list"
+  type = list
   default = [
   "69.173.112.0/21",
   "69.173.127.232/29",

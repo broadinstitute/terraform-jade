@@ -16,8 +16,7 @@ resource "google_compute_global_address" "jade-k8-ip" {
 }
 
 resource "google_compute_global_address" "sql_private_ip_address" {
-  provider = "google-beta"
-
+  provider      = google-beta
   name          = "private-ip-address"
   purpose       = "VPC_PEERING"
   address_type  = "INTERNAL"
