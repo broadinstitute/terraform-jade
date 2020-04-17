@@ -45,7 +45,7 @@ variable "env" {
   default = "{{$environment}}"
 }
 variable "broad_range_cidrs" {
-  type = "list"
+  type = list
   default = [
   "69.173.112.0/21",
   "69.173.127.232/29",
@@ -105,11 +105,15 @@ locals {
   records = {
     jade-global-{{$suffix}} = {
       type = "A"
-      rrdatas = "${google_compute_global_address.jade-k8-ip.address}"
+      rrdatas = "${google_compute_global_address.jade-k8-ip["jade"].address}"
     },
     grafana-global-{{$suffix}} = {
       type = "A"
-      rrdatas = "${google_compute_global_address.grafana-k8-ip.address}"
+      rrdatas = "${google_compute_global_address.jade-k8-ip["grafana"].address}"
+    },
+    argocd-global-{{$suffix}} = {
+      type = "A"
+      rrdatas = "${google_compute_global_address.jade-k8-ip["argocd"].address}"
     },
     jade = {
       type = "CNAME"
@@ -118,6 +122,10 @@ locals {
     grafana = {
       type = "CNAME"
       rrdatas = "grafana-global-{{$suffix}}.datarepo-{{$environment}}.broadinstitute.org."
+    },
+    argocd = {
+      type = "CNAME"
+      rrdatas = "argocd-global-{{$suffix}}.datarepo-{{$environment}}.broadinstitute.org."
     }
   }
 }
