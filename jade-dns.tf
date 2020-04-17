@@ -1,15 +1,15 @@
 variable "ips" {
   type = list(string)
   default = [
-  "jade",
-  "argocd",
-  "grafana"
+    "jade",
+    "argocd",
+    "grafana"
   ]
 }
 
 # Public IP Address
 resource "google_compute_global_address" "jade-k8-ip" {
-  for_each    = toset(var.ips)
+  for_each   = toset(var.ips)
   provider   = google
   name       = "${each.key}-k8-100"
   depends_on = [module.enable-services]
