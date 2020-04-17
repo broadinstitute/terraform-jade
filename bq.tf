@@ -11,7 +11,7 @@ resource "google_bigquery_table" "logs" {
   }
 
   view {
-    query = <<EOF
+    query          = <<EOF
 SELECT timestamp,
   REGEXP_EXTRACT(textPayload, r"userId: ([^,]+)") AS user_id,
   REGEXP_EXTRACT(textPayload, r"email: ([^,]+)") AS email,
