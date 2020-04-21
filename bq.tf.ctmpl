@@ -1,3 +1,6 @@
+{{ with $environment := env "ENVIRONMENT" }}
+{{ if eq $environment "dev" }}
+
 resource "google_bigquery_table" "logs" {
   dataset_id = module.user-activity-sinks.dataset_id[0]
   table_id   = "all_user_requests"
@@ -64,3 +67,6 @@ EOF
 ]
 EOF
 }
+
+{{ end }}
+{{ end }}
