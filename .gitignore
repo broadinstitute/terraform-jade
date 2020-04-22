@@ -18,3 +18,4 @@ variables.tf
 terraform.tf
 dev.tf
 integration.tf
+bq.tf

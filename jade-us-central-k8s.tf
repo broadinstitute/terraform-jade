@@ -3,17 +3,17 @@ module "k8s-master" {
   source       = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s-master?ref=k8s-cluster-monitoring-0.0.3-tf-0.12"
   dependencies = [module.enable-services]
 
-  name                     = var.master_name
-  location                 = var.region
-  version_prefix           = var.version_prefix
-  release_channel          = var.gke_release_channel
-  network                  = google_compute_network.jade-network.name
-  subnetwork               = google_compute_subnetwork.jade-subnetwork.name
+  name            = var.master_name
+  location        = var.region
+  version_prefix  = var.version_prefix
+  release_channel = var.gke_release_channel
+  network         = google_compute_network.jade-network.name
+  subnetwork      = google_compute_subnetwork.jade-subnetwork.name
   ip_allocation_policy = {
     cluster_secondary_range_name  = "pods"
     services_secondary_range_name = "services"
   }
-  private_ipv4_cidr_block  = var.private_ipv4_cidr_block
+  private_ipv4_cidr_block = var.private_ipv4_cidr_block
 }
 
 module "k8s-nodes" {
