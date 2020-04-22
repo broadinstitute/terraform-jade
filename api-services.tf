@@ -19,6 +19,6 @@ module "enable-services" {
     "container.googleapis.com",
     "storage-api.googleapis.com",
     "storage-component.googleapis.com",
-    "servicenetworking.googleapis.com",
+    "servicenetworking.googleapis.com"
   ]
 }
