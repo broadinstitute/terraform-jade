@@ -9,6 +9,7 @@ module "k8s-master" {
   release_channel = var.gke_release_channel
   network         = google_compute_network.jade-network.name
   subnetwork      = google_compute_subnetwork.jade-subnetwork.name
+  authorized_network_cidrs = var.broad_range_cidrs
   ip_allocation_policy = {
     cluster_secondary_range_name  = "pods"
     services_secondary_range_name = "services"
