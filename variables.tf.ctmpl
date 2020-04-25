@@ -131,7 +131,7 @@ locals {
 }
 
 variable "gke_subnet_pods" {
-  default     = "10.48.0.0/14"
+  default     = "10.127.0.0/20"
   description = "Secondary CIDR range for the cluster's pods"
 }
 
