@@ -14,7 +14,7 @@ variable "k8_subnet_name" {
 
 variable "version_prefix" {
   type = string
-  default = "1.15"
+  default = "1.15.9-gke.24"
 }
 
 variable "master_name" {
@@ -62,6 +62,11 @@ variable "node_tags" {
     "{{$environment}}",
     "kubernetes"
   ]
+}
+
+variable "gke_release_channel" {
+  description = "Release channel"
+  default     = "REGULAR"
 }
 
 {{end}}

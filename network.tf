@@ -15,7 +15,15 @@ resource "google_compute_subnetwork" "jade-subnetwork" {
   private_ip_google_access = true
   network                  = google_compute_network.jade-network.self_link
   depends_on               = [module.enable-services]
-
+  secondary_ip_range = [
+    {
+      range_name    = "pods"
+      ip_cidr_range = var.gke_subnet_pods
+    },
+    {
+      range_name    = "services"
+      ip_cidr_range = var.gke_subnet_services
+  }]
   dynamic "log_config" {
     for_each = var.enable_flow_logs ? ["If only TF supported if/else"] : []
     content {
