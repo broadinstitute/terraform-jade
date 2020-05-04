@@ -60,5 +60,5 @@ resource "google_project_iam_member" "jadeteam-roles" {
   for_each = toset(var.jadeteam-roles)
   project  = var.project
   role     = each.key
-  member   = "serviceAccount:jadeteam@broadinstitute.org"
+  member   = "group:jadeteam@broadinstitute.org"
 }
