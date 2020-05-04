@@ -14,6 +14,21 @@ variable "api-roles" {
   ]
 }
 
+variable "jadeteam-roles" {
+  type = list(string)
+  default = [
+    "roles/container.admin",
+    "roles/container.clusterAdmin",
+    "roles/container.hostServiceAgentUser",
+    "roles/bigquery.admin",
+    "roles/cloudsql.admin",
+    "roles/monitoring.admin",
+    "roles/servicemanagement.serviceController",
+    "roles/stackdriver.accounts.viewer",
+    "roles/storage.admin"
+  ]
+}
+
 resource "google_service_account" "jade-api-service-account" {
   account_id   = "jade-api-sa"
   display_name = "jade-api server service account"
@@ -39,4 +54,11 @@ resource "vault_generic_secret" "jade-api-sa-key-secret" {
     "sa": "${google_service_account_key.jade-api-sa-key.private_key}"
 }
 EOT
+}
+
+resource "google_project_iam_member" "jadeteam-roles" {
+  for_each = toset(var.jadeteam-roles)
+  project  = var.project
+  role     = each.key
+  member   = "serviceAccount:jadeteam@broadinstitute.org"
 }
