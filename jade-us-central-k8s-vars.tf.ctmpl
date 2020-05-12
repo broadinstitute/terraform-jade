@@ -69,6 +69,10 @@ variable "gke_release_channel" {
   default     = "REGULAR"
 }
 
+variable "enable_workload_identity" {
+  default     = "true"
+}
+
 {{end}}
 {{end}}
 {{end}}
