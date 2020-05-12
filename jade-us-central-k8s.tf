@@ -33,7 +33,7 @@ module "k8s-nodes" {
   tags                     = var.node_tags
 }
 
-module "k8s-nodes" {
+module "k8s-nodes-2" {
   # terraform-shared repo
   source       = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s-node-pool?ref=k8s-cluster-monitoring-0.0.3-tf-0.12"
   dependencies = [module.enable-services, module.k8s-master]
