@@ -31,6 +31,7 @@ module "k8s-nodes" {
   disk_size_gb = var.disk_size_gb
   labels       = var.node_labels
   tags         = var.node_tags
+  enable_workload_identity = var.enable_workload_identity
 }
 
 module "k8s-nodes-2" {
