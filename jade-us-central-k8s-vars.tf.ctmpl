@@ -29,17 +29,17 @@ variable "node_name" {
 
 variable "node_count" {
   type = number
-  default = "{{ .Data.node_pool_count }}"
+  default = "1"
 }
 
 variable "machine_type" {
   type = string
-  default = "{{ .Data.jade_k8s_node_pool_machine_type }}"
+  default = "n1-standard-2"
 }
 
 variable "private_ipv4_cidr_block" {
   type = string
-  default = "{{ .Data.private_ipv4_cidr_block }}"
+  default = "10.227.0.0/28"
 }
 
 variable "disk_size_gb" {
@@ -67,6 +67,10 @@ variable "node_tags" {
 variable "gke_release_channel" {
   description = "Release channel"
   default     = "REGULAR"
+}
+
+variable "enable_workload_identity" {
+  default     = "true"
 }
 
 {{end}}
