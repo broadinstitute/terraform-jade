@@ -67,7 +67,7 @@ gke-integration-mast-integration-node-ff69c134-f2kz   Ready,SchedulingDisabled  
 The following shell command iterates each node in integration-node and drains them by evicting Pods with an allotted graceful termination period of 10 seconds:
 ```
 for node in $(kubectl get nodes -l cloud.google.com/gke-nodepool=integration-node -o=name); do
-  kubectl drain --force --ignore-daemonsets --delete-local-data --grace-period=30 "$node";
+  kubectl drain --ignore-daemonsets --delete-local-data "$node";
 done
 ```
 **Note: This is not seemless as the pods in the previous node pool will be taken down and be redeployed you will have to wait for health checks and ingresses to comeback up (1-5min outage)**
