@@ -4,9 +4,11 @@
 
 To migrate these Pods to the new node pool, you must perform the following steps:
 
-1. Cordon the existing node pool: This operation marks the nodes in the existing node pool (integration-node) as unschedulable. Kubernetes stops scheduling new Pods to these nodes once you mark them as unschedulable.
+1. Change all [helm definitions](https://github.com/broadinstitute/datarepo-helm-definitions/blob/master/integration/integration-1/integration-1Deployment.yaml#L18-L19) for `nodeSelector` to the new node you'd like to shift your pods to, this will gracefully move the nodes to the new node pool.
 
-2. Drain the existing node pool: This operation evicts the workloads running on the nodes of the existing node pool (integration-node) gracefully.
+2. Cordon the existing node pool: This operation marks the nodes in the existing node pool (integration-node) as unschedulable. Kubernetes stops scheduling new Pods to these nodes once you mark them as unschedulable.
+
+3. Drain the existing node pool: This operation evicts the workloads running on the nodes of the existing node pool (integration-node) gracefully.
 
 Edit the `jade-us-central-k8s.tf` file and add a new node pool (integration-node-2) with a new resource name and pool name (integration-node-2)
 
