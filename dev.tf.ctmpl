@@ -10,7 +10,6 @@
 variable "initials" {
   type = list(string)
   default = [
-  "monster",
   "ms",
   "mk",
   "rc",
@@ -25,14 +24,6 @@ variable "initials" {
 
 locals {
   initialrecords = {
-    jade-global-monster = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["monster"].address}"
-    },
-    jade-monster = {
-      type = "CNAME"
-      rrdatas = "jade-global-monster.datarepo-{{$environment}}.broadinstitute.org."
-    },
     jade-global-ms = {
       type = "A"
       rrdatas = "${google_compute_global_address.jade-initials-ip["ms"].address}"
@@ -110,13 +101,12 @@ locals {
 
 module "initials-dns-set" {
   # terraform-shared repo
-  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/external-dns?ref=external-dns-0.0.2-tf-0.12"
-
-  target_project = var.env_project
-  region = var.region
-  target_credentials = file("env_svc.json")
-  target_dns_zone_name = "datarepo-${var.env}"
-  records = local.initialrecords
+  source                = "github.com/broadinstitute/terraform-shared.git//terraform-modules/external-dns?ref=external-dns-0.0.2-tf-0.12"
+  target_project        = var.env_project
+  region                = var.region
+  target_credentials    = file("env_svc.json")
+  target_dns_zone_name  = "datarepo-${var.env}"
+  records               = local.initialrecords
 }
 
 resource "google_compute_global_address" "jade-initials-ip" {
@@ -129,7 +119,7 @@ resource "google_compute_global_address" "jade-initials-ip" {
 resource "google_sql_database" "jade-datarepo-initials-db" {
     for_each    = toset(var.initials)
     name        = "datarepo-${each.key}"
-    project     = var.project
+    project     = data.google_project.project.name
     instance    = google_sql_database_instance.jade_100_postgres[0].name
     charset     = "UTF8"
     collation   = "en_US.UTF8"
@@ -139,7 +129,7 @@ resource "google_sql_database" "jade-datarepo-initials-db" {
 resource "google_sql_database" "jade-stairway-initials-db" {
     for_each    = toset(var.initials)
     name        = "stairway-${each.key}"
-    project     = var.project
+    project     = data.google_project.project.name
     instance    = google_sql_database_instance.jade_100_postgres[0].name
     charset     = "UTF8"
     collation   = "en_US.UTF8"
@@ -150,7 +140,7 @@ resource "google_sql_database" "jade-stairway-initials-db" {
 resource "google_sql_database" "jade-datarepo-initials-db-11" {
     for_each    = toset(var.initials)
     name        = "datarepo-${each.key}"
-    project     = var.project
+    project     = data.google_project.project.name
     instance    = google_sql_database_instance.jade_11_postgres_db[0].name
     charset     = "UTF8"
     collation   = "en_US.UTF8"
@@ -160,13 +150,22 @@ resource "google_sql_database" "jade-datarepo-initials-db-11" {
 resource "google_sql_database" "jade-stairway-initials-db-11" {
     for_each    = toset(var.initials)
     name        = "stairway-${each.key}"
-    project     = var.project
+    project     = data.google_project.project.name
     instance    = google_sql_database_instance.jade_11_postgres_db[0].name
     charset     = "UTF8"
     collation   = "en_US.UTF8"
     depends_on  = [google_sql_database_instance.jade_11_postgres_db]
 }
 
+# workload identity gsa to ksa binding
+
+resource google_service_account_iam_binding sqlproxy_workload_identity_binding {
+  for_each            = toset(var.initials)
+  provider            = google
+  service_account_id  = google_service_account.sql-service-account.name
+  role                = "roles/iam.workloadIdentityUser"
+  members             = ["serviceAccount:${data.google_project.project.name}.svc.id.goog[${each.key}/${each.key}-jade-gcloud-sqlproxy]"]
+}
 {{ end }}
 {{ end }}
 {{ end }}

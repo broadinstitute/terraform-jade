@@ -8,7 +8,7 @@ resource "google_service_account_key" "sql-sa-key" {
 }
 
 resource "google_project_iam_member" "sql-sa-role" {
-  project = var.project
+  project = data.google_project.project.name
   role    = "roles/cloudsql.client"
   member  = "serviceAccount:${google_service_account.sql-service-account.email}"
 }
@@ -24,7 +24,7 @@ resource "google_service_account_key" "sql-backup-key" {
 }
 
 resource "google_project_iam_member" "sql-backup-role" {
-  project = var.project
+  project = data.google_project.project.name
   role    = "roles/cloudsql.admin"
   member  = "serviceAccount:${google_service_account.sql-backup-account.email}"
 }

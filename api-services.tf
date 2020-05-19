@@ -4,7 +4,7 @@ module "enable-services" {
   providers = {
     google.target = google-beta
   }
-  project = var.project
+  project = data.google_project.project.name
   services = [
     "iamcredentials.googleapis.com",
     "cloudresourcemanager.googleapis.com",

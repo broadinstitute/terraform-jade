@@ -4,6 +4,9 @@
 {{$keyname := printf "secret/devops/terraform/%s/%s/override-%s" $environment $project $suffix}}
 {{with secret $keyname}}
 
+data "google_project" "project" {
+}
+
 variable "project" {
   type = string
   default = "{{ .Data.project }}"
