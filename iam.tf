@@ -10,7 +10,8 @@ variable "api-roles" {
     "roles/monitoring.admin",
     "roles/servicemanagement.serviceController",
     "roles/stackdriver.accounts.viewer",
-    "roles/storage.admin"
+    "roles/storage.admin",
+    "roles/pubsub.admin"
   ]
 }
 
