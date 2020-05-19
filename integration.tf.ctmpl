@@ -106,7 +106,7 @@ resource "google_sql_database" "jade-stairway-multi-db-11" {
 # workload identity gsa to ksa binding
 
 resource google_service_account_iam_binding sqlproxy_workload_identity_binding {
-  for_each            = toset(var.initials)
+  for_each            = toset(var.namespaces)
   provider            = google
   service_account_id  = google_service_account.sql-service-account.name
   role                = "roles/iam.workloadIdentityUser"
