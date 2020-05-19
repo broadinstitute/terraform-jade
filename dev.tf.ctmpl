@@ -24,14 +24,6 @@ variable "initials" {
 
 locals {
   initialrecords = {
-    jade-global-monster = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["monster"].address}"
-    },
-    jade-monster = {
-      type = "CNAME"
-      rrdatas = "jade-global-monster.datarepo-{{$environment}}.broadinstitute.org."
-    },
     jade-global-ms = {
       type = "A"
       rrdatas = "${google_compute_global_address.jade-initials-ip["ms"].address}"
@@ -127,7 +119,7 @@ resource "google_compute_global_address" "jade-initials-ip" {
 resource "google_sql_database" "jade-datarepo-initials-db" {
     for_each    = toset(var.initials)
     name        = "datarepo-${each.key}"
-    project     = var.project
+    project     = data.google_project.project.name
     instance    = google_sql_database_instance.jade_100_postgres[0].name
     charset     = "UTF8"
     collation   = "en_US.UTF8"
@@ -137,7 +129,7 @@ resource "google_sql_database" "jade-datarepo-initials-db" {
 resource "google_sql_database" "jade-stairway-initials-db" {
     for_each    = toset(var.initials)
     name        = "stairway-${each.key}"
-    project     = var.project
+    project     = data.google_project.project.name
     instance    = google_sql_database_instance.jade_100_postgres[0].name
     charset     = "UTF8"
     collation   = "en_US.UTF8"
@@ -148,7 +140,7 @@ resource "google_sql_database" "jade-stairway-initials-db" {
 resource "google_sql_database" "jade-datarepo-initials-db-11" {
     for_each    = toset(var.initials)
     name        = "datarepo-${each.key}"
-    project     = var.project
+    project     = data.google_project.project.name
     instance    = google_sql_database_instance.jade_11_postgres_db[0].name
     charset     = "UTF8"
     collation   = "en_US.UTF8"
@@ -158,7 +150,7 @@ resource "google_sql_database" "jade-datarepo-initials-db-11" {
 resource "google_sql_database" "jade-stairway-initials-db-11" {
     for_each    = toset(var.initials)
     name        = "stairway-${each.key}"
-    project     = var.project
+    project     = data.google_project.project.name
     instance    = google_sql_database_instance.jade_11_postgres_db[0].name
     charset     = "UTF8"
     collation   = "en_US.UTF8"

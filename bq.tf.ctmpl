@@ -10,7 +10,7 @@ resource "google_bigquery_table" "logs" {
   }
 
   labels = {
-    env = var.project
+    env = data.google_project.project.name
   }
 
   view {
@@ -21,7 +21,7 @@ SELECT timestamp,
   REGEXP_EXTRACT(textPayload, r"status: ([^,]+)") AS status,
   REGEXP_EXTRACT(textPayload, r"method: ([^,]+)") AS method,
   REGEXP_EXTRACT(textPayload, r"url: ([^,]+)") AS url
-FROM `${var.project}.${module.user-activity-sinks.dataset_id[0]}.stdout_*`;
+FROM `${data.google_project.project.name}.${module.user-activity-sinks.dataset_id[0]}.stdout_*`;
 EOF
     use_legacy_sql = false
   }

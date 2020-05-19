@@ -23,7 +23,7 @@ module "vault-log-sinks" {
   log_filter = "resource.type=\"audited_resource\""
 
   # Name of the google project
-  project = var.project
+  project = data.google_project.project.name
 
   bigquery_retention_days = 60
 }
@@ -52,7 +52,7 @@ module "lb-log-sinks" {
   log_filter = "resource.type=\"http_load_balancer\""
 
   # Name of the google project
-  project = var.project
+  project = data.google_project.project.name
 
 }
 
@@ -68,6 +68,6 @@ module "user-activity-sinks" {
   owner            = "jade"
   application_name = "datarepo"
   log_filter       = "resource.type=\"k8s_container\" \"LoggerInterceptor\""
-  project          = var.project
+  project          = data.google_project.project.name
 
 }

@@ -8,19 +8,19 @@ resource "google_service_account_key" "grafana-sa-key" {
 }
 
 resource "google_project_iam_member" "grafana-sa-monitoring-role" {
-  project = var.project
+  project = data.google_project.project.name
   role    = "roles/monitoring.viewer"
   member  = "serviceAccount:${google_service_account.grafana-service-account.email}"
 }
 
 resource "google_project_iam_member" "grafana-sa-bqviewer-role" {
-  project = var.project
+  project = data.google_project.project.name
   role    = "roles/bigquery.dataViewer"
   member  = "serviceAccount:${google_service_account.grafana-service-account.email}"
 }
 
 resource "google_project_iam_member" "grafana-sa-bqjobs-role" {
-  project = var.project
+  project = data.google_project.project.name
   role    = "roles/bigquery.jobUser"
   member  = "serviceAccount:${google_service_account.grafana-service-account.email}"
 }

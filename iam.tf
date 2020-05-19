@@ -40,7 +40,7 @@ resource "google_service_account_key" "jade-api-sa-key" {
 
 resource "google_project_iam_member" "jade-api-sa-roles" {
   for_each   = toset(var.api-roles)
-  project    = var.project
+  project    = data.google_project.project.name
   role       = each.key
   member     = "serviceAccount:${google_service_account.jade-api-service-account.email}"
   depends_on = [google_service_account.jade-api-service-account]
@@ -58,7 +58,7 @@ EOT
 
 resource "google_project_iam_member" "jadeteam-roles" {
   for_each = toset(var.jadeteam-roles)
-  project  = var.project
+  project  = data.google_project.project.name
   role     = each.key
   member   = "group:jadeteam@broadinstitute.org"
 }

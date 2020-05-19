@@ -23,7 +23,7 @@ variable "namespaces" {
 resource "google_sql_database" "jade-datarepo-multi-db" {
   for_each    = toset(var.namespaces)
   name        = "datarepo-${each.key}"
-  project     = var.project
+  project     = data.google_project.project.name
   instance    = google_sql_database_instance.jade_100_postgres[0].name
   charset     = "UTF8"
   collation   = "en_US.UTF8"
@@ -33,7 +33,7 @@ resource "google_sql_database" "jade-datarepo-multi-db" {
 resource "google_sql_database" "jade-stairway-multi-db" {
   for_each    = toset(var.namespaces)
   name        = "stairway-${each.key}"
-  project     = var.project
+  project     = data.google_project.project.name
   instance    = google_sql_database_instance.jade_100_postgres[0].name
   charset     = "UTF8"
   collation   = "en_US.UTF8"
@@ -86,7 +86,7 @@ resource "google_dns_managed_zone" "dns_zone" {
 resource "google_sql_database" "jade-datarepo-multi-db-11" {
   for_each    = toset(var.namespaces)
   name        = "datarepo-${each.key}"
-  project     = var.project
+  project     = data.google_project.project.name
   instance    = google_sql_database_instance.jade_11_postgres_db[0].name
   charset     = "UTF8"
   collation   = "en_US.UTF8"
@@ -96,7 +96,7 @@ resource "google_sql_database" "jade-datarepo-multi-db-11" {
 resource "google_sql_database" "jade-stairway-multi-db-11" {
   for_each    = toset(var.namespaces)
   name        = "stairway-${each.key}"
-  project     = var.project
+  project     = data.google_project.project.name
   instance    = google_sql_database_instance.jade_11_postgres_db[0].name
   charset     = "UTF8"
   collation   = "en_US.UTF8"
