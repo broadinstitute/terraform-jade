@@ -10,7 +10,6 @@
 variable "initials" {
   type = list(string)
   default = [
-  "monster",
   "ms",
   "mk",
   "rc",
@@ -110,13 +109,12 @@ locals {
 
 module "initials-dns-set" {
   # terraform-shared repo
-  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/external-dns?ref=external-dns-0.0.2-tf-0.12"
-
-  target_project = var.env_project
-  region = var.region
-  target_credentials = file("env_svc.json")
-  target_dns_zone_name = "datarepo-${var.env}"
-  records = local.initialrecords
+  source                = "github.com/broadinstitute/terraform-shared.git//terraform-modules/external-dns?ref=external-dns-0.0.2-tf-0.12"
+  target_project        = var.env_project
+  region                = var.region
+  target_credentials    = file("env_svc.json")
+  target_dns_zone_name  = "datarepo-${var.env}"
+  records               = local.initialrecords
 }
 
 resource "google_compute_global_address" "jade-initials-ip" {
@@ -167,6 +165,15 @@ resource "google_sql_database" "jade-stairway-initials-db-11" {
     depends_on  = [google_sql_database_instance.jade_11_postgres_db]
 }
 
+# workload identity gsa to ksa binding
+
+resource google_service_account_iam_binding sqlproxy_workload_identity_binding {
+  for_each            = toset(var.initials)
+  provider            = google
+  service_account_id  = google_service_account.sql-service-account.name
+  role                = "roles/iam.workloadIdentityUser"
+  members             = ["serviceAccount:${data.google_project.project.name}.svc.id.goog[${each.key}/${each.key}-jade-gcloud-sqlproxy]"]
+}
 {{ end }}
 {{ end }}
 {{ end }}
