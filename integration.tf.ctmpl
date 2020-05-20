@@ -89,7 +89,6 @@ resource "google_dns_managed_zone" "dns_zone" {
   }
 }
 
-####
 resource "google_sql_database" "jade-datarepo-multi-db-11" {
   for_each    = toset(var.namespaces)
   name        = "datarepo-${each.key}"
@@ -110,14 +109,36 @@ resource "google_sql_database" "jade-stairway-multi-db-11" {
   depends_on  = [google_sql_database_instance.jade_11_postgres_db]
 }
 
-# workload identity gsa to ksa binding
+
+# workload identity GSA to KSA binding, this is a 1:1 so 1 GSA to KSA
+
+resource "google_service_account" "user-sql-service-account" {
+  for_each     = toset(var.namespaces)
+  account_id   = "integration-${each.key}-proxy-sa"
+  display_name = "sqlproxy service account for integration-${each.key} namespace"
+}
+
+resource "google_service_account_key" "user-sql-sa-key" {
+  for_each           = toset(var.namespaces)
+  service_account_id = google_service_account.user-sql-service-account[each.key].name
+  depends_on         = [google_service_account.user-sql-service-account]
+}
+
+resource "google_project_iam_member" "user-sql-sa-role" {
+  for_each   = toset(var.namespaces)
+  project    = data.google_project.project.name
+  role       = "roles/cloudsql.client"
+  member     = "serviceAccount:${google_service_account.user-sql-service-account[each.key].email}"
+  depends_on = [google_service_account.user-sql-service-account]
+}
 
 resource google_service_account_iam_binding sqlproxy_workload_identity_binding {
   for_each            = toset(var.namespaces)
   provider            = google
-  service_account_id  = google_service_account.sql-service-account.name
+  service_account_id  = google_service_account.user-sql-service-account[each.key].name
   role                = "roles/iam.workloadIdentityUser"
   members             = ["serviceAccount:${data.google_project.project.name}.svc.id.goog[integration-${each.key}/integration-${each.key}-jade-gcloud-sqlproxy]"]
+  depends_on          = [google_service_account.user-sql-service-account]
 }
 {{ end }}
 {{ end }}
