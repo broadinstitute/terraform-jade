@@ -109,7 +109,8 @@ resource "google_sql_database" "jade-stairway-multi-db-11" {
   depends_on  = [google_sql_database_instance.jade_11_postgres_db]
 }
 
-# workload identity gsa to ksa binding
+
+# workload identity GSA to KSA binding, this is a 1:1 so 1 GSA to KSA
 
 resource "google_service_account" "user-sql-service-account" {
   for_each     = toset(var.namespaces)
@@ -134,9 +135,9 @@ resource "google_project_iam_member" "user-sql-sa-role" {
 resource google_service_account_iam_binding sqlproxy_workload_identity_binding {
   for_each            = toset(var.namespaces)
   provider            = google
-  service_account_id  = google_service_account.sql-service-account[each.key].name
+  service_account_id  = google_service_account.user-sql-service-account[each.key].name
   role                = "roles/iam.workloadIdentityUser"
-  members             = ["serviceAccount:${data.google_project.project.name}.svc.id.goog[integration-${each.key}/integration-${each.key}-jade-gcloud-sqlproxy]"]
+  members             = ["serviceAccount:${data.google_project.project.name}.svc.id.goog[${each.key}/integration-${each.key}-jade-gcloud-sqlproxy]"]
   depends_on          = [google_service_account.user-sql-service-account]
 }
 {{ end }}
