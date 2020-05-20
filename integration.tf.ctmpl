@@ -137,7 +137,7 @@ resource google_service_account_iam_binding sqlproxy_workload_identity_binding {
   provider            = google
   service_account_id  = google_service_account.user-sql-service-account[each.key].name
   role                = "roles/iam.workloadIdentityUser"
-  members             = ["serviceAccount:${data.google_project.project.name}.svc.id.goog[${each.key}/integration-${each.key}-jade-gcloud-sqlproxy]"]
+  members             = ["serviceAccount:${data.google_project.project.name}.svc.id.goog[integration-${each.key}/integration-${each.key}-jade-gcloud-sqlproxy]"]
   depends_on          = [google_service_account.user-sql-service-account]
 }
 {{ end }}
