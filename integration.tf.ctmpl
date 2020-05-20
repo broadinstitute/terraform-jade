@@ -85,7 +85,7 @@ resource "google_dns_managed_zone" "dns_zone" {
     state = "on"
 
     # nsec, nsec3
-    non_existence = "nsec3"git 
+    non_existence = "nsec3"
   }
 }
 
