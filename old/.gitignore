@@ -1,4 +1,3 @@
-/environments/*/.terraform
 .terraform/*
 *.backup
 *.swp
@@ -20,6 +19,3 @@ terraform.tf
 dev.tf
 integration.tf
 bq.tf
-!/modules/*/variables.tf 
-!/environments/*/terraform.tf
-!/environments/*/variables.tf

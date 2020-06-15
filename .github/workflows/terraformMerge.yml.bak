@@ -8,6 +8,7 @@ jobs:
     strategy:
       matrix:
         environment: [dev, integration]
+    if: "!contains( github.event.pull_request.labels.*.name, 'skip-ci')"
     name: 'Terraform'
     runs-on: ubuntu-latest
     steps:
