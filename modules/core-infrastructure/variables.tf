@@ -47,11 +47,11 @@ variable "version_prefix" {
 }
 
 locals {
-  master_name = var.environment-master
+  master_name = "${var.environment}-master-${var.region}"
 }
 
 locals {
-  node_name = var.environment-node
+  node_name = "${var.environment}-node-${var.region}"
 }
 
 variable "node_count" {
@@ -79,11 +79,10 @@ variable "disk_size_gb" {
 }
 
 locals {
-  node_labels = [
-    var.google_project,
-    var.environment,
-    "kubernetes"
-  ]
+  node_labels = {
+    project = var.google_project,
+    environment = var.environment
+  }
 }
 
 locals {
@@ -108,4 +107,30 @@ variable "enable_flow_logs" {
   type        = bool
   default     = "false"
   description = "flag for enabling flowlog"
+}
+
+variable "region" {
+  description = "GCP region being used"
+  default     = ""
+}
+
+variable "broad_range_cidrs" {
+  description = "default broad external ips"
+  type = list
+  default = [
+    "69.173.112.0/21",
+    "69.173.127.232/29",
+    "69.173.127.128/26",
+    "69.173.127.0/25",
+    "69.173.127.240/28",
+    "69.173.127.224/30",
+    "69.173.127.230/31",
+    "69.173.120.0/22",
+    "69.173.127.228/32",
+    "69.173.126.0/24",
+    "69.173.96.0/20",
+    "69.173.64.0/19",
+    "69.173.127.192/27",
+    "69.173.124.0/23"
+  ]
 }
