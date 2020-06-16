@@ -1,7 +1,7 @@
 module "k8s-master" {
   # terraform-shared repo
   source       = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s-master?ref=k8s-cluster-monitoring-0.0.3-tf-0.12"
-  dependencies = [module.enable-services]
+  dependencies = [module.enable-services, google_compute_network.jade-network, google_compute_subnetwork.jade-subnetwork]
 
   name                     = local.master_name
   location                 = var.region
