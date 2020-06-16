@@ -1,10 +1,10 @@
 
 provider google {
-alias = "target"
+  alias = "target"
 }
 
 provider google-beta {
-alias = "target"
+  alias = "target"
 }
 
 provider google-beta {
