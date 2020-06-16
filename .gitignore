@@ -20,3 +20,4 @@ dev.tf
 integration.tf
 bq.tf
 !/modules/core-infrastructure/variables.tf
+!/environments/ms/variables.tf
