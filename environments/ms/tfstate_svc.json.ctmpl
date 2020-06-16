@@ -1,0 +1,3 @@
+{{with secret "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json"}}
+{{.Data | toJSONPretty}}
+{{end}}

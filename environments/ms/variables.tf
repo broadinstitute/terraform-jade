@@ -33,3 +33,9 @@ variable "dns_project" {
   default = "broad-jade-dev"
   description = "The Google project name where dns zone is"
 }
+
+variable "version_prefix" {
+  type        = string
+  default     = "1.16.8-gke.15"
+  description = "version of gke to be deployed"
+}

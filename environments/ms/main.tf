@@ -7,6 +7,7 @@ module "core-infrastructure" {
   k8_subnet_name  = var.k8_subnet_name
   node_count      = var.node_count
   machine_type    = var.machine_type
+  version_prefix  = var.version_prefix
 
   providers = {
     google.target      = google
