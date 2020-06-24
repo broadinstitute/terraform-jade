@@ -1,7 +1,8 @@
 # Global Ip, CNAME, A Record
 data google_dns_managed_zone dns_zone {
-  provider = google-beta.datarepo-dns
-  name     = var.dns_zone
+  provider   = google-beta.datarepo-dns
+  name       = var.dns_zone
+  depends_on = [var.dependencies]
 }
 
 module datarepo_dns_names {
