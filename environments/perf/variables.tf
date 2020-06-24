@@ -69,3 +69,13 @@ variable "dns_zone_name" {
   description = "global DNS zone to be deployed"
   default     = "datarepo-perf"
 }
+
+locals {
+  workloadid_names = [var.environment]
+}
+
+variable "enable_private_services" {
+  type = bool
+  description = "Enable flag for a private sql instance if set to true, a private sql isntance will be created."
+  default = true
+}
