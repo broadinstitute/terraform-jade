@@ -27,6 +27,8 @@ module "enable-services" {
 module "core-infrastructure" {
   source = "github.com/broadinstitute/terraform-jade.git//modules/core-infrastructure?ref=ms-datarepomodule"
 
+  dependencies = [module.enable-services]
+
   google_project  = var.google_project
   region          = var.region
   k8_network_name = var.k8_network_name
