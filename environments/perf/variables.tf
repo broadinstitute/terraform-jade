@@ -34,7 +34,7 @@ variable "region" {
 
 variable "dns_project" {
   type = string
-  default = "broad-jade-dev"
+  default = "broad-jade-perf"
   description = "The Google project name where dns zone is"
 }
 
@@ -61,7 +61,7 @@ variable "db_version" {
 variable "environment" {
   type        = string
   description = "environment being deployed"
-  default     = "dev"
+  default     = "perf"
 }
 
 variable "dns_zone" {

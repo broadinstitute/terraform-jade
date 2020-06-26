@@ -121,7 +121,7 @@ variable "environment" {
 
 
 locals {
-  vault_root = "secret/dsde/datarepo/${var.environment}/"
+  vault_root = "secret/dsde/datarepo/${var.environment}"
 }
 
 variable "private_network" {
