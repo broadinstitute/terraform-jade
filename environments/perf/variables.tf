@@ -64,7 +64,7 @@ variable "environment" {
   default     = "dev"
 }
 
-variable "dns_zone_name" {
+variable "dns_zone" {
   type        = string
   description = "global DNS zone to be deployed"
   default     = "datarepo-perf"
