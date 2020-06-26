@@ -36,7 +36,7 @@ module "core-infrastructure" {
   node_count      = var.node_count
   machine_type    = var.machine_type
   version_prefix  = var.version_prefix
-  dns_zone_name   = var.dns_zone_name
+  dns_zone_name   = var.dns_zone
 
 
   providers = {
@@ -52,7 +52,7 @@ module "datarepo-app" {
   dependencies = [module.core-infrastructure]
 
   google_project            = var.google_project
-  dns_zone                  = var.dns_zone_name
+  dns_zone                  = var.dns_zone
   dns_names                 = var.dns_names
   db_version                = var.db_version
   environment               = var.environment

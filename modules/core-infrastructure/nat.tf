@@ -6,7 +6,7 @@ resource "google_compute_router" "router" {
   name       = "router"
   project    = var.google_project
   network    = google_compute_network.network[0].self_link
-  depends_on = [module.enable-services, google_compute_network.network, google_compute_subnetwork.subnetwork, var.dependencies]
+  depends_on = [google_compute_network.network, google_compute_subnetwork.subnetwork, var.dependencies]
 
   bgp {
     asn = 64514
@@ -18,7 +18,7 @@ resource "google_compute_address" "nat-address" {
   provider   = google.target
   name       = "nat-external-${count.index}"
   project    = var.google_project
-  depends_on = [module.enable-services, var.dependencies]
+  depends_on = [var.dependencies]
 
 }
 
@@ -33,6 +33,6 @@ resource "google_compute_router_nat" "nat" {
   nat_ips                = google_compute_address.nat-address[*].self_link
 
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
-  depends_on                         = [module.enable-services, google_compute_network.network, google_compute_address.nat-address, var.dependencies]
+  depends_on                         = [google_compute_network.network, google_compute_address.nat-address, var.dependencies]
 
 }
