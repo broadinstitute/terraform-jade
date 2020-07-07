@@ -32,7 +32,7 @@ resource "vault_generic_secret" "sql_sa_key" {
 
   depends_on = [var.dependencies]
   provider   = vault.target
-  path       = "${local.vault_root}/datarepo-sql-sa"
+  path       = "${local.vault_path}/datarepo-sql-sa"
 
   data_json = <<EOT
 {
@@ -76,7 +76,7 @@ resource "vault_generic_secret" "api_sa_key" {
 
   depends_on = [var.dependencies]
   provider   = vault.target
-  path       = "${local.vault_root}/datarepo-api-sa"
+  path       = "${local.vault_path}/datarepo-api-sa"
 
   data_json = <<EOT
 {

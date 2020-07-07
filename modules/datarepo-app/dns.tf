@@ -1,8 +1,15 @@
 # Global Ip, CNAME, A Record
 data google_dns_managed_zone dns_zone {
+  count = var.enable ? 1 : 0
+
   provider   = google-beta.datarepo-dns
   name       = var.dns_zone
   depends_on = [var.dependencies]
+}
+
+locals {
+  zone_gcp_name = var.enable ? data.google_dns_managed_zone.dns_zone[0].name : null
+  zone_dns_name = var.enable ? data.google_dns_managed_zone.dns_zone[0].dns_name : null
 }
 
 module datarepo_dns_names {
@@ -12,7 +19,7 @@ module datarepo_dns_names {
     google.dns = google-beta.datarepo-dns
   }
   dependencies  = var.dependencies
-  zone_gcp_name = data.google_dns_managed_zone.dns_zone.name
-  zone_dns_name = data.google_dns_managed_zone.dns_zone.dns_name
+  zone_gcp_name = local.zone_gcp_name
+  zone_dns_name = local.zone_dns_name
   dns_names     = var.dns_names
 }
