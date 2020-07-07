@@ -1,6 +1,6 @@
 
 module "cloudsql" {
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-postgres?ref=ms-postgres-fix"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-postgres?ref=cloudsql-postgres-1.1.4"
 
   enable       = var.enable
   dependencies = var.dependencies
