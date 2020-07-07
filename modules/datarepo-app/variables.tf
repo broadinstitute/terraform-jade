@@ -119,9 +119,14 @@ variable "environment" {
   type        = string
 }
 
+variable "vault_root" {
+  type = string
+  description = "Path in Vault where secrets should be stored"
+  default = "secret/dsde/datarepo"
+}
 
 locals {
-  vault_root = "secret/dsde/datarepo/${var.environment}"
+  vault_path = "${var.vault_root}/${var.environment}"
 }
 
 variable "private_network" {
@@ -144,7 +149,8 @@ variable "enable_workloadid" {
 
 variable "workloadid_names" {
   type        = list(string)
-  description = "List of DNS names to generate global IP addresses, A-records, and CNAME-records for."
+  description = "Workload identity names"
+  default     = []
 }
 
 variable "enable_private_services" {
