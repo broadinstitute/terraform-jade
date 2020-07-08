@@ -14,8 +14,8 @@ module datarepo_dns_names {
   }
 
   dependencies  = [data.google_dns_managed_zone.dns_zone]
-  zone_gcp_name = data.google_dns_managed_zone.dns_zone.name
-  zone_dns_name = data.google_dns_managed_zone.dns_zone.dns_name
+  zone_gcp_name = data.google_dns_managed_zone.dns_zone[0].name
+  zone_dns_name = data.google_dns_managed_zone.dns_zone[0].dns_name
   dns_names     = var.dns_names
 
 }
