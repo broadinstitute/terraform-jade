@@ -1,6 +1,6 @@
 # gcp networking, k8 cluster
 module "core-infrastructure" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/core-infrastructure?ref=ms-datarepomodule"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/core-infrastructure?ref=ch-tweaks"
 
   google_project  = var.google_project
   region          = var.region
@@ -18,7 +18,7 @@ module "core-infrastructure" {
 
 # dns ips, sql server and dbs
 module "datarepo-app" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/datarepo-app?ref=ms-datarepomodule"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/datarepo-app?ref=ch-tweaks"
 
   dependencies = [module.core-infrastructure]
 
@@ -41,7 +41,7 @@ module "datarepo-app" {
 
 # ips and dbs
 module "developer-space" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/multi-tenant?ref=ms-datarepomodule"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/multi-tenant?ref=ch-tweaks"
 
   dependencies = [module.datarepo-app]
 
