@@ -5,7 +5,7 @@ data google_dns_managed_zone dns_zone {
 }
 
 module datarepo_dns_names {
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/external-dns?ref=external-dns-0.0.3"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/external-dns?ref=ms-dns-fix"
   providers = {
     google.ip  = google-beta.target,
     google.dns = google-beta.datarepo-dns
