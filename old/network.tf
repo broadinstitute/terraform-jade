@@ -49,3 +49,10 @@ module "cloud-armor" {
     google.target = google-beta
   }
 }
+
+
+resource "google_compute_ssl_policy" "global-ssl-policy" {
+  name            = "global-ssl-policy"
+  profile         = "RESTRICTED"
+  min_tls_version = "TLS_1_2"
+}
