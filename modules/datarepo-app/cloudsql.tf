@@ -30,3 +30,17 @@ module "cloudsql" {
     }
   }
 }
+
+resource "vault_generic_secret" "sql_db_password" {
+  count = var.enable ? 1 : 0
+
+  depends_on = [var.dependencies]
+  provider   = vault.target
+  path       = "${local.vault_path}/datarepo-sql-db"
+
+  data_json = <<EOT
+{
+  "key": "${module.cloudsql.app_db_creds}"
+}
+EOT
+}
