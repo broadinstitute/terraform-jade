@@ -40,9 +40,9 @@ resource "vault_generic_secret" "sql_db_password" {
 
   data_json = <<EOT
 {
-  "datarepo_db_user": "${module.cloudsql.app_db_creds["${local.service}"].user}",
+  "datarepo_db_user": "${module.cloudsql.app_db_creds["${local.service}"].username}",
   "datarepo_db_pw": "${module.cloudsql.app_db_creds["${local.service}"].password}",
-  "stairway_db_user": "${module.cloudsql.app_db_creds["${local.service}-stairway"].user}",
+  "stairway_db_user": "${module.cloudsql.app_db_creds["${local.service}-stairway"].username}",
   "stairway_db_pw": "${module.cloudsql.app_db_creds["${local.service}-stairway"].password}"
 }
 EOT
