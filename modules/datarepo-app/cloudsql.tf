@@ -40,7 +40,7 @@ resource "vault_generic_secret" "sql_db_password" {
 
   data_json = <<EOT
 {
-  "key": "${module.cloudsql.app_db_creds["${local.service}-stairway"]}"
+  "key": "${module.cloudsql.app_db_creds["${local.service}-stairway"].password}"
 }
 EOT
 }
