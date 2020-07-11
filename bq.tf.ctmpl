@@ -25,6 +25,21 @@ FROM `${data.google_project.project.name}.${module.user-activity-sinks.dataset_i
 EOF
     use_legacy_sql = false
   }
+
+  view {
+    query          = <<EOF
+SELECT timestamp,
+  REGEXP_EXTRACT(textPayload, r"TimestampUTC: ([^,]+)") AS TimestampUTC,
+  REGEXP_EXTRACT(textPayload, r"JobId: ([^,]+)") AS JobId,
+  REGEXP_EXTRACT(textPayload, r"Class: ([^,]+)") AS Class,
+  REGEXP_EXTRACT(textPayload, r"Operation: ([^,]+)") AS Operation,
+  REGEXP_EXTRACT(textPayload, r"ElapsedTime: ([^,]+)") AS ElapsedTime,
+  REGEXP_EXTRACT(textPayload, r"IntegerCount: ([^,]+)") AS IntegerCount,
+  REGEXP_EXTRACT(textPayload, r"AdditionalInfo: ([^,]+)") AS AdditionalInfo
+FROM `${data.google_project.project.name}.${module.performance-log-sinks.dataset_id[0]}.stdout_*`;
+EOF
+    use_legacy_sql = false
+  }
 }
 
 {{ end }}
