@@ -79,8 +79,8 @@ module "performance-log-sinks" {
     google = google
   }
 
-  enable_pubsub    = var.user_activity_enable_pubsub
-  enable_bigquery  = var.user_activity_enable_bigquery
+  enable_pubsub    = var.performance_log_enable_pubsub
+  enable_bigquery  = var.performance_log_enable_bigquery
   owner            = "jade"
   application_name = "datarepo"
   log_filter       = "resource.type=\"k8s_container\" \"PerformanceLogger\""
