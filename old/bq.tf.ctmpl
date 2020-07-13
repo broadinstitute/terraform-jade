@@ -27,5 +27,29 @@ EOF
   }
 }
 
+resource "google_bigquery_table" "performance_logs" {
+  dataset_id = module.performance-log-sinks.dataset_id[0]
+  table_id   = "performance_logs"
+
+  labels = {
+    env = data.google_project.project.name
+  }
+
+  view {
+    query          = <<EOF
+SELECT timestamp,
+  REGEXP_EXTRACT(textPayload, r"TimestampUTC: ([^,]+)") AS TimestampUTC,
+  REGEXP_EXTRACT(textPayload, r"JobId: ([^,]+)") AS JobId,
+  REGEXP_EXTRACT(textPayload, r"Class: ([^,]+)") AS Class,
+  REGEXP_EXTRACT(textPayload, r"Operation: ([^,]+)") AS Operation,
+  REGEXP_EXTRACT(textPayload, r"ElapsedTime: ([^,]+)") AS ElapsedTime,
+  REGEXP_EXTRACT(textPayload, r"IntegerCount: ([^,]+)") AS IntegerCount,
+  REGEXP_EXTRACT(textPayload, r"AdditionalInfo: ([^,]+)") AS AdditionalInfo
+FROM `${data.google_project.project.name}.${module.performance-log-sinks.dataset_id[0]}.stdout_*`;
+EOF
+    use_legacy_sql = false
+  }
+}
+
 {{ end }}
 {{ end }}
