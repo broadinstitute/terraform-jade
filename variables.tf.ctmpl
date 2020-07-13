@@ -104,16 +104,6 @@ variable "user_activity_enable_bigquery" {
   default = "{{ .Data.user_activity_enable_bigquery }}"
 }
 
-variable "performance_log_enable_pubsub" {
-  type = number
-  default = "{{ .Data.performance_log_enable_pubsub }}"
-}
-
-variable "performance_log_enable_bigquery" {
-  type = number
-  default = "{{ .Data.performance_log_enable_bigquery }}"
-}
-
 locals {
   records = {
     jade-global-{{$suffix}} = {
