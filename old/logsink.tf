@@ -80,7 +80,6 @@ module "performance-log-sinks" {
     google-beta.target = google-beta
   }
 
-
   enable_pubsub    = 0
   enable_bigquery  = 1
   owner            = "jade"
