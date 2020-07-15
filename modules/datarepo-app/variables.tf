@@ -51,7 +51,9 @@ locals {
     "roles/servicemanagement.serviceController",
     "roles/stackdriver.accounts.viewer",
     "roles/storage.admin",
-    "roles/pubsub.admin"
+    "roles/pubsub.admin",
+    "roles/container.admin",
+    "roles/resourcemanager.projectIamAdmin"
   ]
 }
 
