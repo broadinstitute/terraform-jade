@@ -18,6 +18,7 @@ module "cloudsql" {
   private_enable            = var.enable_private_db
   private_network_self_link = var.private_network_self_link
   enable_private_services   = var.enable_private_services
+  existing_vpc_network      = var.existing_vpc_network
 
   app_dbs = {
     "${local.service}" = {

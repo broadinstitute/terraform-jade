@@ -91,6 +91,12 @@ locals {
   stairway_db_name = var.stairway_db_name == "" ? "${local.service}-stairway" : var.stairway_db_name
   stairway_db_user = var.db_user == "" ? "${local.service}-stairway" : var.db_user
 }
+
+variable "existing_vpc_network" {
+  type = string
+  default = null
+  description = "Name of the projects network that the NAT/VPC pairing sql ip will be put on."
+}
 ## new
 variable dns_zone {
   type        = string
