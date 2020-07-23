@@ -166,3 +166,9 @@ variable "enable_private_services" {
   description = "Enable flag for a private sql instance if set to true, a private sql isntance will be created."
   default = false
 }
+
+variable "ip_only" {
+  type        = bool
+  description = "Enable flag for this module. If set to false, no resources will be created."
+  default     = false
+}

@@ -1,6 +1,6 @@
 # Global Ip, CNAME, A Record
 data google_dns_managed_zone dns_zone {
-  count = var.enable ? 1 : 0
+  count      = var.dns_zone == "" ? 0 : 1
   provider   = google-beta.datarepo-dns
   name       = var.dns_zone
 }
@@ -15,4 +15,13 @@ module datarepo_dns_names {
   zone_gcp_name = data.google_dns_managed_zone.dns_zone[0].name
   zone_dns_name = data.google_dns_managed_zone.dns_zone[0].dns_name
   dns_names     = var.dns_names
+}
+
+## ip only for terra
+resource google_compute_global_address global_ip_address {
+  count = var.ip_only == true ? 1 : 0
+
+  provider = vault.target
+  name = "${var.terra_dns_names}-ip"
+  depends_on = [var.dependencies]
 }
