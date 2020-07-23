@@ -22,6 +22,6 @@ resource google_compute_global_address global_ip_address {
   count = var.ip_only == true ? 1 : 0
 
   provider = vault.target
-  name = "${var.terra_dns_names}-ip"
+  name = "${var.environment}-ip"
   depends_on = [var.dependencies]
 }
