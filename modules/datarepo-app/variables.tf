@@ -107,7 +107,7 @@ variable dns_zone {
 variable dns_names {
   type        = list(string)
   description = "List of DNS names to generate global IP addresses, A-records, and CNAME-records for."
-  default     = null
+  default     = [""]
 }
 
 variable "db_version" {

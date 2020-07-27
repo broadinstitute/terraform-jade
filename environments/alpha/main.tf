@@ -62,6 +62,7 @@ module "datarepo-app" {
   providers = {
     google.target            = google
     google-beta.target       = google-beta
+    google-beta.datarepo-dns = google-beta
     vault.target             = vault.broad
   }
 }
