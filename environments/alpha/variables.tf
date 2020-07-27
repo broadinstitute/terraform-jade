@@ -2,7 +2,7 @@
 variable "google_project" {
   type        = string
   description = "The google project being deployed to"
-  default     = "broad-datarepo-terra-alpha"
+  default     = "terra-jade-alpha"
 }
 
 variable "k8_network_name" {
