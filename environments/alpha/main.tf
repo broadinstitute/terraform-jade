@@ -55,6 +55,7 @@ module "datarepo-app" {
   environment               = var.environment
   workloadid_names          = local.workloadid_names
   enable_private_services   = var.enable_private_services
+  dns_name                  = var.dns_name
   private_network_self_link = module.core-infrastructure.network-self-link
   ip_only                   = var.ip_only
 

@@ -9,7 +9,7 @@ data google_dns_managed_zone dns_zone {
 resource google_compute_global_address global_ip_address {
   count    = var.ip_only ? 1 : 0
   provider = google.target
-  name = "${each.value}-ip"
+  name = "${var.dns_name}-ip"
   depends_on = [var.dependencies]
 }
 
@@ -20,8 +20,8 @@ resource google_dns_record_set a_dns {
   ttl = "300"
 
   managed_zone = var.zone_gcp_name
-  name = "${each.value}-global.${var.zone_dns_name}"
-  rrdatas = [google_compute_global_address.global_ip_address[each.value].address]
+  name = "${var.dns_name}-global.${data.google_dns_managed_zone.dns_zone.dns_name}"
+  rrdatas = [google_compute_global_address.global_ip_address[0].address]
   depends_on = [var.dependencies,data.google_dns_managed_zone.dns_zone]
 }
 
@@ -32,7 +32,7 @@ resource google_dns_record_set cname_dns {
   ttl = "300"
 
   managed_zone = var.zone_gcp_name
-  name = "${each.value}.${var.zone_dns_name}"
-  rrdatas = [google_dns_record_set.a_dns[each.value].name]
+  name = "${var.dns_name}.${data.google_dns_managed_zone.dns_zone.dns_name}"
+  rrdatas = [google_dns_record_set.a_dns[0].name]
   depends_on = [var.dependencies,data.google_dns_managed_zone.dns_zone]
 }

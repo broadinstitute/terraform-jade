@@ -46,10 +46,10 @@ variable "version_prefix" {
 
 ## datarepo-app vars
 
-variable dns_names {
-  type        = list(string)
+variable dns_name {
+  type        = string
   description = "List of DNS names to generate global IP addresses, A-records, and CNAME-records for."
-  default     = ["data"]
+  default     = "data"
 }
 
 variable "db_version" {
