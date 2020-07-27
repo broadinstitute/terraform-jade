@@ -36,7 +36,6 @@ module "core-infrastructure" {
   node_count      = var.node_count
   machine_type    = var.machine_type
   version_prefix  = var.version_prefix
-  dns_zone_name   = var.dns_zone
 
 
   providers = {
