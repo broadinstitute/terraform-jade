@@ -2,7 +2,7 @@
 variable "google_project" {
   type        = string
   description = "The google project being deployed to"
-  default     = "broad-datarepo-terra-staging"
+  default     = "terra-datarepo-staging"
 }
 
 variable "k8_network_name" {
@@ -32,12 +32,6 @@ variable "region" {
   default     = "us-central1"
 }
 
-variable "dns_project" {
-  type = string
-  default = "broad-dsde-staging"
-  description = "The Google project name where dns zone is"
-}
-
 variable "version_prefix" {
   type        = string
   default     = "1.16.12-gke.3"
@@ -46,10 +40,10 @@ variable "version_prefix" {
 
 ## datarepo-app vars
 
-variable dns_names {
-  type        = list(string)
+variable dns_name {
+  type        = string
   description = "List of DNS names to generate global IP addresses, A-records, and CNAME-records for."
-  default     = ["data"]
+  default     = "data"
 }
 
 variable "db_version" {
@@ -64,20 +58,14 @@ variable "environment" {
   default     = "staging"
 }
 
-variable "dns_zone" {
-  type        = string
-  description = "global DNS zone to be deployed"
-  default     = "datarepo-staging"
-}
-
 locals {
   workloadid_names = [var.environment]
 }
 
 variable "enable_private_services" {
-  type = bool
+  type        = bool
   description = "Enable flag for a private sql instance if set to true, a private sql isntance will be created."
-  default = true
+  default     = true
 }
 
 variable "ip_only" {

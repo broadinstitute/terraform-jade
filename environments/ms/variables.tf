@@ -96,7 +96,7 @@ variable "developer_dbs" {
 }
 
 variable "enable_private_services" {
-  type = bool
+  type        = bool
   description = "Enable flag for a private sql instance if set to true, a private sql isntance will be created."
-  default = true
+  default     = true
 }

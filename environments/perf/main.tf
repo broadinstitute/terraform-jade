@@ -47,18 +47,18 @@ module "core-infrastructure" {
 
 # dns ips, sql server and dbs
 module "datarepo-app" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/datarepo-app?ref=datarepo-modules-0.0.1"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/datarepo-app?ref=ms-stage-prod"
 
   dependencies = [module.core-infrastructure]
 
   google_project            = var.google_project
-  dns_zone                  = var.dns_zone
-  dns_names                 = var.dns_names
+  dns_name                  = var.dns_name
   db_version                = var.db_version
   environment               = var.environment
   workloadid_names          = local.workloadid_names
   enable_private_services   = var.enable_private_services
   private_network_self_link = module.core-infrastructure.network-self-link
+  dns_zone                  = var.dns_zone
 
   providers = {
     google.target            = google
