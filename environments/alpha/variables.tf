@@ -64,12 +64,6 @@ variable "environment" {
   default     = "alpha"
 }
 
-variable "dns_zone" {
-  type        = string
-  description = "global DNS zone to be deployed"
-  default     = "datarepo-alpha"
-}
-
 locals {
   workloadid_names = [var.environment]
 }
