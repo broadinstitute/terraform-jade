@@ -3,8 +3,8 @@
 */
 terraform {
   backend "gcs" {
-    bucket = "terra-datarepo-alpha"
-    path = "jade/tf-statefile"
+    bucket      = "terra-datarepo-alpha"
+    path        = "jade/tf-statefile"
     credentials = "env_svc.json"
   }
 }

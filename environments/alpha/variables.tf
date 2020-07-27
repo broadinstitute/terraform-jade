@@ -32,12 +32,6 @@ variable "region" {
   default     = "us-central1"
 }
 
-variable "dns_project" {
-  type = string
-  default = "broad-dsde-alpha"
-  description = "The Google project name where dns zone is"
-}
-
 variable "version_prefix" {
   type        = string
   default     = "1.16.12-gke.3"
@@ -69,9 +63,9 @@ locals {
 }
 
 variable "enable_private_services" {
-  type = bool
+  type        = bool
   description = "Enable flag for a private sql instance if set to true, a private sql isntance will be created."
-  default = true
+  default     = true
 }
 
 variable "ip_only" {
