@@ -1,6 +1,6 @@
 # workload identity GSA to KSA binding, this is a 1:1 so 1 GSA to KSA
 module workloadid {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/workloadidentity?ref=ms-datarepomodule"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/workloadidentity?ref=datarepo-modules-0.0.1"
   providers = {
     google.target      = google.target
     google-beta.target = google-beta.target
