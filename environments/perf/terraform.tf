@@ -3,8 +3,8 @@
 */
 terraform {
   backend "gcs" {
-    bucket = "broad-jade-perf"
-    path = "jade/tf-statefile"
+    bucket      = "broad-jade-perf"
+    path        = "jade/tf-statefile"
     credentials = "env_svc.json"
   }
 }
@@ -26,7 +26,7 @@ provider "google-beta" {
 provider "google-beta" {
   alias       = "dns"
   credentials = file("env_svc.json")
-  project     = var.dns_project
+  project     = var.google_project
   region      = var.region
   version     = "~> 3.30.0"
 }

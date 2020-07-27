@@ -32,12 +32,6 @@ variable "region" {
   default     = "us-central1"
 }
 
-variable "dns_project" {
-  type = string
-  default = "broad-jade-perf"
-  description = "The Google project name where dns zone is"
-}
-
 variable "version_prefix" {
   type        = string
   default     = "1.16.8-gke.15"
@@ -46,10 +40,10 @@ variable "version_prefix" {
 
 ## datarepo-app vars
 
-variable dns_names {
-  type        = list(string)
+variable dns_name {
+  type        = string
   description = "List of DNS names to generate global IP addresses, A-records, and CNAME-records for."
-  default     = ["jade-perf"]
+  default     = "jade-perf"
 }
 
 variable "db_version" {
@@ -75,7 +69,7 @@ locals {
 }
 
 variable "enable_private_services" {
-  type = bool
+  type        = bool
   description = "Enable flag for a private sql instance if set to true, a private sql isntance will be created."
-  default = true
+  default     = true
 }
