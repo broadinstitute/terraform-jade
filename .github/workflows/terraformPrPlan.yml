@@ -13,10 +13,10 @@ jobs:
     name: "${{ matrix.environment }} Terraform Plan"
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout'
+      - name: "${{ matrix.environment }} Checkout"
         uses: actions/checkout@master
 
-      - name: 'Terraform Format'
+      - name: "${{ matrix.environment }} Terraform Format"
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
           tf_actions_version: ${{ env.terraform_version }}
@@ -25,7 +25,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: set VAULT_TOKEN
+      - name: "${{ matrix.environment }} set VAULT_TOKEN"
         id: token
         run: |
           VAULT_TOKEN=$(curl \
@@ -40,14 +40,14 @@ jobs:
           SECRET_ID: ${{ secrets.SECRET_ID }}
           VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
 
-      - name: consul-template render templates for terraform
+      - name: "${{ matrix.environment }} consul-template render templates for terraform"
         uses: broadinstitute/github-action-consul-template@master
         with:
           vault-address: ${{ secrets.VAULT_ADDR }}
           vault-token: ${{ steps.token.outputs.vault_token }}
           environment: ${{ matrix.environment }}
 
-      - name: 'Terraform Init'
+      - name: "${{ matrix.environment }} Terraform Init"
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
           tf_actions_version: ${{ env.terraform_version }}
@@ -56,7 +56,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 'Terraform Validate'
+      - name: "${{ matrix.environment }} Terraform Validate"
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
           tf_actions_version: ${{ env.terraform_version }}
@@ -65,7 +65,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 'Terraform Plan'
+      - name: "${{ matrix.environment }} Terraform Plan"
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
           tf_actions_version: ${{ env.terraform_version }}
