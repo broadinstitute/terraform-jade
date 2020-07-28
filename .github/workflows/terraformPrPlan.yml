@@ -8,9 +8,9 @@ jobs:
   terraform_plan:
     strategy:
       matrix:
-        environment: [perf, staging]
+        environment: [alpha, perf, staging]
     if: "!contains( github.event.pull_request.labels.*.name, 'skip-ci')"
-    name: 'Terraform'
+    name: "${{ matrix.environment }} Terraform Plan"
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
