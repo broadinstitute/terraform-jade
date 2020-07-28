@@ -1,6 +1,6 @@
 name: 'Terraform format and Plans'
 env:
-  terraform_directory: "environment"
+  terraform_directory: "environments"
   terraform_version: "0.12.29"
 on:
   - pull_request
