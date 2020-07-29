@@ -1,4 +1,4 @@
-name: 'Terraform format and Plans'
+name: 'Terraform Plan'
 env:
   terraform_directory: "environments"
   terraform_version: "0.12.29"
