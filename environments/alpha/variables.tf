@@ -2,17 +2,17 @@
 variable "google_project" {
   type        = string
   description = "The google project being deployed to"
-  default     = "broad-jade-perf"
+  default     = "terra-datarepo-alpha"
 }
 
 variable "k8_network_name" {
-  default     = "perf-network"
+  default     = "alpha-network"
   description = "core network name to be deployed and put k8 cluster on"
 }
 
 variable "k8_subnet_name" {
   description = "name of the subnet within the networking being deployed"
-  default     = "perf-subnet"
+  default     = "alpha-subnet"
 }
 
 variable "node_count" {
@@ -43,7 +43,7 @@ variable "version_prefix" {
 variable dns_name {
   type        = string
   description = "List of DNS names to generate global IP addresses, A-records, and CNAME-records for."
-  default     = "jade-perf"
+  default     = "data"
 }
 
 variable "db_version" {
@@ -55,13 +55,7 @@ variable "db_version" {
 variable "environment" {
   type        = string
   description = "environment being deployed"
-  default     = "perf"
-}
-
-variable "dns_zone" {
-  type        = string
-  description = "global DNS zone to be deployed"
-  default     = "datarepo-perf"
+  default     = "alpha"
 }
 
 locals {
@@ -71,5 +65,11 @@ locals {
 variable "enable_private_services" {
   type        = bool
   description = "Enable flag for a private sql instance if set to true, a private sql isntance will be created."
+  default     = true
+}
+
+variable "ip_only" {
+  type        = bool
+  description = "Enable flag for only create a global static ip vs ip and dns"
   default     = true
 }

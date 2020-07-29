@@ -36,7 +36,6 @@ module "core-infrastructure" {
   node_count      = var.node_count
   machine_type    = var.machine_type
   version_prefix  = var.version_prefix
-  dns_zone_name   = var.dns_zone
 
 
   providers = {
@@ -52,18 +51,18 @@ module "datarepo-app" {
   dependencies = [module.core-infrastructure]
 
   google_project            = var.google_project
-  dns_name                  = var.dns_name
   db_version                = var.db_version
   environment               = var.environment
   workloadid_names          = local.workloadid_names
   enable_private_services   = var.enable_private_services
+  dns_name                  = var.dns_name
   private_network_self_link = module.core-infrastructure.network-self-link
-  dns_zone                  = var.dns_zone
+  ip_only                   = var.ip_only
 
   providers = {
     google.target            = google
     google-beta.target       = google-beta
-    google-beta.datarepo-dns = google-beta.dns
+    google-beta.datarepo-dns = google-beta
     vault.target             = vault.broad
   }
 }

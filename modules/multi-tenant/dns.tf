@@ -1,6 +1,6 @@
 # Global Ip, CNAME, A Record
 data google_dns_managed_zone dns_zone {
-  count = var.enable ? 1 : 0
+  count    = var.enable ? 1 : 0
   provider = google-beta.datarepo-dns
   name     = var.dns_zone
 }

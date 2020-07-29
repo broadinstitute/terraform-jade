@@ -93,8 +93,8 @@ locals {
 }
 
 variable "existing_vpc_network" {
-  type = string
-  default = null
+  type        = string
+  default     = null
   description = "Name of the projects network that the NAT/VPC pairing sql ip will be put on."
 }
 ## new
@@ -104,9 +104,10 @@ variable dns_zone {
   description = "The name of managed dns zone to put cname and a record in"
 }
 
-variable dns_names {
-  type        = list(string)
+variable dns_name {
+  type        = string
   description = "List of DNS names to generate global IP addresses, A-records, and CNAME-records for."
+  default     = ""
 }
 
 variable "db_version" {
@@ -128,9 +129,9 @@ variable "environment" {
 }
 
 variable "vault_root" {
-  type = string
+  type        = string
   description = "Path in Vault where secrets should be stored"
-  default = "secret/dsde/datarepo"
+  default     = "secret/dsde/datarepo"
 }
 
 locals {
@@ -162,7 +163,13 @@ variable "workloadid_names" {
 }
 
 variable "enable_private_services" {
-  type = bool
+  type        = bool
   description = "Enable flag for a private sql instance if set to true, a private sql isntance will be created."
-  default = false
+  default     = false
+}
+
+variable "ip_only" {
+  type        = bool
+  description = "Enable flag for this module. If set to false, no resources will be created."
+  default     = false
 }
