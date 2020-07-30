@@ -25,7 +25,7 @@ module "enable-services" {
 
 # gcp networking, k8 cluster
 module "core-infrastructure" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/core-infrastructure?ref=datarepo-modules-0.0.1"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/core-infrastructure?ref=datarepo-modules-0.0.3"
 
   dependencies = [module.enable-services]
 
@@ -36,7 +36,7 @@ module "core-infrastructure" {
   node_count      = var.node_count
   machine_type    = var.machine_type
   version_prefix  = var.version_prefix
-
+  argocd_cidrs    = var.argocd_cidrs
 
   providers = {
     google.target      = google

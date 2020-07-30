@@ -148,3 +148,13 @@ variable "broad_range_cidrs" {
     "69.173.124.0/23"
   ]
 }
+
+variable "argocd_cidrs" {
+  description = "argocd broad external ips to be added to the master auth network"
+  type        = list
+  default     = []
+}
+
+locals {
+  broad_range_cidrs = var.argocd_cidrs != "" ? concat(var.broad_range_cidrs, var.argocd_cidrs) : var.broad_range_cidrs
+}
