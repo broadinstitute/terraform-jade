@@ -73,3 +73,9 @@ variable "ip_only" {
   description = "Enable flag for only create a global static ip vs ip and dns"
   default     = true
 }
+
+variable "argocd_cidrs" {
+  type    = list
+  description = "argocd broad external ips to be added to the master auth network"
+  default = ["34.68.105.207/32","35.184.212.129/32"]
+}
