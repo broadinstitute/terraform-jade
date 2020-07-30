@@ -75,7 +75,7 @@ variable "ip_only" {
 }
 
 variable "argocd_cidrs" {
-  type    = list
+  type        = list
   description = "argocd broad external ips to be added to the master auth network"
-  default = ["34.68.105.207/32","35.184.212.129/32"]
+  default     = ["34.68.105.207/32", "35.184.212.129/32"]
 }
