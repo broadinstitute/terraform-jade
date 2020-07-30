@@ -36,7 +36,7 @@ module "core-infrastructure" {
   node_count      = var.node_count
   machine_type    = var.machine_type
   version_prefix  = var.version_prefix
-
+  argocd_cidrs    = var.argocd_cidrs
 
   providers = {
     google.target      = google

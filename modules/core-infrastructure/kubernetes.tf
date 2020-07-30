@@ -9,7 +9,7 @@ module "k8s-master" {
   release_channel          = var.gke_release_channel
   network                  = var.k8_network_name
   subnetwork               = var.k8_subnet_name
-  authorized_network_cidrs = var.broad_range_cidrs
+  authorized_network_cidrs = local.broad_range_cidrs
   ip_allocation_policy = {
     cluster_secondary_range_name  = "pods"
     services_secondary_range_name = "services"
