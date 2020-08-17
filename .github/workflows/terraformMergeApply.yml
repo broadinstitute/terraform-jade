@@ -58,7 +58,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: "${{ matrix.environment }}Terraform Validate"
+      - name: "${{ matrix.environment }} Terraform Validate"
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
           tf_actions_version: ${{ env.terraform_version }}
