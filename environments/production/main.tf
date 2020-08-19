@@ -29,15 +29,15 @@ module "core-infrastructure" {
 
   dependencies = [module.enable-services]
 
-  google_project    = var.google_project
-  region            = var.region
-  k8_network_name   = var.k8_network_name
-  k8_subnet_name    = var.k8_subnet_name
-  node_count        = var.node_count
-  machine_type      = var.machine_type
-  version_prefix    = var.version_prefix
-  argocd_cidrs      = var.argocd_cidrs
-  enable_flow_logs  = var.enable_flow_logs
+  google_project   = var.google_project
+  region           = var.region
+  k8_network_name  = var.k8_network_name
+  k8_subnet_name   = var.k8_subnet_name
+  node_count       = var.node_count
+  machine_type     = var.machine_type
+  version_prefix   = var.version_prefix
+  argocd_cidrs     = var.argocd_cidrs
+  enable_flow_logs = var.enable_flow_logs
 
   providers = {
     google.target      = google
@@ -74,11 +74,11 @@ module "datarepo-monitoring" {
 
   dependencies = [module.datarepo-app]
 
-  google_project            = var.google_project
-  environment               = var.environment
+  google_project = var.google_project
+  environment    = var.environment
 
   providers = {
-    google.target            = google
-    google-beta.target       = google-beta
+    google.target      = google
+    google-beta.target = google-beta
   }
 }
