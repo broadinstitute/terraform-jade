@@ -2,23 +2,23 @@
 variable "google_project" {
   type        = string
   description = "The google project being deployed to"
-  default     = "terra-datarepo-prod"
+  default     = "terra-datarepo-production"
 }
 
 variable "k8_network_name" {
-  default     = "prod-network"
+  default     = "production-network"
   description = "core network name to be deployed and put k8 cluster on"
 }
 
 variable "k8_subnet_name" {
   description = "name of the subnet within the networking being deployed"
-  default     = "prod-subnet"
+  default     = "production-subnet"
 }
 
 variable "node_count" {
   type        = number
   description = "number of kubernetes nodes depends on if region is us-central1 1 will deploy 3 and us-central1-a 3 will deploy 3"
-  default     = "1"
+  default     = "2"
 }
 
 variable "machine_type" {
@@ -55,7 +55,7 @@ variable "db_version" {
 variable "environment" {
   type        = string
   description = "environment being deployed"
-  default     = "prod"
+  default     = "production"
 }
 
 locals {
@@ -72,4 +72,16 @@ variable "ip_only" {
   type        = bool
   description = "Enable flag for only create a global static ip vs ip and dns"
   default     = true
+}
+
+variable "argocd_cidrs" {
+  type        = list
+  description = "argocd broad external ips to be added to the master auth network"
+  default     = ["34.68.105.207/32", "35.184.212.129/32"]
+}
+
+variable "enable_flow_logs" {
+  type        = bool
+  default     = true
+  description = "flag for enabling flowlog"
 }

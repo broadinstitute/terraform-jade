@@ -25,18 +25,19 @@ module "enable-services" {
 
 # gcp networking, k8 cluster
 module "core-infrastructure" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/core-infrastructure?ref=datarepo-modules-0.0.1"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/core-infrastructure?ref=datarepo-modules-0.0.3"
 
   dependencies = [module.enable-services]
 
-  google_project  = var.google_project
-  region          = var.region
-  k8_network_name = var.k8_network_name
-  k8_subnet_name  = var.k8_subnet_name
-  node_count      = var.node_count
-  machine_type    = var.machine_type
-  version_prefix  = var.version_prefix
-
+  google_project   = var.google_project
+  region           = var.region
+  k8_network_name  = var.k8_network_name
+  k8_subnet_name   = var.k8_subnet_name
+  node_count       = var.node_count
+  machine_type     = var.machine_type
+  version_prefix   = var.version_prefix
+  argocd_cidrs     = var.argocd_cidrs
+  enable_flow_logs = var.enable_flow_logs
 
   providers = {
     google.target      = google
@@ -64,5 +65,20 @@ module "datarepo-app" {
     google-beta.target       = google-beta
     google-beta.datarepo-dns = google-beta
     vault.target             = vault.broad
+  }
+}
+
+# monitoring audit and proformance logs to bq and gcs bucket
+module "datarepo-monitoring" {
+  source = "github.com/broadinstitute/terraform-jade.git//modules/production-monitoring?ref=datarepo-modules-0.0.4"
+
+  dependencies = [module.datarepo-app]
+
+  google_project = var.google_project
+  environment    = var.environment
+
+  providers = {
+    google.target      = google
+    google-beta.target = google-beta
   }
 }
