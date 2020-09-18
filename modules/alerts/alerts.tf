@@ -1,23 +1,29 @@
 module "uptimecheck" {
-  source  = "kenju/monitoring-uptimecheck/google"
-  version = "0.1.1"
-  project = var.google_project
-  host    = var.host
-  path    = var.path
+  source       = "github.com/broadinstitute/terraform-google-monitoring-uptimecheck.git?ms-edits"
+  enable       = var.enable
+  dependencies = var.dependencies
+  project      = var.google_project
+  host         = var.host
+  path         = var.path
   notification_channels = [
     google_monitoring_notification_channel.notification_channel.id,
   ]
 }
 
 data "vault_generic_secret" "slack_token" {
-  path = var.token_secret_path
+  count    = var.enable ? 1 : 0
+  provider = vault.target
+  path     = var.token_secret_path
 }
 
 resource "google_monitoring_notification_channel" "notification_channel" {
+  count        = var.enable ? 1 : 0
+  provider     = vault.google-beta
   display_name = var.environment
   type         = "slack"
   labels = {
     "channel_name" = var.slackchannel
     "auth_token"   = data.vault_generic_secret.slack_token.data["key"]
   }
+  depends_on = [var.dependencies]
 }
