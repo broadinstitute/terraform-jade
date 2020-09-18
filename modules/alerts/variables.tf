@@ -8,7 +8,7 @@ variable "dependencies" {
 variable "enable" {
   type        = bool
   description = "Enable flag for this module. If set to false, no resources will be created."
-  default     = false
+  default     = true
 }
 
 variable "environment" {
