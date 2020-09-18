@@ -91,7 +91,8 @@ variable "developer_dbs" {
     "my",
     "jh",
     "dd",
-    "sh"
+    "sh",
+    "nm"
   ]
 }
 
