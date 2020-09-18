@@ -78,7 +78,8 @@ variable "developer_dns" {
     "jade-my",
     "jade-jh",
     "jade-dd",
-    "jade-sh"
+    "jade-sh",
+    "jade-nm"
   ]
 }
 
@@ -93,6 +94,7 @@ variable "developer_dbs" {
     "my",
     "jh",
     "dd",
-    "sh"
+    "sh",
+    "nm"
   ]
 }
