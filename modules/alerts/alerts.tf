@@ -14,7 +14,6 @@ module "uptimecheck" {
 }
 
 data "vault_generic_secret" "slack_token" {
-  count      = var.enable ? 1 : 0
   provider   = vault.target
   path       = var.token_secret_path
   depends_on = [var.dependencies]
