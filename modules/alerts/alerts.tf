@@ -1,5 +1,5 @@
 module "uptimecheck" {
-  source       = "github.com/broadinstitute/terraform-google-monitoring-uptimecheck.git?ms-edits"
+  source       = "github.com/broadinstitute/terraform-google-monitoring-uptimecheck?ref=ms-edits"
   enable       = var.enable
   dependencies = var.dependencies
   project      = var.google_project
