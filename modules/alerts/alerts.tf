@@ -2,6 +2,9 @@ module "uptimecheck" {
   source       = "github.com/broadinstitute/terraform-google-monitoring-uptimecheck?ref=ms-edits"
   enable       = var.enable
   dependencies = var.dependencies
+  providers = {
+    google.target = google-beta.target
+  }
   project      = var.google_project
   host         = var.host
   path         = var.path
