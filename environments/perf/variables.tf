@@ -73,3 +73,9 @@ variable "enable_private_services" {
   description = "Enable flag for a private sql instance if set to true, a private sql isntance will be created."
   default     = true
 }
+
+variable "argocd_cidrs" {
+  type        = list
+  description = "argocd broad external ips to be added to the master auth network"
+  default     = ["35.202.125.180/32", "34.70.76.7/32"]
+}

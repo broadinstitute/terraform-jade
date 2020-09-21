@@ -37,6 +37,7 @@ module "core-infrastructure" {
   machine_type    = var.machine_type
   version_prefix  = var.version_prefix
   dns_zone_name   = var.dns_zone
+  argocd_cidrs    = var.argocd_cidrs
 
 
   providers = {
