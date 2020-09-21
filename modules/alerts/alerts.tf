@@ -9,7 +9,7 @@ module "uptimecheck" {
   host         = var.host
   path         = var.path
   notification_channels = [
-    google_monitoring_notification_channel.notification_channel.id,
+    google_monitoring_notification_channel.notification_channel[0].id,
   ]
 }
 
