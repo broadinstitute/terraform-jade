@@ -82,3 +82,21 @@ module "datarepo-monitoring" {
     google-beta.target = google-beta
   }
 }
+
+# alerts
+module "datarepo-alerts" {
+  source = "github.com/broadinstitute/terraform-jade.git//modules/alerts?ref=ms-alerts"
+
+  dependencies = [module.datarepo-app]
+
+  google_project = var.google_project
+  environment    = var.environment
+  host           = var.host
+  path           = "/"
+  token_secret_path = var.token_secret_path
+  providers = {
+    google.target      = google
+    google-beta.target = google-beta
+    vault.target       = vault.broad
+  }
+}
