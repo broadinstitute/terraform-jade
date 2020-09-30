@@ -3,7 +3,8 @@ module "uptimecheck" {
   enable       = var.enable
   dependencies = var.dependencies
   providers = {
-    google.target = google-beta.target
+    google.target = google.target
+    google-beta.target = google-beta.target
   }
   project      = var.google_project
   host         = var.host
