@@ -31,3 +31,15 @@ resource "google_monitoring_notification_channel" "notification_channel" {
   }
   depends_on = [var.dependencies]
 }
+
+module "k8s-cluster-alerts" {
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/stackdriver/k8s-cluster-monitoring?ref=stackdriver-0.1.0-tf-0.12"
+  providers = {
+    google.target = google.target
+  }
+
+  project = "var.google_project"
+  notification_channels = [
+    google_monitoring_notification_channel.notification_channel[0].id
+  ]
+}
