@@ -38,7 +38,7 @@ module "k8s-cluster-alerts" {
     google.target = google.target
   }
 
-  project = "var.google_project"
+  project = var.google_project
   notification_channels = [
     google_monitoring_notification_channel.notification_channel[0].id
   ]
