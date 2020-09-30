@@ -10,7 +10,7 @@ jobs:
   terraform_apply:
     strategy:
       matrix:
-        environment: [alpha, perf, staging]
+        environment: [alpha, perf, staging, production]
     if: "!contains( github.event.pull_request.labels.*.name, 'skip-ci')"
     name: '${{ matrix.environment }} Terraform Apply'
     runs-on: ubuntu-latest
