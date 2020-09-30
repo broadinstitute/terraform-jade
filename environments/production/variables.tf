@@ -85,3 +85,15 @@ variable "enable_flow_logs" {
   default     = true
   description = "flag for enabling flowlog"
 }
+
+variable "token_secret_path" {
+  type        = string
+  description = "The vault path for the slack token"
+  default     = "secret/suitable/terraform/stackdriver/slack-token"
+}
+
+variable "host" {
+  type        = string
+  description = "The host end point on the internet"
+  default     = "data.terra.bio"
+}

@@ -79,3 +79,15 @@ variable "argocd_cidrs" {
   description = "argocd broad external ips to be added to the master auth network"
   default     = ["34.68.105.207/32", "35.184.212.129/32"]
 }
+
+variable "token_secret_path" {
+  type        = string
+  description = "The vault path for the slack token"
+  default     = "secret/suitable/terraform/stackdriver/slack-token"
+}
+
+variable "host" {
+  type        = string
+  description = "The host end point on the internet"
+  default     = "data.staging.envs-terra.bio"
+}
