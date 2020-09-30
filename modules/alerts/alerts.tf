@@ -3,12 +3,12 @@ module "uptimecheck" {
   enable       = var.enable
   dependencies = var.dependencies
   providers = {
-    google.target = google.target
+    google.target      = google.target
     google-beta.target = google-beta.target
   }
-  project      = var.google_project
-  host         = var.host
-  path         = var.path
+  project = var.google_project
+  host    = var.host
+  path    = var.path
   notification_channels = [
     google_monitoring_notification_channel.notification_channel[0].id,
   ]

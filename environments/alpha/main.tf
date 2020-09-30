@@ -73,10 +73,10 @@ module "datarepo-alerts" {
 
   dependencies = [module.datarepo-app]
 
-  google_project = var.google_project
-  environment    = var.environment
-  host           = var.host
-  path           = "/"
+  google_project    = var.google_project
+  environment       = var.environment
+  host              = var.host
+  path              = "/"
   token_secret_path = var.token_secret_path
   providers = {
     google.target      = google
