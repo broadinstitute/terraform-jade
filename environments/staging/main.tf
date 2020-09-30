@@ -70,7 +70,7 @@ module "datarepo-app" {
 
 # alerts
 module "datarepo-alerts" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/alerts?ref=ms-alerts"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/alerts?ref=datarepo-modules-0.0.3"
 
   dependencies = [module.datarepo-app]
 
