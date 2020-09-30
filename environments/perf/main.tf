@@ -25,7 +25,7 @@ module "enable-services" {
 
 # gcp networking, k8 cluster
 module "core-infrastructure" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/core-infrastructure?ref=datarepo-modules-0.0.3"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/core-infrastructure?ref=datarepo-modules-0.0.5"
 
   dependencies = [module.enable-services]
 
@@ -48,7 +48,7 @@ module "core-infrastructure" {
 
 # dns ips, sql server and dbs
 module "datarepo-app" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/datarepo-app?ref=datarepo-modules-0.0.2"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/datarepo-app?ref=datarepo-modules-0.0.5"
 
   dependencies = [module.core-infrastructure]
 
@@ -66,5 +66,22 @@ module "datarepo-app" {
     google-beta.target       = google-beta
     google-beta.datarepo-dns = google-beta.dns
     vault.target             = vault.broad
+  }
+}
+# alerts
+module "datarepo-alerts" {
+  source = "github.com/broadinstitute/terraform-jade.git//modules/alerts?ref=datarepo-modules-0.0.5"
+
+  dependencies = [module.datarepo-app]
+
+  google_project    = var.google_project
+  environment       = var.environment
+  host              = var.host
+  path              = "/"
+  token_secret_path = var.token_secret_path
+  providers = {
+    google.target      = google
+    google-beta.target = google-beta
+    vault.target       = vault.broad
   }
 }
