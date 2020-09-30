@@ -33,7 +33,7 @@ resource "google_monitoring_notification_channel" "notification_channel" {
 }
 
 module "k8s-cluster-alerts" {
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/stackdriver/k8s-cluster-monitoring?ref=ms-no-prometheus"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/stackdriver/k8s-cluster-monitoring?ref=stackdriver-0.1.1-tf-0.12"
   providers = {
     google.target = google.target
   }
