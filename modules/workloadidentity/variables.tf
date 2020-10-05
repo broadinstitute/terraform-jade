@@ -19,7 +19,22 @@ variable "google_project" {
   description = "The google project"
 }
 
-variable "workloadid_names" {
+variable "namespace" {
+  type        = string
+  description = "kubernetes namespace"
+}
+
+variable "gsa_name" {
+  type        = string
+  description = "google service account for workloadid binding"
+}
+
+variable "ksa_name" {
+  type        = string
+  description = "kubernetes service account for workloadid binding"
+}
+
+variable "roles" {
   type        = list(string)
-  description = "List of DB names to generate"
+  description = "List of google roles to apply to service account"
 }

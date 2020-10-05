@@ -71,7 +71,7 @@ module "datarepo-app" {
 
 # alerts
 module "datarepo-alerts" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/alerts?ref=datarepo-modules-0.0.5"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/alerts?ref=ms-prometheus"
 
   dependencies = [module.datarepo-app]
 
@@ -80,9 +80,16 @@ module "datarepo-alerts" {
   host              = var.host
   path              = "/"
   token_secret_path = var.token_secret_path
+  roles             = var.roles
+  gsa_name          = var.gsa_name
+  ksa_name          = var.ksa_name
+  namespace         = var.namespace
+  ip_only           = var.ip_only
+
   providers = {
-    google.target      = google
-    google-beta.target = google-beta
-    vault.target       = vault.broad
+    google.target            = google
+    google-beta.target       = google-beta
+    vault.target             = vault.broad
+    google-beta.datarepo-dns = google-beta
   }
 }
