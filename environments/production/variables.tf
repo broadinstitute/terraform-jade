@@ -97,3 +97,27 @@ variable "host" {
   description = "The host end point on the internet"
   default     = "data.terra.bio"
 }
+
+variable "namespace" {
+  type        = string
+  default     = "terra-alpha"
+  description = "kubernetes namespace"
+}
+
+variable "gsa_name" {
+  type        = string
+  default     = "prometheus-sa"
+  description = "google service account for workloadid binding"
+}
+
+variable "ksa_name" {
+  type        = string
+  default     = "datarepo-monitoring-kube-p-prometheus"
+  description = "kubernetes service account for workloadid binding"
+}
+
+variable "roles" {
+  type        = list(string)
+  default     = ["roles/monitoring.admin", "roles/logging.admin", "roles/monitoring.metricWriter"]
+  description = "List of google roles to apply to service account"
+}

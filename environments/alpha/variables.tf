@@ -101,7 +101,7 @@ variable "namespace" {
 
 variable "gsa_name" {
   type        = string
-  default     = "prometheus"
+  default     = "prometheus-sa"
   description = "google service account for workloadid binding"
 }
 

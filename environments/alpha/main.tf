@@ -71,7 +71,7 @@ module "datarepo-app" {
 
 # alerts
 module "datarepo-alerts" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/alerts?ref=master"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/alerts?ref=ms-prometheus"
 
   dependencies = [module.datarepo-app]
 
