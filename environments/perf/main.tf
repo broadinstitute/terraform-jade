@@ -88,8 +88,9 @@ module "datarepo-alerts" {
   dns_zone          = var.dns_zone
 
   providers = {
-    google.target      = google
-    google-beta.target = google-beta
-    vault.target       = vault.broad
+    google.target            = google
+    google-beta.target       = google-beta
+    vault.target             = vault.broad
+    google-beta.datarepo-dns = google-beta
   }
 }

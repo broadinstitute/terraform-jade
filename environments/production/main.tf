@@ -103,8 +103,9 @@ module "datarepo-alerts" {
   ip_only           = var.ip_only
 
   providers = {
-    google.target      = google
-    google-beta.target = google-beta
-    vault.target       = vault.broad
+    google.target            = google
+    google-beta.target       = google-beta
+    vault.target             = vault.broad
+    google-beta.datarepo-dns = google-beta
   }
 }
