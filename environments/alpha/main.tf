@@ -27,7 +27,7 @@ module "enable-services" {
 
 # gcp networking, k8 cluster
 module "core-infrastructure" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/core-infrastructure?ref=datarepo-modules-0.0.5"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/core-infrastructure?ref=master"
 
   dependencies = [module.enable-services]
 
@@ -48,7 +48,7 @@ module "core-infrastructure" {
 
 # dns ips, sql server and dbs
 module "datarepo-app" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/datarepo-app?ref=datarepo-modules-0.0.5"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/datarepo-app?ref=master"
 
   dependencies = [module.core-infrastructure]
 
@@ -71,7 +71,7 @@ module "datarepo-app" {
 
 # alerts
 module "datarepo-alerts" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/alerts?ref=ms-prometheus"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/alerts?ref=master"
 
   dependencies = [module.datarepo-app]
 
