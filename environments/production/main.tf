@@ -101,6 +101,7 @@ module "datarepo-alerts" {
   ksa_name          = var.ksa_name
   namespace         = var.namespace
   ip_only           = var.ip_only
+  
   providers = {
     google.target      = google
     google-beta.target = google-beta
