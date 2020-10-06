@@ -85,6 +85,7 @@ module "datarepo-alerts" {
   gsa_name          = var.gsa_name
   ksa_name          = var.ksa_name
   namespace         = var.namespace
+  dns_zone          = var.dns_zone
 
   providers = {
     google.target      = google

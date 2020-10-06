@@ -121,3 +121,9 @@ variable "roles" {
   default     = ["roles/monitoring.admin", "roles/logging.admin", "roles/monitoring.metricWriter"]
   description = "List of google roles to apply to service account"
 }
+
+variable "dns_zone" {
+  type        = string
+  description = "name of DNS zone"
+  default     = "datarepo-perf"
+}
