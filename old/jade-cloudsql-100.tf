@@ -84,11 +84,12 @@ resource "google_sql_database_instance" "jade_11_postgres_db" {
     activation_policy = var.cloudsql_activation_policy
     pricing_plan      = var.cloudsql_pricing_plan
     replication_type  = var.cloudsql_replication_type
-    tier              = var.jade_cloudsql_100_instance_size
+    tier              = "db-n1-standard-2"
 
     backup_configuration {
       binary_log_enabled = false
       enabled            = true
+      location           = "us"
       start_time         = "06:00"
     }
 
@@ -114,8 +115,23 @@ resource "google_sql_database_instance" "jade_11_postgres_db" {
     }
 
     database_flags {
-      name  = "max_connections"
-      value = 1024
+      name  = "log_connections"
+      value = "on"
+    }
+
+    database_flags {
+      name  = "log_disconnections"
+      value = "on"
+    }
+
+    database_flags {
+      name  = "log_lock_waits"
+      value = "on"
+    }
+
+    database_flags {
+      name  = "log_statement"
+      value = "all"
     }
   }
 }
