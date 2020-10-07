@@ -9,3 +9,7 @@ provider "google-beta" {
 provider "vault" {
   alias = "target"
 }
+
+provider "google-beta" {
+  alias = "datarepo-dns"
+}

@@ -27,7 +27,7 @@ module "enable-services" {
 
 # gcp networking, k8 cluster
 module "core-infrastructure" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/core-infrastructure?ref=datarepo-modules-0.0.5"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/core-infrastructure?ref=master"
 
   dependencies = [module.enable-services]
 
@@ -49,7 +49,7 @@ module "core-infrastructure" {
 
 # dns ips, sql server and dbs
 module "datarepo-app" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/datarepo-app?ref=datarepo-modules-0.0.5"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/datarepo-app?ref=master"
 
   dependencies = [module.core-infrastructure]
 
@@ -72,7 +72,7 @@ module "datarepo-app" {
 
 # monitoring audit and proformance logs to bq and gcs bucket
 module "datarepo-monitoring" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/production-monitoring?ref=datarepo-modules-0.0.5"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/production-monitoring?ref=master"
 
   dependencies = [module.datarepo-app]
 
@@ -87,7 +87,7 @@ module "datarepo-monitoring" {
 
 # alerts
 module "datarepo-alerts" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/alerts?ref=datarepo-modules-0.0.5"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/alerts?ref=master"
 
   dependencies = [module.datarepo-app]
 
@@ -96,9 +96,16 @@ module "datarepo-alerts" {
   host              = var.host
   path              = "/"
   token_secret_path = var.token_secret_path
+  roles             = var.roles
+  gsa_name          = var.gsa_name
+  ksa_name          = var.ksa_name
+  namespace         = var.namespace
+  ip_only           = var.ip_only
+
   providers = {
-    google.target      = google
-    google-beta.target = google-beta
-    vault.target       = vault.broad
+    google.target            = google
+    google-beta.target       = google-beta
+    vault.target             = vault.broad
+    google-beta.datarepo-dns = google-beta
   }
 }

@@ -80,6 +80,7 @@ variable "argocd_cidrs" {
   default     = ["34.68.105.207/32", "35.184.212.129/32"]
 }
 
+# alerting
 variable "token_secret_path" {
   type        = string
   description = "The vault path for the slack token"
@@ -90,4 +91,28 @@ variable "host" {
   type        = string
   description = "The host end point on the internet"
   default     = "data.alpha.envs-terra.bio"
+}
+
+variable "namespace" {
+  type        = string
+  default     = "terra-alpha"
+  description = "kubernetes namespace"
+}
+
+variable "gsa_name" {
+  type        = string
+  default     = "prometheus-sa"
+  description = "google service account for workloadid binding"
+}
+
+variable "ksa_name" {
+  type        = string
+  default     = "datarepo-monitoring-kube-p-prometheus"
+  description = "kubernetes service account for workloadid binding"
+}
+
+variable "roles" {
+  type        = list(string)
+  default     = ["roles/monitoring.admin", "roles/logging.admin", "roles/monitoring.metricWriter"]
+  description = "List of google roles to apply to service account"
 }
