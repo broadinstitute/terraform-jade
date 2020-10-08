@@ -4,11 +4,6 @@
 {{$keyname := printf "secret/devops/terraform/%s/%s/override-%s" $environment $project $suffix}}
 {{with secret $keyname}}
 
-variable "jade_cloudsql_100_instance_size" {
-    default = "db-g1-small"
-    description = "The default instance size for jade cloudsql 100 instances"
-}
-
 variable "jade_cloudsql_100_num_instances" {
 default = {{ .Data.jade_cloudsql_100_num_instances }}
 description = "number of jade 100 database instances"
