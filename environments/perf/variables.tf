@@ -115,3 +115,9 @@ variable "roles" {
   default     = ["roles/monitoring.admin", "roles/logging.admin", "roles/monitoring.metricWriter"]
   description = "List of google roles to apply to service account"
 }
+
+variable "cloudsql_tier" {
+  type        = string
+  default     = "db-custom-16-32768" # match sam postgres in prod
+  description = "Custom tier (DB instance size) for CloudSQL instances"
+}
