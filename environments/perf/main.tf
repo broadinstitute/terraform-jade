@@ -62,7 +62,7 @@ module "datarepo-app" {
   enable_private_services   = var.enable_private_services
   private_network_self_link = module.core-infrastructure.network-self-link
   dns_zone                  = var.dns_zone
-  db_tier                   = var.db_tier
+  db_tier                   = var.cloudsql_tier
 
   providers = {
     google.target            = google

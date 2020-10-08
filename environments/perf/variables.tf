@@ -116,8 +116,8 @@ variable "roles" {
   description = "List of google roles to apply to service account"
 }
 
-variable "db_tier" {
+variable "cloudsql_tier" {
   type        = string
-  default     = "db-n1-standard-2"
-  description = "DB instance size for the CloudSQL instance"
+  default     = "db-custom-16-32768" # match sam postgres in prod
+  description = "Custom tier (DB instance size) for CloudSQL instances"
 }
