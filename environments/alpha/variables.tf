@@ -95,7 +95,7 @@ variable "host" {
 
 variable "namespace" {
   type        = string
-  default     = "terra-alpha"
+  default     = "monitoring"
   description = "kubernetes namespace"
 }
 
