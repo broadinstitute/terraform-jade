@@ -107,7 +107,7 @@ variable "gsa_name" {
 
 variable "ksa_name" {
   type        = string
-  default     = "datarepo-monitoring-kube-p-prometheus"
+  default     = "datarepomonitoring-kube-pr-prometheus"
   description = "kubernetes service account for workloadid binding"
 }
 
