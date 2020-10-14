@@ -72,7 +72,7 @@ resource "google_service_account" "datarepo_test_runner_sa" {
 }
 
 resource "google_project_iam_member" "test_runner_sa_role" {
-  count = var.enable ? length(local.sql_sa_roles) : 0
+  count = var.enable ? length(local.test_runner_roles) : 0
 
   provider   = google.target
   project    = var.google_project
