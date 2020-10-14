@@ -61,6 +61,26 @@ resource "google_project_iam_member" "api_sa_role" {
   depends_on = [var.dependencies]
 }
 
+## test-runner-sa
+resource "google_service_account" "datarepo_test_runner_sa" {
+  count        = var.enable ? 1 : 0
+  provider     = google.target
+  project      = var.google_project
+  account_id   = "${local.service}-${local.owner}-test-runner"
+  display_name = "${local.service}-${local.owner}-test-runner"
+  depends_on   = [var.dependencies]
+}
+
+resource "google_project_iam_member" "test_runner_sa_role" {
+  count = var.enable ? length(local.sql_sa_roles) : 0
+
+  provider   = google.target
+  project    = var.google_project
+  role       = local.test_runner_roles[count.index]
+  member     = "serviceAccount:${google_service_account.datarepo_test_runner_sa[0].email}"
+  depends_on = [var.dependencies]
+}
+
 ##
 # vault write api
 resource "google_service_account_key" "api_sa_key" {
