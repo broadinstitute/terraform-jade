@@ -48,7 +48,7 @@ module "core-infrastructure" {
 
 # dns ips, sql server and dbs
 module "datarepo-app" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/datarepo-app?ref=master"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/datarepo-app?ref=fb-test-runner-roles-add-projectIamAdmin"
 
   dependencies = [module.core-infrastructure]
 
