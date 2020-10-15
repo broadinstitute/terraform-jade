@@ -59,11 +59,10 @@ locals {
 
 locals {
   test_runner_roles = [
-    "roles/container.admin",                # Kubernetes Engine Admin
-    "roles/logging.viewer",                 # Logs Viewer
-    "roles/monitoring.viewer",              # Monitoring Viewer
-    "roles/secretmanager.admin",            # Secret Manager Admin
-    "roles/resourcemanager.projectIamAdmin" # Project IAM Admin
+    "roles/container.admin",    # Kubernetes Engine Admin
+    "roles/logging.viewer",     # Logs Viewer
+    "roles/monitoring.viewer",  # Monitoring Viewer
+    "roles/secretmanager.admin" # Secret Manager Admin
   ]
 }
 
