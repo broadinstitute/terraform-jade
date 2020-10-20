@@ -27,7 +27,7 @@ resource "google_sql_database_instance" "jade_100_postgres" {
     activation_policy = var.cloudsql_activation_policy
     pricing_plan      = var.cloudsql_pricing_plan
     replication_type  = var.cloudsql_replication_type
-    tier              = var.jade_cloudsql_100_instance_size
+    tier              = "db-g1-small"
 
     backup_configuration {
       binary_log_enabled = false
