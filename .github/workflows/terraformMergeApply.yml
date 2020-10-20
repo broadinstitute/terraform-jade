@@ -6,6 +6,10 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'environments/**'
+      - '!old/**'
+      - '!.github/**'
 jobs:
   terraform_apply:
     strategy:
