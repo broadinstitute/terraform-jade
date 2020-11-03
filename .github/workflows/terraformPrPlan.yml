@@ -50,6 +50,7 @@ jobs:
           vault-address: ${{ secrets.VAULT_ADDR }}
           vault-token: ${{ steps.token.outputs.vault_token }}
           environment: ${{ matrix.environment }}
+          env_path: "datarepo"
 
       - name: "${{ matrix.environment }} Terraform Init"
         uses: hashicorp/terraform-github-actions@v0.8.0
