@@ -82,4 +82,3 @@ jobs:
           tf_opt_arg: "-var-file=tfvars/${{ matrix.environment }}.tfvars"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          -var-file=tfvars/staging.tfvars
