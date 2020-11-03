@@ -56,7 +56,7 @@ module "performance-log-sinks" {
 resource "google_bigquery_table" "logs" {
   count      = var.enable ? 1 : 0
   provider   = google-beta.target
-  dataset_id = module.user-activity-sinks.dataset_id[0]
+  dataset_id = var.enable ? module.user-activity-sinks.dataset_id[0] : ""
   table_id   = "all_user_requests"
   depends_on = [var.dependencies, module.user-activity-sinks]
   time_partitioning {
@@ -84,7 +84,7 @@ EOF
 resource "google_bigquery_table" "performance_logs" {
   count      = var.enable ? 1 : 0
   provider   = google-beta.target
-  dataset_id = module.performance-log-sinks.dataset_id[0]
+  dataset_id = var.enable ? module.performance-log-sinks.dataset_id[0] : ""
   table_id   = "performance_logs"
   depends_on = [var.dependencies, module.performance-log-sinks]
 
