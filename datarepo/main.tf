@@ -110,6 +110,7 @@ module "datarepo-monitoring" {
   enable_bigquery = var.enable_bigquery
   enable_gcs      = var.enable_gcs
   enable_pubsub   = var.enable_pubsub
+  enable          = var.enable_monitoring
 
   providers = {
     google.target      = google

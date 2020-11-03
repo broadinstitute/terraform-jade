@@ -62,14 +62,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-#      - name: "${{ matrix.environment }} Terraform Validate"
-#        uses: broadinstitute/terraform-github-actions@ms-optarg
-#        with:
-#          tf_actions_version: ${{ env.terraform_version }}
-#          tf_actions_subcommand: "validate"
-#          tf_actions_working_dir: "${{ env.terraform_directory }}"
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: test sleep
+        run: sleep 5 
+
+      - name: "${{ matrix.environment }} Terraform Validate"
+        uses: broadinstitute/terraform-github-actions@ms-optarg
+        with:
+          tf_actions_version: ${{ env.terraform_version }}
+          tf_actions_subcommand: "validate"
+          tf_actions_working_dir: "${{ env.terraform_directory }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "${{ matrix.environment }} Terraform Plan"
         uses: broadinstitute/terraform-github-actions@ms-optarg
@@ -80,3 +83,4 @@ jobs:
           tf_opt_arg: "-var-file=tfvars/${{ matrix.environment }}.tfvars"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          -var-file=tfvars/staging.tfvars

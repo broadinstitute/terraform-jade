@@ -58,7 +58,7 @@ jobs:
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
           tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: "init -backend-config=tfvars/${{ matrix.environment }}.tfvars"
+          tf_actions_subcommand: "init"
           tf_actions_working_dir: "${{ env.terraform_directory }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -76,7 +76,7 @@ jobs:
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
           tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: "apply -var-file=tfvars/${{ matrix.environment }}.tfvars"
+          tf_actions_subcommand: "apply"
           tf_actions_working_dir: "${{ env.terraform_directory }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

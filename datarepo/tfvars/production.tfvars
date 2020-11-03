@@ -14,7 +14,8 @@ host     = "data.production.envs-terra.bio"
 gsa_name = "prometheus-sa"
 ksa_name = "datarepomonitoring-kube-pr-prometheus"
 ## production sinks
-enable_bigquery = "1"
-enable_gcs      = "1"
+enable_bigquery   = "true"
+enable_gcs        = "true"
+enable_monitoring = "true"
 ## backend config var
 bucket = "terra-datarepo-production"
