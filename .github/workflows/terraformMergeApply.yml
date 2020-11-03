@@ -9,7 +9,7 @@ on:
     paths:
       - '!old/**'
       - '!.github/**'
-      - 'environments/**'
+      - 'datarepo/**'
 jobs:
   terraform_apply:
     strategy:
