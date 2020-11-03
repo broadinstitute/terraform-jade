@@ -7,6 +7,7 @@ on:
     paths:
       - '!old/**'
       - '!.github/**'
+      - '.github/workflows/terraformPrPlan.yml'
       - 'datarepo/**'
       - 'datarepo/tfvars/**'
 jobs:
