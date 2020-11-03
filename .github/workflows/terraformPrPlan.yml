@@ -64,9 +64,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: test sleep
-        run: sleep 5
-
       - name: "${{ matrix.environment }} Terraform Validate"
         uses: broadinstitute/terraform-github-actions@ms-optarg
         with:
