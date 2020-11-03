@@ -47,7 +47,6 @@ module "core-infrastructure" {
     google-beta.target = google-beta
   }
 }
-
 # dns ips, sql server and dbs
 module "datarepo-app" {
   source = "github.com/broadinstitute/terraform-jade.git//modules/datarepo-app?ref=master"

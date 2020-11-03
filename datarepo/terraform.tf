@@ -12,14 +12,14 @@ provider "google" {
   credentials = file("env_svc.json")
   project     = var.google_project
   region      = var.region
-  version     = "~> 3.31.0"
+  version     = "~> 3.46.0"
 }
 
 provider "google-beta" {
   credentials = file("env_svc.json")
   project     = var.google_project
   region      = var.region
-  version     = "~> 3.31.0"
+  version     = "~> 3.46.0"
 }
 
 provider "vault" {

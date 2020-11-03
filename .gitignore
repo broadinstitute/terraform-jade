@@ -27,3 +27,4 @@ bq.tf
 !/datarepo/terraform.tf
 !/datarepo/tfvars/*
 !/environments/*/variables.tf
+!/datarepo/variables.tf
