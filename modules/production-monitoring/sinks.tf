@@ -1,5 +1,5 @@
 module "audit-log-sinks" {
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.10"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=ms-sinks"
 
   providers = {
     google.target      = google.target
@@ -14,11 +14,12 @@ module "audit-log-sinks" {
   log_filter              = "resource.type=\"audited_resource\""
   project                 = var.google_project
   bigquery_retention_days = var.bigquery_retention_days
+  enable                  = var.enable
 
 }
 
 module "user-activity-sinks" {
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.10"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=ms-sinks"
 
   providers = {
     google.target      = google.target
@@ -32,11 +33,12 @@ module "user-activity-sinks" {
   application_name = var.application_name
   log_filter       = "resource.type=\"k8s_container\" \"LoggerInterceptor\""
   project          = var.google_project
+  enable           = var.enable
 
 }
 
 module "performance-log-sinks" {
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.10"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=ms-sinks"
 
   providers = {
     google.target      = google.target
@@ -50,13 +52,14 @@ module "performance-log-sinks" {
   application_name = var.application_name
   log_filter       = "resource.type=\"k8s_container\" \"PerformanceLogger\""
   project          = var.google_project
-
+  enable           = var.enable
+  
 }
 
 resource "google_bigquery_table" "logs" {
   count      = var.enable ? 1 : 0
   provider   = google-beta.target
-  dataset_id = var.enable ? module.user-activity-sinks.dataset_id[0] : ""
+  dataset_id = module.user-activity-sinks.dataset_id[0]
   table_id   = "all_user_requests"
   depends_on = [var.dependencies, module.user-activity-sinks]
   time_partitioning {
@@ -84,7 +87,7 @@ EOF
 resource "google_bigquery_table" "performance_logs" {
   count      = var.enable ? 1 : 0
   provider   = google-beta.target
-  dataset_id = var.enable ? module.performance-log-sinks.dataset_id[0] : ""
+  dataset_id = module.performance-log-sinks.dataset_id[0]
   table_id   = "performance_logs"
   depends_on = [var.dependencies, module.performance-log-sinks]
 
