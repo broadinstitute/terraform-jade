@@ -1,13 +1,13 @@
 name: 'Terraform Plan'
 env:
-  terraform_directory: "environments"
+  terraform_directory: "datarepo"
   terraform_version: "0.12.29"
 on:
   pull_request:
     paths:
-      - 'environments/**'
       - '!old/**'
       - '!.github/**'
+      - 'environments/**'
 jobs:
   terraform_plan:
     strategy:
@@ -24,8 +24,8 @@ jobs:
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
           tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: 'fmt'
-          tf_actions_fmt_write: true
+          tf_actions_subcommand: "fmt"
+          tf_actions_fmt_write: "true"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -55,7 +55,7 @@ jobs:
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
           tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: 'init'
+          tf_actions_subcommand: "init -backend-config=tfvars/${{ matrix.environment }}.tfvars"
           tf_actions_working_dir: "${{ env.terraform_directory }}/${{ matrix.environment }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -64,7 +64,7 @@ jobs:
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
           tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: 'validate'
+          tf_actions_subcommand: "validate"
           tf_actions_working_dir: "${{ env.terraform_directory }}/${{ matrix.environment }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -73,7 +73,7 @@ jobs:
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
           tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: 'plan'
+          tf_actions_subcommand: "plan -var-file=tfvars/${{ matrix.environment }}.tfvars"
           tf_actions_working_dir: "${{ env.terraform_directory }}/${{ matrix.environment }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

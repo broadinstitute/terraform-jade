@@ -7,13 +7,13 @@ module "audit-log-sinks" {
   }
 
   dependencies            = var.dependencies
-  enable_bigquery         = 1
-  enable_gcs              = 1
+  enable_bigquery         = var.enable_bigquery
+  enable_gcs              = var.enable_gcs
   owner                   = var.environment
   application_name        = var.application_name
   log_filter              = "resource.type=\"audited_resource\""
   project                 = var.google_project
-  bigquery_retention_days = 90
+  bigquery_retention_days = var.bigquery_retention_days
 
 }
 
@@ -27,7 +27,7 @@ module "user-activity-sinks" {
 
   dependencies     = var.dependencies
   enable_pubsub    = 0
-  enable_bigquery  = 1
+  enable_bigquery  = var.enable_bigquery
   owner            = var.environment
   application_name = var.application_name
   log_filter       = "resource.type=\"k8s_container\" \"LoggerInterceptor\""
@@ -45,7 +45,7 @@ module "performance-log-sinks" {
 
   dependencies     = var.dependencies
   enable_pubsub    = 0
-  enable_bigquery  = 1
+  enable_bigquery  = var.enable_bigquery
   owner            = var.environment
   application_name = var.application_name
   log_filter       = "resource.type=\"k8s_container\" \"PerformanceLogger\""
