@@ -27,7 +27,7 @@ module "user-activity-sinks" {
   }
 
   dependencies     = var.dependencies
-  enable_pubsub    = 0
+  enable_pubsub    = false
   enable_bigquery  = var.enable_bigquery
   owner            = var.environment
   application_name = var.application_name
@@ -46,14 +46,14 @@ module "performance-log-sinks" {
   }
 
   dependencies     = var.dependencies
-  enable_pubsub    = 0
+  enable_pubsub    = false
   enable_bigquery  = var.enable_bigquery
   owner            = var.environment
   application_name = var.application_name
   log_filter       = "resource.type=\"k8s_container\" \"PerformanceLogger\""
   project          = var.google_project
   enable           = var.enable
-  
+
 }
 
 resource "google_bigquery_table" "logs" {
