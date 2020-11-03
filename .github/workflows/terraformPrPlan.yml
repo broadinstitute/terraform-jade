@@ -7,7 +7,9 @@ on:
     paths:
       - '!old/**'
       - '!.github/**'
-      - 'environments/**'
+      - '.github/workflows/terraformPrPlan.yml'
+      - 'datarepo/**'
+      - 'datarepo/tfvars/**'
 jobs:
   terraform_plan:
     strategy:
@@ -21,7 +23,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: "${{ matrix.environment }} Terraform Format"
-        uses: hashicorp/terraform-github-actions@v0.8.0
+        uses: broadinstitute/terraform-github-actions@ms-optarg
         with:
           tf_actions_version: ${{ env.terraform_version }}
           tf_actions_subcommand: "fmt"
@@ -50,30 +52,33 @@ jobs:
           vault-address: ${{ secrets.VAULT_ADDR }}
           vault-token: ${{ steps.token.outputs.vault_token }}
           environment: ${{ matrix.environment }}
+          env_path: "datarepo"
 
       - name: "${{ matrix.environment }} Terraform Init"
-        uses: hashicorp/terraform-github-actions@v0.8.0
+        uses: broadinstitute/terraform-github-actions@ms-optarg
         with:
           tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: "init -backend-config=tfvars/${{ matrix.environment }}.tfvars"
-          tf_actions_working_dir: "${{ env.terraform_directory }}/${{ matrix.environment }}"
+          tf_actions_subcommand: "init"
+          tf_actions_working_dir: "${{ env.terraform_directory }}"
+          tf_opt_arg: "-backend-config=tfvars/${{ matrix.environment }}.tfvars"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "${{ matrix.environment }} Terraform Validate"
-        uses: hashicorp/terraform-github-actions@v0.8.0
+        uses: broadinstitute/terraform-github-actions@ms-optarg
         with:
           tf_actions_version: ${{ env.terraform_version }}
           tf_actions_subcommand: "validate"
-          tf_actions_working_dir: "${{ env.terraform_directory }}/${{ matrix.environment }}"
+          tf_actions_working_dir: "${{ env.terraform_directory }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "${{ matrix.environment }} Terraform Plan"
-        uses: hashicorp/terraform-github-actions@v0.8.0
+        uses: broadinstitute/terraform-github-actions@ms-optarg
         with:
           tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: "plan -var-file=tfvars/${{ matrix.environment }}.tfvars"
-          tf_actions_working_dir: "${{ env.terraform_directory }}/${{ matrix.environment }}"
+          tf_actions_subcommand: "plan"
+          tf_actions_working_dir: "${{ env.terraform_directory }}"
+          tf_opt_arg: "-var-file=tfvars/${{ matrix.environment }}.tfvars"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

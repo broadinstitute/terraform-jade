@@ -10,11 +10,12 @@ ip_only       = "true"
 argocd_cidrs  = ["34.68.105.207/32", "35.184.212.129/32"]
 cloudsql_tier = "db-g1-small"
 ## alerting
-host     = "data.production.envs-terra.bio"
+host     = "data.terra.bio"
 gsa_name = "prometheus-sa"
 ksa_name = "datarepomonitoring-kube-pr-prometheus"
 ## production sinks
-enable_bigquery = "1"
-enable_gcs      = "1"
+enable_bigquery   = "true"
+enable_gcs        = "true"
+enable_monitoring = "true"
 ## backend config var
 bucket = "terra-datarepo-production"
