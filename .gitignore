@@ -1,4 +1,6 @@
 /environments/*/.terraform
+/datarepo/.terraform
+/datarepo/env_svc.json
 .terraform/*
 *.backup
 *.swp
@@ -20,6 +22,9 @@ terraform.tf
 dev.tf
 integration.tf
 bq.tf
-!/modules/*/variables.tf 
+!/modules/*/variables.tf
 !/environments/*/terraform.tf
+!/datarepo/terraform.tf
+!/datarepo/tfvars/*
 !/environments/*/variables.tf
+!/datarepo/variables.tf
