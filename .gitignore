@@ -24,4 +24,6 @@ integration.tf
 bq.tf
 !/modules/*/variables.tf
 !/environments/*/terraform.tf
+!/datarepo/terraform.tf
+!/datarepo/tfvars/*
 !/environments/*/variables.tf
