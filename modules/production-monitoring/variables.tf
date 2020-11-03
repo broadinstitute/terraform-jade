@@ -27,3 +27,23 @@ variable "application_name" {
   description = "name of application"
   default     = "datarepo"
 }
+
+variable "enable_bigquery" {
+  default     = 0
+  description = "bool to enable bq logging"
+}
+
+variable "enable_gcs" {
+  default     = 0
+  description = "bool to enable gcs logging"
+}
+
+variable "enable_pubsub" {
+  default     = 0
+  description = "bool to enable pub sub logging"
+}
+
+variable "bigquery_retention_days" {
+  default     = "90"
+  description = "number of days to retain bq logs"
+}
