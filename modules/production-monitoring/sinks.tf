@@ -1,5 +1,5 @@
 module "audit-log-sinks" {
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=ms-sinks"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.12"
 
   providers = {
     google.target      = google.target
@@ -19,7 +19,7 @@ module "audit-log-sinks" {
 }
 
 module "user-activity-sinks" {
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=ms-sinks"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.12"
 
   providers = {
     google.target      = google.target
@@ -38,7 +38,7 @@ module "user-activity-sinks" {
 }
 
 module "performance-log-sinks" {
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=ms-sinks"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.12"
 
   providers = {
     google.target      = google.target
