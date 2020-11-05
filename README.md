@@ -15,7 +15,7 @@ docker run --rm -it -v "$PWD":/working -v ${HOME}/.vault-token:/root/.vault-toke
 ## Variables
 - `<env>` should correspond to the environment to deploy (typically either `dev`
 or `prod`)
-- `<googe_project>` is for the statefile its the name of the google project typically
+- `<google_project>` is for the statefile its the name of the google project typically
 
 ## Github Actions
 - On PR a terraform plan will be made for the following environments [`[alpha, perf, staging, production]`](https://github.com/broadinstitute/terraform-jade/blob/ms-tfvars/.github/workflows/terraformPrPlan.yml#L16)
