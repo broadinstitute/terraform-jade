@@ -100,7 +100,7 @@ module "datarepo-alerts" {
 
 # monitoring audit and proformance logs to bq and gcs bucket
 module "datarepo-monitoring" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/production-monitoring?ref=ms-tfvars"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/production-monitoring?ref=master"
 
   dependencies = [module.datarepo-app]
 
