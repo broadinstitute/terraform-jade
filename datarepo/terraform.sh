@@ -1,7 +1,6 @@
 #!/bin/bash
 
 DEFAULT_TERRAFORM_VERSION="0.13.5"
-#DOCKER_IMAGE='broadinstitute/terraform:latest'
 DOCKER_IMAGE="${DOCKER_IMAGE:-gcr.io/broad-dsp-gcr-public/terraform0.13:${TERRAFORM_VERSION:-${DEFAULT_TERRAFORM_VERSION}}}"
 SUDO=
 

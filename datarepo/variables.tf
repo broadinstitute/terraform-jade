@@ -11,7 +11,7 @@ variable "k8_network_name" {
 }
 
 variable "k8_subnet_name" {
-  description = "name of the subnet within the networking being deployed"
+  description = "name of gcp the subnet"
   default     = ""
 }
 

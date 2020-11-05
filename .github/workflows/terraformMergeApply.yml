@@ -23,7 +23,7 @@ jobs:
       - name: "${{ matrix.environment }} Checkout"
         uses: actions/checkout@v2
 
-      - name: install terrform
+      - name: install terraform
         uses: hashicorp/setup-terraform@v1.2.1
         with:
           terraform_version: ${{ env.terraform_version }}
