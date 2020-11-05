@@ -13,5 +13,3 @@ cloudsql_tier = "db-custom-16-32768"
 host     = "jade-perf.datarepo-perf.broadinstitute.org"
 gsa_name = "prometheus-sa"
 ksa_name = "datarepo-monitoring-kube-p-prometheus"
-## backend config var
-bucket = "broad-jade-perf"

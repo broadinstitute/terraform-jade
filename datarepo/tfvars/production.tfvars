@@ -17,5 +17,3 @@ ksa_name = "datarepomonitoring-kube-pr-prometheus"
 enable_bigquery   = "true"
 enable_gcs        = "true"
 enable_monitoring = "true"
-## backend config var
-bucket = "terra-datarepo-production"

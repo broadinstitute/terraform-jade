@@ -12,5 +12,3 @@ cloudsql_tier = "db-g1-small"
 host     = "data.staging.envs-terra.bio"
 gsa_name = "prometheus-sa"
 ksa_name = "datarepomonitoring-kube-pr-prometheus"
-## backend config var
-bucket = "terra-datarepo-staging"
