@@ -6,15 +6,18 @@ Terraform code to setup various GCP environments for the Jade Data Repo.
 
 ```sh
 git clone https://github.com/broadinstitute/terraform-jade.git
-cd terraform-jade/environments/<env>
-./mkEnv.sh -e <env> -s <suffix>
-./terraform.sh init
-./terraform.sh plan
-#./terraform.sh apply
+cd datarepo
+docker run --rm -it -v "$PWD":/working -v ${HOME}/.vault-token:/root/.vault-token broadinstitute/dsde-toolbox:consul-0.20.0 ./mkEnv.sh -e <env>
+./terraform.sh init -backend-config=bucket=<googe_project>
+./terraform.sh plan -var-file=tfvars/<env>.tfvars
+./terraform.sh apply -var-file=tfvars/<env>.tfvars
 ```
+## Variables
+- `<env>` should correspond to the environment to deploy (typically either `dev`
+or `prod`)
+- `<googe_project>` is for the statefile its the name of the google project typically
 
-`<env>` should correspond to the environment to deploy (typically either `dev`
-or `prod`), and `-s <suffix>` may optionally be defined to modify the project
-suffix (e.g. `integration` when the project is broad-jade-integration, or `terra`
-when the project is `broad-jade-terra`). If `-s <suffix>` is not supplied, it
-will use the corresponding `<env>` instead.
+## Github Actions
+- On PR a terraform plan will be made for the following environments [`[alpha, perf, staging, production]`](https://github.com/broadinstitute/terraform-jade/blob/ms-tfvars/.github/workflows/terraformPrPlan.yml#L16)
+- On merge a terraform Apply will be made for the following environments [`[alpha, perf, staging, production]`](https://github.com/broadinstitute/terraform-jade/blob/ms-tfvars/.github/workflows/terraformPrPlan.yml#L16)
+- To not plan add label `skip-ci` to your PR
