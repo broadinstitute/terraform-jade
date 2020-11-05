@@ -8,7 +8,7 @@ Terraform code to setup various GCP environments for the Jade Data Repo.
 git clone https://github.com/broadinstitute/terraform-jade.git
 cd datarepo
 docker run --rm -it -v "$PWD":/working -v ${HOME}/.vault-token:/root/.vault-token broadinstitute/dsde-toolbox:consul-0.20.0 ./mkEnv.sh -e <env>
-./terraform.sh init -backend-config=bucket=<googe_project>
+./terraform.sh init -backend-config=bucket=<google_project>
 ./terraform.sh plan -var-file=tfvars/<env>.tfvars
 ./terraform.sh apply -var-file=tfvars/<env>.tfvars
 ```
