@@ -2,17 +2,17 @@
 variable "google_project" {
   type        = string
   description = "The google project being deployed to"
-  default     = "terra-datarepo-alpha"
+  default     = ""
 }
 
 variable "k8_network_name" {
-  default     = "alpha-network"
   description = "core network name to be deployed and put k8 cluster on"
+  default     = ""
 }
 
 variable "k8_subnet_name" {
-  description = "name of the subnet within the networking being deployed"
-  default     = "alpha-subnet"
+  description = "name of gcp the subnet"
+  default     = ""
 }
 
 variable "node_count" {
@@ -38,12 +38,24 @@ variable "version_prefix" {
   description = "version of gke to be deployed"
 }
 
+variable "enable_flow_logs" {
+  type        = bool
+  default     = false
+  description = "flag for enabling flowlog"
+}
+
 ## datarepo-app vars
 
-variable dns_name {
+variable "cloudsql_tier" {
+  type        = string
+  description = "Custom tier (DB instance size) for CloudSQL instances"
+  default     = ""
+}
+
+variable "dns_name" {
   type        = string
   description = "List of DNS names to generate global IP addresses, A-records, and CNAME-records for."
-  default     = "data"
+  default     = ""
 }
 
 variable "db_version" {
@@ -55,7 +67,13 @@ variable "db_version" {
 variable "environment" {
   type        = string
   description = "environment being deployed"
-  default     = "alpha"
+  default     = ""
+}
+
+variable "dns_zone" {
+  type        = string
+  description = "global DNS zone to be deployed"
+  default     = ""
 }
 
 locals {
@@ -71,16 +89,15 @@ variable "enable_private_services" {
 variable "ip_only" {
   type        = bool
   description = "Enable flag for only create a global static ip vs ip and dns"
-  default     = true
+  default     = false
 }
 
 variable "argocd_cidrs" {
   type        = list
   description = "argocd broad external ips to be added to the master auth network"
-  default     = ["34.68.105.207/32", "35.184.212.129/32"]
+  default     = []
 }
 
-# alerting
 variable "token_secret_path" {
   type        = string
   description = "The vault path for the slack token"
@@ -90,7 +107,7 @@ variable "token_secret_path" {
 variable "host" {
   type        = string
   description = "The host end point on the internet"
-  default     = "data.alpha.envs-terra.bio"
+  default     = ""
 }
 
 variable "namespace" {
@@ -101,18 +118,39 @@ variable "namespace" {
 
 variable "gsa_name" {
   type        = string
-  default     = "prometheus-sa"
   description = "google service account for workloadid binding"
+  default     = ""
 }
 
 variable "ksa_name" {
   type        = string
-  default     = "datarepomonitoring-kube-pr-prometheus"
   description = "kubernetes service account for workloadid binding"
+  default     = ""
 }
 
 variable "roles" {
   type        = list(string)
   default     = ["roles/monitoring.admin", "roles/logging.admin", "roles/monitoring.metricWriter"]
   description = "List of google roles to apply to service account"
+}
+
+## production monitoring
+variable "enable_bigquery" {
+  default = false
+  type    = bool
+}
+
+variable "enable_gcs" {
+  default = false
+  type    = bool
+}
+
+variable "enable_pubsub" {
+  default = false
+  type    = bool
+}
+
+variable "enable_monitoring" {
+  default = false
+  type    = bool
 }

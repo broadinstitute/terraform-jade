@@ -31,21 +31,22 @@ module "core-infrastructure" {
 
   dependencies = [module.enable-services]
 
-  google_project  = var.google_project
-  region          = var.region
-  k8_network_name = var.k8_network_name
-  k8_subnet_name  = var.k8_subnet_name
-  node_count      = var.node_count
-  machine_type    = var.machine_type
-  version_prefix  = var.version_prefix
-  argocd_cidrs    = var.argocd_cidrs
+  google_project   = var.google_project
+  region           = var.region
+  k8_network_name  = var.k8_network_name
+  k8_subnet_name   = var.k8_subnet_name
+  node_count       = var.node_count
+  machine_type     = var.machine_type
+  version_prefix   = var.version_prefix
+  dns_zone_name    = var.dns_zone
+  argocd_cidrs     = var.argocd_cidrs
+  enable_flow_logs = var.enable_flow_logs
 
   providers = {
     google.target      = google
     google-beta.target = google-beta
   }
 }
-
 # dns ips, sql server and dbs
 module "datarepo-app" {
   source = "github.com/broadinstitute/terraform-jade.git//modules/datarepo-app?ref=master"
@@ -53,13 +54,15 @@ module "datarepo-app" {
   dependencies = [module.core-infrastructure]
 
   google_project            = var.google_project
+  dns_name                  = var.dns_name
   db_version                = var.db_version
   environment               = var.environment
   workloadid_names          = local.workloadid_names
   enable_private_services   = var.enable_private_services
-  dns_name                  = var.dns_name
   private_network_self_link = module.core-infrastructure.network-self-link
   ip_only                   = var.ip_only
+  dns_zone                  = var.dns_zone
+  db_tier                   = var.cloudsql_tier
 
   providers = {
     google.target            = google
@@ -85,11 +88,31 @@ module "datarepo-alerts" {
   ksa_name          = var.ksa_name
   namespace         = var.namespace
   ip_only           = var.ip_only
+  dns_zone          = var.dns_zone
 
   providers = {
     google.target            = google
     google-beta.target       = google-beta
     vault.target             = vault.broad
     google-beta.datarepo-dns = google-beta
+  }
+}
+
+# monitoring audit and proformance logs to bq and gcs bucket
+module "datarepo-monitoring" {
+  source = "github.com/broadinstitute/terraform-jade.git//modules/production-monitoring?ref=master"
+
+  dependencies = [module.datarepo-app]
+
+  google_project  = var.google_project
+  environment     = var.environment
+  enable_bigquery = var.enable_bigquery
+  enable_gcs      = var.enable_gcs
+  enable_pubsub   = var.enable_pubsub
+  enable          = var.enable_monitoring
+
+  providers = {
+    google.target      = google
+    google-beta.target = google-beta
   }
 }
