@@ -1,3 +1,5 @@
+![Terraform Apply](https://github.com/broadinstitute/terraform-jade/workflows/Terraform%20Apply/badge.svg)
+
 # terraform-jade
 
 Terraform code to setup various GCP environments for the Jade Data Repo.
