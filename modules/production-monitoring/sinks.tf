@@ -57,7 +57,7 @@ module "performance-log-sinks" {
 }
 
 resource "google_bigquery_table" "logs" {
-  count      = var.enable ? 1 : 0
+  count      = var.enable_bigquery_tables ? 1 : 0
   provider   = google-beta.target
   dataset_id = module.user-activity-sinks.dataset_id[0]
   table_id   = "all_user_requests"
@@ -85,7 +85,7 @@ EOF
 }
 
 resource "google_bigquery_table" "performance_logs" {
-  count      = var.enable ? 1 : 0
+  count      = var.enable_bigquery_tables ? 1 : 0
   provider   = google-beta.target
   dataset_id = module.performance-log-sinks.dataset_id[0]
   table_id   = "performance_logs"

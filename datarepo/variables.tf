@@ -5,6 +5,15 @@ variable "google_project" {
   default     = ""
 }
 
+variable "node_regions" {
+  type = map(object({ region = string }))
+  default = {
+    jade-node-us-central-1 = {
+      region = "us-central1"
+    }
+  }
+}
+
 variable "k8_network_name" {
   description = "core network name to be deployed and put k8 cluster on"
   default     = ""
@@ -34,7 +43,7 @@ variable "region" {
 
 variable "version_prefix" {
   type        = string
-  default     = "1.16.13-gke.401"
+  default     = "1.17.12-gke.1504"
   description = "version of gke to be deployed"
 }
 

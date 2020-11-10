@@ -47,16 +47,17 @@ variable "gke_subnet_services" {
 
 variable "version_prefix" {
   type        = string
-  default     = "1.16.8-gke.15"
+  default     = ""
   description = "version of gke to be deployed"
 }
 
 locals {
-  master_name = "${var.environment}-master-${var.region}"
+  master_name = "${var.environment}-master-${var.master_region}"
 }
 
-locals {
-  node_name = "${var.environment}-node-${var.region}"
+variable "node_regions" {
+  description = "Name of node pools will create a pool for every name"
+  type        = map(object({ region = string }))
 }
 
 variable "node_count" {
@@ -116,7 +117,7 @@ variable "enable_flow_logs" {
   description = "flag for enabling flowlog"
 }
 
-variable "region" {
+variable "master_region" {
   type        = string
   description = "GCP region being used"
   default     = null

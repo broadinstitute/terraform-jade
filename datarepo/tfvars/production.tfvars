@@ -3,6 +3,14 @@ google_project   = "terra-datarepo-production"
 k8_network_name  = "production-network"
 k8_subnet_name   = "production-subnet"
 enable_flow_logs = "true"
+node_regions = {
+  jade-node-us-central-1 = {
+    region = "us-central1"
+  }
+  jade-node-us-central-2 = {
+    region = "us-central1"
+  }
+}
 ## datarepo-app vars
 dns_name      = "data"
 environment   = "production"

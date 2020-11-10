@@ -31,8 +31,9 @@ module "core-infrastructure" {
 
   dependencies = [module.enable-services]
 
+  master_region    = var.region
+  node_regions     = var.node_regions
   google_project   = var.google_project
-  region           = var.region
   k8_network_name  = var.k8_network_name
   k8_subnet_name   = var.k8_subnet_name
   node_count       = var.node_count
