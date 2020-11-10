@@ -59,6 +59,12 @@ locals {
   node_name = "${var.environment}-node-${var.region}"
 }
 
+variable "node_names" {
+  type        = list
+  description = "Name of node pools will create a pool for every name "
+  default     = []
+}
+
 variable "node_count" {
   type        = number
   description = "number of kubernetes nodes depends on if region is us-central1 1 will deploy 3 and us-central1-a 3 will deploy 3"

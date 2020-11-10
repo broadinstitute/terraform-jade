@@ -2,6 +2,7 @@
 google_project  = "terra-datarepo-alpha"
 k8_network_name = "alpha-network"
 k8_subnet_name  = "alpha-subnet"
+node_names      = ["jade-node-us-central1"]
 ## datarepo-app vars
 dns_name      = "data"
 environment   = "alpha"
