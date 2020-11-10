@@ -11,6 +11,11 @@ variable "enable" {
   default     = false
 }
 
+variable "enable_bigquery_tables" {
+  type    = bool
+  default = false
+}
+
 variable "environment" {
   type        = string
   description = "team environment being deployed"

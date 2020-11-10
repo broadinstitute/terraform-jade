@@ -5,10 +5,13 @@ variable "google_project" {
   default     = ""
 }
 
-variable "node_names" {
-  type        = list
-  description = "Name of node pools will create a pool for every name "
-  default     = []
+variable "node_regions" {
+  type = map(object({ region = string }))
+  default = {
+    jade-node-us-central-1 = {
+      region = "us-central1"
+    }
+  }
 }
 
 variable "k8_network_name" {

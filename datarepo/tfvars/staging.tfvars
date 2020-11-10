@@ -2,7 +2,6 @@
 google_project  = "terra-datarepo-staging"
 k8_network_name = "staging-network"
 k8_subnet_name  = "staging-subnet"
-node_names      = ["jade-node-us-central1"]
 ## datarepo-app vars
 dns_name      = "data"
 environment   = "staging"

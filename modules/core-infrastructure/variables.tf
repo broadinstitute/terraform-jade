@@ -52,13 +52,12 @@ variable "version_prefix" {
 }
 
 locals {
-  master_name = "${var.environment}-master-${var.region}"
+  master_name = "${var.environment}-master-${var.master_region}"
 }
 
-variable "node_names" {
-  type        = list
-  description = "Name of node pools will create a pool for every name "
-  default     = []
+variable "node_regions" {
+  description = "Name of node pools will create a pool for every name"
+  type        = map(object({ region = string }))
 }
 
 variable "node_count" {
@@ -118,7 +117,7 @@ variable "enable_flow_logs" {
   description = "flag for enabling flowlog"
 }
 
-variable "region" {
+variable "master_region" {
   type        = string
   description = "GCP region being used"
   default     = null

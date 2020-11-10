@@ -31,11 +31,11 @@ module "core-infrastructure" {
 
   dependencies = [module.enable-services]
 
+  master_region    = var.region
+  node_regions     = var.node_regions
   google_project   = var.google_project
-  region           = var.region
   k8_network_name  = var.k8_network_name
   k8_subnet_name   = var.k8_subnet_name
-  node_names       = var.node_names
   node_count       = var.node_count
   machine_type     = var.machine_type
   version_prefix   = var.version_prefix
@@ -101,7 +101,7 @@ module "datarepo-alerts" {
 
 # monitoring audit and proformance logs to bq and gcs bucket
 module "datarepo-monitoring" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/production-monitoring?ref=master"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/production-monitoring?ref=ms-multinodepool"
 
   dependencies = [module.datarepo-app]
 
