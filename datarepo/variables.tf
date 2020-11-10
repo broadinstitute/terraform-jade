@@ -5,6 +5,12 @@ variable "google_project" {
   default     = ""
 }
 
+variable "node_names" {
+  type        = list
+  description = "Name of node pools will create a pool for every name "
+  default     = []
+}
+
 variable "k8_network_name" {
   description = "core network name to be deployed and put k8 cluster on"
   default     = ""

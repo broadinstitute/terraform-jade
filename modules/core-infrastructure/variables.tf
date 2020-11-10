@@ -47,16 +47,12 @@ variable "gke_subnet_services" {
 
 variable "version_prefix" {
   type        = string
-  default     = "1.16.8-gke.15"
+  default     = ""
   description = "version of gke to be deployed"
 }
 
 locals {
   master_name = "${var.environment}-master-${var.region}"
-}
-
-locals {
-  node_name = "${var.environment}-node-${var.region}"
 }
 
 variable "node_names" {
