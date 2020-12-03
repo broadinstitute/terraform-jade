@@ -15,6 +15,7 @@ module "cloudsql" {
   }
   cloudsql_tier             = var.db_tier
   cloudsql_version          = var.db_version
+  postgres_max_connections  = var.postgres_max_connections
   private_enable            = var.enable_private_db
   private_network_self_link = var.private_network_self_link
   enable_private_services   = var.enable_private_services

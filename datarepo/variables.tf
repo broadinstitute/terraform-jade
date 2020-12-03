@@ -73,6 +73,12 @@ variable "db_version" {
   default     = "POSTGRES_11"
 }
 
+variable "postgres_max_connections" {
+  type        = number
+  description = "Maximum number of concurrent connections to the database server"
+  default     = 1024
+}
+
 variable "environment" {
   type        = string
   description = "environment being deployed"

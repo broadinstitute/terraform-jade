@@ -57,6 +57,7 @@ module "datarepo-app" {
   google_project            = var.google_project
   dns_name                  = var.dns_name
   db_version                = var.db_version
+  postgres_max_connections  = var.postgres_max_connections
   environment               = var.environment
   workloadid_names          = local.workloadid_names
   enable_private_services   = var.enable_private_services
