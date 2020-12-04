@@ -71,7 +71,7 @@ locals {
 #
 variable "db_tier" {
   type        = string
-  default     = "db-g1-small"
+  default     = "db-custom-2-7680"
   description = "The default tier (DB instance size) for the CloudSQL instance"
 }
 

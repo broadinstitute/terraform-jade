@@ -58,7 +58,7 @@ variable "enable_flow_logs" {
 variable "cloudsql_tier" {
   type        = string
   description = "Custom tier (DB instance size) for CloudSQL instances"
-  default     = ""
+  default     = "db-custom-2-7680"
 }
 
 variable "dns_name" {
