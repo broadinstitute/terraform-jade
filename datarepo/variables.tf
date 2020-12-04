@@ -76,7 +76,7 @@ variable "db_version" {
 variable "postgres_max_connections" {
   type        = number
   description = "Maximum number of concurrent connections to the database server"
-  default     = 1024
+  default     = 200
 }
 
 variable "environment" {
