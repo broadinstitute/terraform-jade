@@ -50,7 +50,7 @@ module "core-infrastructure" {
 }
 # dns ips, sql server and dbs
 module "datarepo-app" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/datarepo-app?ref=fb-dr-1502-pg-max-connections"
+  source = "github.com/broadinstitute/terraform-jade.git//modules/datarepo-app?ref=master"
 
   dependencies = [module.core-infrastructure]
 
