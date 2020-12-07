@@ -27,7 +27,7 @@ module "enable-services" {
 
 # gcp networking, k8 cluster
 module "core-infrastructure" {
-  source = "/modules"
+  source = "./modules//core-infrastructure"
 
   dependencies = [module.enable-services]
 
@@ -50,7 +50,7 @@ module "core-infrastructure" {
 }
 # dns ips, sql server and dbs
 module "datarepo-app" {
-  source = "/modules"
+  source = "./modules//datarepo-app"
 
   dependencies = [module.core-infrastructure]
 
@@ -75,7 +75,7 @@ module "datarepo-app" {
 
 # alerts
 module "datarepo-alerts" {
-  source = "modules"
+  source = "./modules//alerts"
 
   dependencies = [module.datarepo-app]
 
@@ -101,7 +101,7 @@ module "datarepo-alerts" {
 
 # monitoring audit and proformance logs to bq and gcs bucket
 module "datarepo-monitoring" {
-  source = "/modules"
+  source = "./modules//production-monitoring"
 
   dependencies = [module.datarepo-app]
 
