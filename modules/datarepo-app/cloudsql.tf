@@ -1,6 +1,6 @@
 
 module "cloudsql" {
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-postgres?ref=fb-dr-1502-pg-max-connections"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-postgres?ref=cloudsql-postgres-1.2.3"
 
   enable       = var.enable
   dependencies = var.dependencies
