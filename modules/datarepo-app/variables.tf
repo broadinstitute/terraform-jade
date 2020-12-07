@@ -69,9 +69,9 @@ locals {
 #
 # Postgres CloudSQL DB Vars
 #
-variable "db_tier" {
+variable "cloudsql_tier" {
   type        = string
-  default     = "db-g1-small"
+  default     = "db-custom-2-7680"
   description = "The default tier (DB instance size) for the CloudSQL instance"
 }
 
@@ -122,6 +122,12 @@ variable "db_version" {
   type        = string
   description = "Postgres db verion"
   default     = "POSTGRES_11"
+}
+
+variable "postgres_max_connections" {
+  type        = number
+  description = "Maximum number of concurrent connections to the database server"
+  default     = 200
 }
 
 variable "enable_private_db" {

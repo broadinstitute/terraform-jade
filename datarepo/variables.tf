@@ -58,7 +58,7 @@ variable "enable_flow_logs" {
 variable "cloudsql_tier" {
   type        = string
   description = "Custom tier (DB instance size) for CloudSQL instances"
-  default     = ""
+  default     = "db-custom-2-7680"
 }
 
 variable "dns_name" {
@@ -71,6 +71,12 @@ variable "db_version" {
   type        = string
   description = "Postgres db verion"
   default     = "POSTGRES_11"
+}
+
+variable "postgres_max_connections" {
+  type        = number
+  description = "Maximum number of concurrent connections to the database server"
+  default     = 200
 }
 
 variable "environment" {

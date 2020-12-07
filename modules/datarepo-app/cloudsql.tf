@@ -1,6 +1,6 @@
 
 module "cloudsql" {
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-postgres?ref=cloudsql-postgres-1.1.4"
+  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-postgres?ref=cloudsql-postgres-1.2.3"
 
   enable       = var.enable
   dependencies = var.dependencies
@@ -13,8 +13,9 @@ module "cloudsql" {
     "env" = local.owner
     "app" = local.service
   }
-  cloudsql_tier             = var.db_tier
+  cloudsql_tier             = var.cloudsql_tier
   cloudsql_version          = var.db_version
+  postgres_max_connections  = var.postgres_max_connections
   private_enable            = var.enable_private_db
   private_network_self_link = var.private_network_self_link
   enable_private_services   = var.enable_private_services
