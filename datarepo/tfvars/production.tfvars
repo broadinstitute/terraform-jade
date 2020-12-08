@@ -12,11 +12,10 @@ node_regions = {
   }
 }
 ## datarepo-app vars
-dns_name      = "data"
-environment   = "production"
-ip_only       = "true"
-argocd_cidrs  = ["34.68.105.207/32", "35.184.212.129/32"]
-cloudsql_tier = "db-g1-small"
+dns_name     = "data"
+environment  = "production"
+ip_only      = "true"
+argocd_cidrs = ["34.68.105.207/32", "35.184.212.129/32"]
 ## alerting
 host     = "data.terra.bio"
 gsa_name = "prometheus-sa"
