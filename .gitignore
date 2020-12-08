@@ -22,7 +22,7 @@ terraform.tf
 dev.tf
 integration.tf
 bq.tf
-!/modules/*/variables.tf
+!/datarepo/modules/*/variables.tf
 !/environments/*/terraform.tf
 !/datarepo/terraform.tf
 !/datarepo/tfvars/*
