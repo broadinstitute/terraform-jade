@@ -45,10 +45,6 @@ variable "version_prefix" {
   description = "version of gke to be deployed"
 }
 
-locals {
-  master_name = "${var.environment}-master-${var.master_region}"
-}
-
 variable "node_regions" {
   description = "Name of node pools will create a pool for every name"
   type        = map(object({ region = string }))
@@ -109,6 +105,11 @@ variable "enable_flow_logs" {
   type        = bool
   default     = "false"
   description = "flag for enabling flowlog"
+}
+
+variable "master_name" {
+  type        = string
+  description = "Name of the k8s cluster"
 }
 
 variable "master_region" {

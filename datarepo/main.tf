@@ -32,6 +32,7 @@ module "core-infrastructure" {
   depends_on = [module.enable-services]
 
   master_region    = var.region
+  master_name      = local.k8_cluster_name
   node_regions     = var.node_regions
   google_project   = var.google_project
   k8_network_name  = var.k8_network_name

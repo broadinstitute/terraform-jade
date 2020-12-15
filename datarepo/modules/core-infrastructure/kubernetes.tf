@@ -3,7 +3,7 @@ module "k8s-master" {
   source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s-master?ref=k8s-cluster-monitoring-0.0.3-tf-0.12"
   depends_on = [google_compute_network.network, google_compute_subnetwork.subnetwork]
 
-  name                     = local.master_name
+  name                     = var.master_name
   location                 = var.master_region
   version_prefix           = var.version_prefix
   release_channel          = var.gke_release_channel
@@ -25,7 +25,7 @@ module "k8s-nodes" {
   depends_on = [module.k8s-master]
 
   name                     = each.key
-  master_name              = local.master_name
+  master_name              = var.master_name
   location                 = each.value.region
   node_count               = var.node_count
   machine_type             = var.machine_type
