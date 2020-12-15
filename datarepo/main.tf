@@ -92,6 +92,7 @@ module "datarepo-alerts" {
   namespace         = var.namespace
   ip_only           = var.ip_only
   dns_zone          = var.dns_zone
+  k8_cluster_name   = local.k8_cluster_name
 
   providers = {
     google.target            = google

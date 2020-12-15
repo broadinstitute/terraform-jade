@@ -68,3 +68,9 @@ variable "dns_zone" {
   default     = ""
   description = "dns zone for grafana or prometheus"
 }
+
+variable "k8_cluster_name" {
+  type        = string
+  default     = "jade-master-us-central1"
+  description = "the name of the k8s cluster"
+}
