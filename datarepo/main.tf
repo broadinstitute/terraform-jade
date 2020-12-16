@@ -32,7 +32,7 @@ module "core-infrastructure" {
   depends_on = [module.enable-services]
 
   master_region    = var.region
-  master_name      = local.k8_cluster_name
+  master_name      = local.master_name
   node_regions     = var.node_regions
   google_project   = var.google_project
   k8_network_name  = var.k8_network_name
@@ -92,7 +92,7 @@ module "datarepo-alerts" {
   namespace         = var.namespace
   ip_only           = var.ip_only
   dns_zone          = var.dns_zone
-  k8_cluster_name   = local.k8_cluster_name
+  k8_cluster_name   = local.master_name
 
   providers = {
     google.target            = google

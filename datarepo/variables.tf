@@ -93,7 +93,7 @@ variable "dns_zone" {
 
 locals {
   workloadid_names = [var.environment]
-  k8_cluster_name = "${var.environment}-master-${var.region}"
+  master_name = "jade-master-${var.region}"
 }
 
 variable "enable_private_services" {
