@@ -101,20 +101,20 @@ module "datarepo-alerts" {
 }
 
 # monitoring audit and proformance logs to bq and gcs bucket
-module "datarepo-monitoring" {
-  source = "./modules//production-monitoring"
+#module "datarepo-monitoring" {
+#  source = "./modules//production-monitoring"
 
-  dependencies = [module.datarepo-app]
+#  dependencies = [module.datarepo-app]
 
-  google_project  = var.google_project
-  environment     = var.environment
-  enable_bigquery = var.enable_bigquery
-  enable_gcs      = var.enable_gcs
-  enable_pubsub   = var.enable_pubsub
-  enable          = var.enable_monitoring
+#  google_project  = var.google_project
+#  environment     = var.environment
+#  enable_bigquery = var.enable_bigquery
+#  enable_gcs      = var.enable_gcs
+#  enable_pubsub   = var.enable_pubsub
+#  enable          = var.enable_monitoring
 
-  providers = {
-    google.target      = google
-    google-beta.target = google-beta
-  }
-}
+#  providers = {
+#    google.target      = google
+#    google-beta.target = google-beta
+#  }
+#}

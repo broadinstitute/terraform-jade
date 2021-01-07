@@ -1,23 +1,3 @@
-module "audit-log-sinks" {
-  source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.12"
-
-  providers = {
-    google.target      = google.target
-    google-beta.target = google-beta.target
-  }
-
-  dependencies            = var.dependencies
-  enable_bigquery         = var.enable_bigquery
-  enable_gcs              = var.enable_gcs
-  owner                   = var.environment
-  application_name        = var.application_name
-  log_filter              = "resource.type=\"audited_resource\""
-  project                 = var.google_project
-  bigquery_retention_days = var.bigquery_retention_days
-  enable                  = var.enable
-
-}
-
 module "user-activity-sinks" {
   source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/gcs_bq_log_sink?ref=sinks-0.0.12"
 
