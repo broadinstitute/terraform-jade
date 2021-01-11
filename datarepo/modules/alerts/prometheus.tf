@@ -7,8 +7,8 @@ data google_dns_managed_zone dns_zone {
 
 # grafana
 resource google_compute_global_address global_ip_address_grafana {
-  provider   = google.target
-  name       = "datarepo-grafana-ip"
+  provider = google.target
+  name     = "datarepo-grafana-ip"
 }
 
 resource google_dns_record_set grafana_a_dns {
@@ -25,8 +25,8 @@ resource google_dns_record_set grafana_a_dns {
 
 # prometheus
 resource google_compute_global_address global_ip_address_prometheus {
-  provider   = google.target
-  name       = "datarepo-prometheus-ip"
+  provider = google.target
+  name     = "datarepo-prometheus-ip"
 }
 
 resource google_dns_record_set prometheus_a_dns {
@@ -50,7 +50,6 @@ module prometheus_workloadid {
   }
 
   google_project = var.google_project
-  dependencies   = var.dependencies
   roles          = var.roles
   gsa_name       = var.gsa_name
   ksa_name       = var.ksa_name

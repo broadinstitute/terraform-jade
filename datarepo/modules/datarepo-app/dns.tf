@@ -7,8 +7,8 @@ data google_dns_managed_zone dns_zone {
 
 
 resource google_compute_global_address global_ip_address {
-  provider   = google.target
-  name       = "jade-${var.environment}-ip"
+  provider = google.target
+  name     = "jade-${var.environment}-ip"
 }
 
 resource google_dns_record_set a_dns {

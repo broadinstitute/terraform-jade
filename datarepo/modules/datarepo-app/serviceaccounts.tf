@@ -10,10 +10,10 @@ resource "google_service_account" "datarepo_sql_sa" {
 resource "google_project_iam_member" "sql_sa_role" {
   count = var.enable ? length(local.sql_sa_roles) : 0
 
-  provider   = google.target
-  project    = var.google_project
-  role       = local.sql_sa_roles[count.index]
-  member     = "serviceAccount:${google_service_account.datarepo_sql_sa[0].email}"
+  provider = google.target
+  project  = var.google_project
+  role     = local.sql_sa_roles[count.index]
+  member   = "serviceAccount:${google_service_account.datarepo_sql_sa[0].email}"
 }
 
 ## vault write sql
@@ -27,8 +27,8 @@ resource "google_service_account_key" "sql_sa_key" {
 resource "vault_generic_secret" "sql_sa_key" {
   count = var.enable ? 1 : 0
 
-  provider   = vault.target
-  path       = "${local.vault_path}/datarepo-sql-sa"
+  provider = vault.target
+  path     = "${local.vault_path}/datarepo-sql-sa"
 
   data_json = <<EOT
 {
@@ -49,10 +49,10 @@ resource "google_service_account" "datarepo_api_sa" {
 resource "google_project_iam_member" "api_sa_role" {
   count = var.enable ? length(local.api_sa_roles) : 0
 
-  provider   = google.target
-  project    = var.google_project
-  role       = local.api_sa_roles[count.index]
-  member     = "serviceAccount:${google_service_account.datarepo_api_sa[0].email}"
+  provider = google.target
+  project  = var.google_project
+  role     = local.api_sa_roles[count.index]
+  member   = "serviceAccount:${google_service_account.datarepo_api_sa[0].email}"
 }
 
 ##
@@ -67,8 +67,8 @@ resource "google_service_account_key" "api_sa_key" {
 resource "vault_generic_secret" "api_sa_key" {
   count = var.enable ? 1 : 0
 
-  provider   = vault.target
-  path       = "${local.vault_path}/datarepo-api-sa"
+  provider = vault.target
+  path     = "${local.vault_path}/datarepo-api-sa"
 
   data_json = <<EOT
 {
@@ -89,10 +89,10 @@ resource "google_service_account" "datarepo_test_runner_sa" {
 resource "google_project_iam_member" "test_runner_sa_role" {
   count = var.enable ? length(local.test_runner_roles) : 0
 
-  provider   = google.target
-  project    = var.google_project
-  role       = local.test_runner_roles[count.index]
-  member     = "serviceAccount:${google_service_account.datarepo_test_runner_sa[0].email}"
+  provider = google.target
+  project  = var.google_project
+  role     = local.test_runner_roles[count.index]
+  member   = "serviceAccount:${google_service_account.datarepo_test_runner_sa[0].email}"
 }
 
 ## vault write test-runner-sa
@@ -106,8 +106,8 @@ resource "google_service_account_key" "test_runner_sa_key" {
 resource "vault_generic_secret" "test_runner_sa_key" {
   count = var.enable ? 1 : 0
 
-  provider   = vault.target
-  path       = "${local.vault_path}/test-runner-sa"
+  provider = vault.target
+  path     = "${local.vault_path}/test-runner-sa"
 
   data_json = <<EOT
 {

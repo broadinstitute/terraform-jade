@@ -14,10 +14,10 @@ resource "google_compute_router" "router" {
 }
 
 resource "google_compute_address" "nat-address" {
-  count      = var.enable ? 2 : 0
-  provider   = google.target
-  name       = "nat-external-${count.index}"
-  project    = var.google_project
+  count    = var.enable ? 2 : 0
+  provider = google.target
+  name     = "nat-external-${count.index}"
+  project  = var.google_project
 
 }
 

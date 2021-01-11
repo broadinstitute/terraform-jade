@@ -1,6 +1,6 @@
 module "uptimecheck" {
-  source       = "github.com/broadinstitute/terraform-google-monitoring-uptimecheck?ref=v0.1.2"
-  enable       = var.enable
+  source = "github.com/broadinstitute/terraform-google-monitoring-uptimecheck?ref=v0.1.2"
+  enable = var.enable
   providers = {
     google.target      = google.target
     google-beta.target = google-beta.target
@@ -14,8 +14,8 @@ module "uptimecheck" {
 }
 
 data "vault_generic_secret" "slack_token" {
-  provider   = vault.target
-  path       = var.token_secret_path
+  provider = vault.target
+  path     = var.token_secret_path
 }
 
 resource "google_monitoring_notification_channel" "notification_channel" {
