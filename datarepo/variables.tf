@@ -43,7 +43,7 @@ variable "region" {
 
 variable "version_prefix" {
   type        = string
-  default     = "1.17.13-gke.2001"
+  default     = "1.17.14-gke.400"
   description = "version of gke to be deployed"
 }
 

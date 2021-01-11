@@ -6,7 +6,6 @@ module "user-activity-sinks" {
     google-beta.target = google-beta.target
   }
 
-  dependencies     = var.dependencies
   enable_pubsub    = false
   enable_bigquery  = var.enable_bigquery
   owner            = var.environment
@@ -25,7 +24,6 @@ module "performance-log-sinks" {
     google-beta.target = google-beta.target
   }
 
-  dependencies     = var.dependencies
   enable_pubsub    = false
   enable_bigquery  = var.enable_bigquery
   owner            = var.environment
@@ -41,7 +39,7 @@ resource "google_bigquery_table" "logs" {
   provider   = google-beta.target
   dataset_id = module.user-activity-sinks.dataset_id[0]
   table_id   = "all_user_requests"
-  depends_on = [var.dependencies, module.user-activity-sinks]
+  depends_on = [module.user-activity-sinks]
   time_partitioning {
     type = "DAY"
   }
@@ -69,7 +67,7 @@ resource "google_bigquery_table" "performance_logs" {
   provider   = google-beta.target
   dataset_id = module.performance-log-sinks.dataset_id[0]
   table_id   = "performance_logs"
-  depends_on = [var.dependencies, module.performance-log-sinks]
+  depends_on = [module.performance-log-sinks]
 
   labels = {
     env = var.google_project

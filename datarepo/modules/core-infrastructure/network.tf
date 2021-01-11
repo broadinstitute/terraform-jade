@@ -10,7 +10,6 @@ resource "google_compute_network" "network" {
   provider                = google.target
   name                    = var.k8_network_name
   auto_create_subnetworks = "true"
-  depends_on              = [var.dependencies]
 }
 
 resource "google_compute_subnetwork" "subnetwork" {
@@ -22,7 +21,6 @@ resource "google_compute_subnetwork" "subnetwork" {
   region                   = "us-central1"
   private_ip_google_access = true
   network                  = google_compute_network.network[0].self_link
-  depends_on               = [var.dependencies]
   secondary_ip_range = [
     {
       range_name    = "pods"

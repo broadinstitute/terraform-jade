@@ -2,8 +2,7 @@
 module "cloudsql" {
   source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-postgres?ref=cloudsql-postgres-1.2.3"
 
-  enable       = var.enable
-  dependencies = var.dependencies
+  enable = var.enable
   providers = {
     google.target = google-beta.target
   }
@@ -36,9 +35,8 @@ module "cloudsql" {
 resource "vault_generic_secret" "sql_db_password" {
   count = var.enable ? 1 : 0
 
-  depends_on = [var.dependencies]
-  provider   = vault.target
-  path       = "${local.vault_path}/datarepo-sql-db"
+  provider = vault.target
+  path     = "${local.vault_path}/datarepo-sql-db"
 
   data_json = <<EOT
 {
