@@ -6,7 +6,6 @@ resource "google_sql_database" "datarepo-db" {
   instance   = var.sql_server_name
   charset    = "UTF8"
   collation  = "en_US.UTF8"
-  depends_on = [var.dependencies]
 }
 
 resource "google_sql_database" "stairway-db" {
@@ -17,5 +16,4 @@ resource "google_sql_database" "stairway-db" {
   instance   = var.sql_server_name
   charset    = "UTF8"
   collation  = "en_US.UTF8"
-  depends_on = [var.dependencies]
 }

@@ -4,13 +4,12 @@ resource "google_service_account" "service-account" {
   provider     = google.target
   account_id   = var.gsa_name
   display_name = var.gsa_name
-  depends_on   = [var.dependencies]
 }
 
 resource "google_service_account_key" "service-account-key" {
   provider           = google.target
   service_account_id = google_service_account.service-account.name
-  depends_on         = [var.dependencies, google_service_account.service-account]
+  depends_on         = [google_service_account.service-account]
 }
 
 resource "google_project_iam_member" "service-account-role" {
@@ -19,7 +18,7 @@ resource "google_project_iam_member" "service-account-role" {
   project    = var.google_project
   role       = each.key
   member     = "serviceAccount:${google_service_account.service-account.email}"
-  depends_on = [var.dependencies, google_service_account.service-account]
+  depends_on = [google_service_account.service-account]
 }
 
 resource "google_service_account_iam_binding" "workload-identity-binding" {
@@ -27,5 +26,5 @@ resource "google_service_account_iam_binding" "workload-identity-binding" {
   service_account_id = google_service_account.service-account.name
   role               = "roles/iam.workloadIdentityUser"
   members            = ["serviceAccount:${var.google_project}.svc.id.goog[${var.namespace}/${var.ksa_name}]"]
-  depends_on         = [var.dependencies, google_service_account.service-account]
+  depends_on         = [google_service_account.service-account]
 }

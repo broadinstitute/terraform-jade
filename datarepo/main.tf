@@ -29,7 +29,7 @@ module "enable-services" {
 module "core-infrastructure" {
   source = "./modules//core-infrastructure"
 
-  dependencies = [module.enable-services]
+  depends_on = [module.enable-services]
 
   master_region    = var.region
   node_regions     = var.node_regions
@@ -52,7 +52,7 @@ module "core-infrastructure" {
 module "datarepo-app" {
   source = "./modules//datarepo-app"
 
-  dependencies = [module.core-infrastructure]
+  depends_on = [module.core-infrastructure]
 
   google_project            = var.google_project
   dns_name                  = var.dns_name
@@ -78,7 +78,7 @@ module "datarepo-app" {
 module "datarepo-alerts" {
   source = "./modules//alerts"
 
-  dependencies = [module.datarepo-app]
+  depends_on = [module.datarepo-app]
 
   google_project    = var.google_project
   environment       = var.environment

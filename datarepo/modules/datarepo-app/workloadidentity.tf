@@ -7,6 +7,5 @@ module workloadid {
   }
 
   google_project   = var.google_project
-  dependencies     = var.dependencies
   workloadid_names = var.workloadid_names
 }

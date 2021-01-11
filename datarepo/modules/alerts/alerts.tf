@@ -1,7 +1,6 @@
 module "uptimecheck" {
   source       = "github.com/broadinstitute/terraform-google-monitoring-uptimecheck?ref=v0.1.2"
   enable       = var.enable
-  dependencies = var.dependencies
   providers = {
     google.target      = google.target
     google-beta.target = google-beta.target
@@ -17,7 +16,6 @@ module "uptimecheck" {
 data "vault_generic_secret" "slack_token" {
   provider   = vault.target
   path       = var.token_secret_path
-  depends_on = [var.dependencies]
 }
 
 resource "google_monitoring_notification_channel" "notification_channel" {
@@ -29,7 +27,6 @@ resource "google_monitoring_notification_channel" "notification_channel" {
     "channel_name" = var.slackchannel
     "auth_token"   = data.vault_generic_secret.slack_token.data["key"]
   }
-  depends_on = [var.dependencies]
 }
 
 module "k8s-cluster-alerts" {
