@@ -79,7 +79,6 @@ jobs:
         id: plan
         run: terraform apply -var-file=tfvars/${{ matrix.environment }}.tfvars -input=false -auto-approve -no-color
         working-directory: ${{ env.terraform_directory }}
-        continue-on-error: true
 
       - name: "${{ matrix.environment }} Slack job status"
         if: always()
