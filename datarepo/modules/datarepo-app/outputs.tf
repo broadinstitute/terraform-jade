@@ -21,11 +21,11 @@ output "cloudsql_root_user_password" {
 
 output "cloudsql_app_db_creds" {
   # Avoiding error on destroy with below condition
-  value     = var.enable ? (length(module.cloudsql.app_db_creds) == 0 ? {} : module.cloudsql.app_db_creds[local.service]) : null
+  value     = var.enable ? (length(module.cloudsql.app_db_creds) == 0 ? {} : module.cloudsql.app_db_creds[var.service]) : null
   sensitive = true
 }
 
 output "cloudsql_app_stairway_db_creds" {
-  value     = var.enable ? (length(module.cloudsql.app_db_creds) == 0 ? {} : module.cloudsql.app_db_creds["${local.service}-stairway"]) : null
+  value     = var.enable ? (length(module.cloudsql.app_db_creds) == 0 ? {} : module.cloudsql.app_db_creds["${var.service}-stairway"]) : null
   sensitive = true
 }

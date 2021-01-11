@@ -7,10 +7,10 @@ module "cloudsql" {
     google.target = google-beta.target
   }
   project       = var.google_project
-  cloudsql_name = "${local.service}-db-${local.owner}"
+  cloudsql_name = "${var.service}-db-${local.owner}"
   cloudsql_instance_labels = {
     "env" = local.owner
-    "app" = local.service
+    "app" = var.service
   }
   cloudsql_tier             = var.cloudsql_tier
   cloudsql_version          = var.db_version
@@ -21,11 +21,11 @@ module "cloudsql" {
   existing_vpc_network      = var.existing_vpc_network
 
   app_dbs = {
-    "${local.service}" = {
+    datarepo = {
       db       = local.db_name
       username = local.db_user
     }
-    "${local.service}-stairway" = {
+    "${var.service}-stairway" = {
       db       = local.stairway_db_name
       username = local.stairway_db_user
     }
@@ -40,10 +40,10 @@ resource "vault_generic_secret" "sql_db_password" {
 
   data_json = <<EOT
 {
-  "datarepouser": "${module.cloudsql.app_db_creds["${local.service}"].username}",
-  "datarepopassword": "${module.cloudsql.app_db_creds["${local.service}"].password}",
-  "stairwayuser": "${module.cloudsql.app_db_creds["${local.service}-stairway"].username}",
-  "stairwaypassword": "${module.cloudsql.app_db_creds["${local.service}-stairway"].password}"
+  "datarepouser": "${module.cloudsql.app_db_creds["${var.service}"].username}",
+  "datarepopassword": "${module.cloudsql.app_db_creds["${var.service}"].password}",
+  "stairwayuser": "${module.cloudsql.app_db_creds["${var.service}-stairway"].username}",
+  "stairwaypassword": "${module.cloudsql.app_db_creds["${var.service}-stairway"].password}"
 }
 EOT
 }

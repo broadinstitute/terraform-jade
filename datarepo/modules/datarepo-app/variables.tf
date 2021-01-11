@@ -17,9 +17,12 @@ variable "owner" {
 
 locals {
   owner   = var.owner == "" ? terraform.workspace : var.owner
-  service = "datarepo"
 }
 
+variable "service" {
+  type  = string
+  default = "datarepo"
+}
 
 #
 # Service Account Vars
@@ -84,10 +87,10 @@ variable "stairway_db_name" {
 }
 
 locals {
-  db_name          = var.db_name == "" ? local.service : var.db_name
-  db_user          = var.db_user == "" ? local.service : var.db_user
-  stairway_db_name = var.stairway_db_name == "" ? "${local.service}-stairway" : var.stairway_db_name
-  stairway_db_user = var.db_user == "" ? "${local.service}-stairway" : var.db_user
+  db_name          = var.db_name == "" ? var.service : var.db_name
+  db_user          = var.db_user == "" ? var.service : var.db_user
+  stairway_db_name = var.stairway_db_name == "" ? "${var.service}-stairway" : var.stairway_db_name
+  stairway_db_user = var.db_user == "" ? "${var.service}-stairway" : var.db_user
 }
 
 variable "existing_vpc_network" {

@@ -3,8 +3,8 @@ resource "google_service_account" "datarepo_sql_sa" {
   count        = var.enable ? 1 : 0
   provider     = google.target
   project      = var.google_project
-  account_id   = "${local.service}-${local.owner}-sql"
-  display_name = "${local.service}-${local.owner}-sql"
+  account_id   = "${var.service}-${local.owner}-sql"
+  display_name = "${var.service}-${local.owner}-sql"
 }
 
 resource "google_project_iam_member" "sql_sa_role" {
@@ -42,8 +42,8 @@ resource "google_service_account" "datarepo_api_sa" {
   count        = var.enable ? 1 : 0
   provider     = google-beta.target
   project      = var.google_project
-  account_id   = "${local.service}-${local.owner}-api"
-  display_name = "${local.service}-${local.owner}-api"
+  account_id   = "${var.service}-${local.owner}-api"
+  display_name = "${var.service}-${local.owner}-api"
 }
 
 resource "google_project_iam_member" "api_sa_role" {
@@ -82,8 +82,8 @@ resource "google_service_account" "datarepo_test_runner_sa" {
   count        = var.enable ? 1 : 0
   provider     = google.target
   project      = var.google_project
-  account_id   = "${local.service}-${local.owner}-test-runner"
-  display_name = "${local.service}-${local.owner}-test-runner"
+  account_id   = "${var.service}-${local.owner}-test-runner"
+  display_name = "${var.service}-${local.owner}-test-runner"
 }
 
 resource "google_project_iam_member" "test_runner_sa_role" {
