@@ -104,7 +104,7 @@ module "datarepo-alerts" {
 #module "datarepo-monitoring" {
 #  source = "./modules//production-monitoring"
 
-#  dependencies = [module.datarepo-app]
+#  depends_on = [module.datarepo-app]
 
 #  google_project  = var.google_project
 #  environment     = var.environment

@@ -16,11 +16,11 @@ variable "owner" {
 }
 
 locals {
-  owner   = var.owner == "" ? terraform.workspace : var.owner
+  owner = var.owner == "" ? terraform.workspace : var.owner
 }
 
 variable "service" {
-  type  = string
+  type    = string
   default = "datarepo"
 }
 
