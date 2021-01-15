@@ -93,6 +93,7 @@ variable "dns_zone" {
 
 locals {
   workloadid_names = [var.environment]
+  master_name      = "jade-master-${var.region}"
 }
 
 variable "enable_private_services" {
