@@ -14,7 +14,7 @@ variable "k8_subnet_name" {
 
 variable "version_prefix" {
   type = string
-  default = "1.17.13-gke.2001"
+  default = "1.17.14-gke.400"
 }
 
 variable "master_name" {
