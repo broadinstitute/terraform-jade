@@ -20,23 +20,6 @@ module "k8s-master" {
   enable_binary_authorization = var.enable_binary_authorization
 }
 
-module "k8s-nodes" {
-  # terraform-shared repo
-  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s-node-pool?ref=k8s-cluster-monitoring-0.0.3-tf-0.12"
-  for_each   = var.node_regions
-  depends_on = [module.k8s-master]
-
-  name                     = each.key
-  master_name              = local.master_name
-  location                 = each.value.region
-  node_count               = var.node_count
-  machine_type             = var.machine_type
-  disk_size_gb             = var.disk_size_gb
-  labels                   = local.node_labels
-  tags                     = local.node_tags
-  enable_workload_identity = var.enable_workload_identity
-}
-
 module "k8s-cis-nodes" {
   # terraform-shared repo
   source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s-node-pool?ref=DR-1589-ms-cis-bestpractices"
