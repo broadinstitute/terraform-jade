@@ -24,7 +24,7 @@ module "k8s-cis-nodes" {
   # terraform-shared repo
   source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s-node-pool?ref=k8s-master-0.2.4"
   for_each   = var.node_regions
-  depends_on = [module.k8s-master,google_service_account.node_pool]
+  depends_on = [module.k8s-master, google_service_account.node_pool]
 
   name                     = "${each.key}-cis"
   master_name              = local.master_name
