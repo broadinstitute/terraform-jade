@@ -105,6 +105,22 @@ variable "enable_workload_identity" {
   default     = "true"
 }
 
+variable "enable_shielded_nodes" {
+  type        = bool
+  default     = true
+  description = "If true, enables shielded nodes. https://cloud.google.com/kubernetes-engine/docs/how-to/shielded-gke-nodes"
+}
+
+variable "enable_binary_authorization" {
+  type    = bool
+  default = true
+}
+
+variable "enable_secure_boot" {
+  type    = bool
+  default = true
+}
+
 variable "enable_flow_logs" {
   type        = bool
   default     = "false"
