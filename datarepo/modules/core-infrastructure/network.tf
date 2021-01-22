@@ -9,7 +9,7 @@ resource "google_compute_network" "network" {
   project                 = var.google_project
   provider                = google.target
   name                    = var.k8_network_name
-  auto_create_subnetworks = "true"
+  auto_create_subnetworks = "false"
 }
 
 resource "google_compute_subnetwork" "subnetwork" {
