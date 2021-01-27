@@ -14,6 +14,16 @@ variable "node_regions" {
   }
 }
 
+variable "datarepo_namespace" {
+  type        = string
+  description = "kubernetes namespace"
+}
+
+variable "sql_ksa_name" {
+  type        = string
+  description = "kubernetes service ccount for sql"
+}
+
 variable "k8_network_name" {
   description = "core network name to be deployed and put k8 cluster on"
   default     = ""
@@ -125,7 +135,7 @@ variable "host" {
   default     = ""
 }
 
-variable "namespace" {
+variable "monitoring_namespace" {
   type        = string
   default     = "monitoring"
   description = "kubernetes namespace"

@@ -43,7 +43,7 @@ variable "ip_only" {
   default     = false
 }
 
-variable "namespace" {
+variable "monitoring_namespace" {
   type        = string
   description = "kubernetes namespace"
 }
