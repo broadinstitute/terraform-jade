@@ -8,18 +8,17 @@ terraform {
   }
 }
 
+
 provider "google" {
   credentials = file("env_svc.json")
   project     = var.google_project
   region      = var.region
-  version     = "~> 3.53.0"
 }
 
 provider "google-beta" {
   credentials = file("env_svc.json")
   project     = var.google_project
   region      = var.region
-  version     = "~> 3.53.0"
 }
 
 provider "vault" {
