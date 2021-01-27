@@ -12,15 +12,13 @@ node_regions = {
   }
 }
 ## datarepo-app vars
-dns_name     = "data"
-environment  = "production"
-ip_only      = "true"
-argocd_cidrs = ["34.68.105.207/32", "35.184.212.129/32"]
+dns_name           = "data"
+environment        = "production"
+ip_only            = "true"
+argocd_cidrs       = ["34.68.105.207/32", "35.184.212.129/32"]
+datarepo_namespace = "terra-prod"
+sql_ksa_name       = "datarepo-gcloud-sqlproxy"
 ## alerting
 host     = "data.terra.bio"
 gsa_name = "prometheus-sa"
 ksa_name = "datarepomonitoring-kube-pr-prometheus"
-## production sinks
-enable_bigquery   = "true"
-enable_gcs        = "true"
-enable_monitoring = "true"

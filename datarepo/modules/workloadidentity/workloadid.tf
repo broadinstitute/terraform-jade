@@ -6,12 +6,6 @@ resource "google_service_account" "service-account" {
   display_name = var.gsa_name
 }
 
-resource "google_service_account_key" "service-account-key" {
-  provider           = google.target
-  service_account_id = google_service_account.service-account.name
-  depends_on         = [google_service_account.service-account]
-}
-
 resource "google_project_iam_member" "service-account-role" {
   for_each   = toset(var.roles)
   provider   = google.target

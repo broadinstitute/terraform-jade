@@ -43,7 +43,7 @@ resource "google_dns_record_set" "prometheus_a_dns" {
 
 # workload identity GSA to KSA binding, this is a 1:1 so 1 GSA to KSA
 module "prometheus_workloadid" {
-  source = "github.com/broadinstitute/terraform-jade.git//modules/workloadidentity?ref=datarepo-modules-0.0.6"
+  source = "github.com/broadinstitute/terraform-jade.git//datarepo/modules/workloadidentity?ref=master"
   providers = {
     google.target      = google.target
     google-beta.target = google-beta.target
@@ -53,5 +53,5 @@ module "prometheus_workloadid" {
   roles          = var.roles
   gsa_name       = var.gsa_name
   ksa_name       = var.ksa_name
-  namespace      = var.namespace
+  namespace      = var.monitoring_namespace
 }

@@ -157,18 +157,6 @@ variable "private_network_self_link" {
   description = "Name of the projects network that the NAT/VPC pairing sql ip will be put on."
 }
 
-variable "enable_workloadid" {
-  type        = bool
-  description = "enable workloadIdentityUser"
-  default     = false
-}
-
-variable "workloadid_names" {
-  type        = list(string)
-  description = "Workload identity names"
-  default     = []
-}
-
 variable "enable_private_services" {
   type        = bool
   description = "Enable flag for a private sql instance if set to true, a private sql isntance will be created."
@@ -179,4 +167,14 @@ variable "ip_only" {
   type        = bool
   description = "Enable flag for this module. If set to false, no resources will be created."
   default     = false
+}
+
+variable "datarepo_namespace" {
+  type        = string
+  description = "kubernetes namespace"
+}
+
+variable "sql_ksa_name" {
+  type        = string
+  description = "kubernetes service ccount for sql"
 }

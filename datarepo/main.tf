@@ -59,12 +59,13 @@ module "datarepo-app" {
   db_version                = var.db_version
   postgres_max_connections  = var.postgres_max_connections
   environment               = var.environment
-  workloadid_names          = local.workloadid_names
   enable_private_services   = var.enable_private_services
   private_network_self_link = module.core-infrastructure.network-self-link
   ip_only                   = var.ip_only
   dns_zone                  = var.dns_zone
   cloudsql_tier             = var.cloudsql_tier
+  datarepo_namespace        = var.datarepo_namespace
+  sql_ksa_name              = var.sql_ksa_name
 
   providers = {
     google.target            = google
@@ -80,17 +81,17 @@ module "datarepo-alerts" {
 
   depends_on = [module.datarepo-app]
 
-  google_project    = var.google_project
-  environment       = var.environment
-  host              = var.host
-  path              = "/"
-  token_secret_path = var.token_secret_path
-  roles             = var.roles
-  gsa_name          = var.gsa_name
-  ksa_name          = var.ksa_name
-  namespace         = var.namespace
-  ip_only           = var.ip_only
-  dns_zone          = var.dns_zone
+  google_project       = var.google_project
+  environment          = var.environment
+  host                 = var.host
+  path                 = "/"
+  token_secret_path    = var.token_secret_path
+  roles                = var.roles
+  gsa_name             = var.gsa_name
+  ksa_name             = var.ksa_name
+  monitoring_namespace = var.monitoring_namespace
+  ip_only              = var.ip_only
+  dns_zone             = var.dns_zone
 
   providers = {
     google.target            = google
