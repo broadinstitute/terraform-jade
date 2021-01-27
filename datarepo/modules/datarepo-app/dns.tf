@@ -1,17 +1,17 @@
 # Global Ip, CNAME, A Record
-data google_dns_managed_zone dns_zone {
+data "google_dns_managed_zone" "dns_zone" {
   count    = var.ip_only ? 0 : 1
   provider = google-beta.datarepo-dns
   name     = var.dns_zone
 }
 
 
-resource google_compute_global_address global_ip_address {
+resource "google_compute_global_address" "global_ip_address" {
   provider = google.target
   name     = "jade-${var.environment}-ip"
 }
 
-resource google_dns_record_set a_dns {
+resource "google_dns_record_set" "a_dns" {
   count    = var.ip_only ? 0 : 1
   provider = google-beta.datarepo-dns
   type     = "A"
@@ -23,7 +23,7 @@ resource google_dns_record_set a_dns {
   depends_on   = [data.google_dns_managed_zone.dns_zone]
 }
 
-resource google_dns_record_set cname_dns {
+resource "google_dns_record_set" "cname_dns" {
   count    = var.ip_only ? 0 : 1
   provider = google-beta.datarepo-dns
   type     = "CNAME"

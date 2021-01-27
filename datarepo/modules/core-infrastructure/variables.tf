@@ -141,7 +141,7 @@ variable "dns_zone_name" {
 
 variable "broad_range_cidrs" {
   description = "default broad external ips"
-  type        = list
+  type        = list(any)
   default = [
     "69.173.112.0/21",
     "69.173.127.232/29",
@@ -162,7 +162,7 @@ variable "broad_range_cidrs" {
 
 variable "argocd_cidrs" {
   description = "argocd broad external ips to be added to the master auth network"
-  type        = list
+  type        = list(any)
   default     = []
 }
 
