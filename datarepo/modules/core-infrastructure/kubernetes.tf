@@ -1,6 +1,6 @@
 module "k8s-master" {
   # terraform-shared repo
-  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s-master?ref=ms-bugfix"
+  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s-master?ref=k8s-master-0.2.5"
   depends_on = [google_compute_network.network, google_compute_subnetwork.subnetwork]
 
   name                     = local.master_name
@@ -23,7 +23,7 @@ module "k8s-master" {
 
 module "k8s-cis-nodes" {
   # terraform-shared repo
-  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s-node-pool?ref=ms-bugfix"
+  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s-node-pool?ref=k8s-master-0.2.5"
   for_each   = var.node_regions
   depends_on = [module.k8s-master, google_service_account.node_pool]
 
