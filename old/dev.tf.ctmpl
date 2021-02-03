@@ -21,7 +21,8 @@ variable "initials" {
   "sh",
   "nm",
   "ps",
-  "se"
+  "se",
+  "tn"
   ]
 }
 
@@ -122,6 +123,14 @@ locals {
     jade-se = {
       type = "CNAME"
       rrdatas = "jade-global-se.datarepo-{{$environment}}.broadinstitute.org."
+    },
+    jade-global-tn = {
+      type = "A"
+      rrdatas = "${google_compute_global_address.jade-initials-ip["tn"].address}"
+    },
+    jade-tn = {
+      type = "CNAME"
+      rrdatas = "jade-global-tn.datarepo-{{$environment}}.broadinstitute.org."
     }
   }
 }
