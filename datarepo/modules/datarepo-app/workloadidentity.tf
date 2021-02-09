@@ -10,5 +10,5 @@ module "sql_workloadid" {
   namespace      = var.datarepo_namespace
   gsa_name       = "${var.service}-${local.owner}-sqlproxy"
   ksa_name       = var.sql_ksa_name
-  roles          = [ "roles/cloudsql.client" ]
+  roles          = ["roles/cloudsql.client"]
 }
