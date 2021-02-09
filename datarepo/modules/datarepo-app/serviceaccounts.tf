@@ -87,7 +87,7 @@ resource "google_service_account" "datarepo_gcr_sa" {
 }
 
 resource "google_project_iam_member" "gcr_sa_role" {
-  count = var.enable ? length(local_gcr_roles) : 0
+  count = var.enable ? length(local.gcr_roles) : 0
 
   provider = google.target
   project  = var.google_project
@@ -111,7 +111,7 @@ resource "vault_generic_secret" "gcr_sa_key" {
 
   data_json = <<EOT
 {
-  "key": "${google_service_account_key.test_gcr_key[0].private_key}"
+  "key": "${google_service_account_key.gcr_sa_key[0].private_key}"
 }
 EOT
 }
