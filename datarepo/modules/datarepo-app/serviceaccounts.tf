@@ -79,7 +79,7 @@ EOT
 
 ## gcr-sa
 resource "google_service_account" "datarepo_gcr_sa" {
-  count        = "${var.environment}" == "production" ? 1 : 0
+  count        = var.environment == "production" ? 1 : 0
   provider     = google.target
   project      = var.google_project
   account_id   = "${var.service}-${local.owner}-gcr"
@@ -97,14 +97,14 @@ resource "google_project_iam_member" "gcr_sa_role" {
 
 ## vault write gcr-sa
 resource "google_service_account_key" "gcr_sa_key" {
-  count = "${var.environment}" == "production" ? 1 : 0
+  count = var.environment == "production" ? 1 : 0
 
   provider           = google.target
   service_account_id = google_service_account.datarepo_gcr_sa[0].name
 }
 
 resource "vault_generic_secret" "gcr_sa_key" {
-  count = "${var.environment}" == "production" ? 1 : 0
+  count = var.environment == "production" ? 1 : 0
 
   provider = vault.target
   path     = "${local.vault_path}/gcr-sa"
