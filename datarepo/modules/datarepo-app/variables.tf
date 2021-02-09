@@ -59,12 +59,6 @@ locals {
   ]
 }
 
-locals {
-  gcr_roles = [
-    "roles/storage.buckets.get",    # GCR add-tag
-  ]
-}
-
 #
 # Postgres CloudSQL DB Vars
 #

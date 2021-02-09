@@ -87,11 +87,11 @@ resource "google_service_account" "datarepo_gcr_sa" {
 }
 
 resource "google_project_iam_member" "gcr_sa_role" {
-  count = var.enable ? length(local.gcr_roles) : 0
+  count = var.enable ? 1 : 0
 
   provider = google.target
   project  = var.google_project
-  role     = local.gcr_roles[count.index]
+  role     = "roles/storage.buckets.get"
   member   = "serviceAccount:${google_service_account.datarepo_gcr_sa[0].email}"
 }
 
