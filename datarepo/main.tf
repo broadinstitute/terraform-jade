@@ -21,7 +21,8 @@ module "enable-services" {
     "storage-component.googleapis.com",
     "servicenetworking.googleapis.com",
     "stackdriver.googleapis.com",
-    "logging.googleapis.com"
+    "logging.googleapis.com",
+    "cloudkms.googleapis.com"
   ]
 }
 

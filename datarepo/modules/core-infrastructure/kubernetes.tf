@@ -1,7 +1,7 @@
 module "k8s-master" {
   # terraform-shared repo
   source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s-master?ref=k8s-master-0.2.5"
-  depends_on = [google_compute_network.network, google_compute_subnetwork.subnetwork]
+  depends_on = [google_compute_network.network, google_compute_subnetwork.subnetwork, google_kms_crypto_key.db]
 
   name                     = local.master_name
   project                  = var.google_project
@@ -19,6 +19,7 @@ module "k8s-master" {
   enable_workload_identity    = var.enable_workload_identity
   enable_shielded_nodes       = var.enable_shielded_nodes
   enable_binary_authorization = var.enable_binary_authorization
+  database_encryption         = local.database_encryption
 }
 
 module "k8s-cis-nodes-highmem" {

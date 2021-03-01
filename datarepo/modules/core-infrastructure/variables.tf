@@ -41,7 +41,7 @@ variable "gke_subnet_services" {
 
 variable "version_prefix" {
   type        = string
-  default     = ""
+  default     = "1.18.12-gke.1210"
   description = "version of gke to be deployed"
 }
 
@@ -63,7 +63,7 @@ variable "node_count" {
 variable "machine_type" {
   type        = string
   description = "type of machine used for kubernetes"
-  default     = "n1-standard-2"
+  default     = "e2-highmem-2"
 }
 
 variable "private_ipv4_cidr_block" {
@@ -91,6 +91,13 @@ locals {
     var.environment,
     "kubernetes"
   ]
+}
+
+locals {
+  database_encryption = [{
+    state    = "ENCRYPTED"
+    key_name = google_kms_crypto_key.db.self_link
+  }]
 }
 
 variable "gke_release_channel" {
