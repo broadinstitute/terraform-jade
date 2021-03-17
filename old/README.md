@@ -38,3 +38,54 @@ Instead of running Terraform locally, we use a docker container with a
 specific version of Terraform installed. To run it, use the `./terraform.sh`
 script. Any arguments you pass to the script will be passed to Terraform,
 so you can use it exactly as you would the `terraform` command.
+
+### New Team member process
+
+[Edit this file](https://github.com/broadinstitute/terraform-jade/blob/master/old/dev.tf.ctmpl)
+
+#### Users initials: nu
+- name: New User
+
+#### Add blocks for initials, Add blocks for IP and DNS
+https://github.com/broadinstitute/terraform-jade/blob/master/old/dev.tf.ctmpl#L10-L28
+```
+variable "initials" {
+  type = list(string)
+  default = [
+  "ms",
+  "mk",
+  "rc",
+  "mm",
+  "fb",
+  "my",
+  "jh",
+  "dd",
+  "sh",
+  "nm",
+  "ps",
+  "se",
+  "tn",
+  "tl",
+  "nu"
+  ]
+}
+```
+https://github.com/broadinstitute/terraform-jade/blob/master/old/dev.tf.ctmpl#L30-L145
+```
+jade-global-nu = {
+  type = "A"
+  rrdatas = "${google_compute_global_address.jade-initials-ip["nu"].address}"
+},
+jade-nu = {
+  type = "CNAME"
+  rrdatas = "jade-global-nu.datarepo-{{$environment}}.broadinstitute.org."
+}
+```
+
+#### Commands
+```
+docker run --rm -it -v "$PWD":/working -v ${HOME}/.vault-token:/root/.vault-token broadinstitute/dsde-toolbox:consul-0.20.0 ./mkEnv.sh -e dev
+./terraform.sh init
+./terraform.sh plan
+./terraform.sh apply
+```
