@@ -30,6 +30,33 @@ variable "jadeteam-roles" {
   ]
 }
 
+variable "app_folder_roles" {
+  type = list(string)
+  description = "Roles used to manage projects created by the resource buffer service"
+  default = [
+    "roles/resourcemanager.folderAdmin",
+    "roles/resourcemanager.projectCreator",
+    "roles/resourcemanager.projectDeleter",
+  ]
+}
+
+variable "external_folder_ids" {
+  type        = list(string)
+  description = "Folder ids used by RBS"
+  default     = [
+    "270278425081" # data.test-terra.bio/repos/jade-dev
+  ]
+}
+
+locals {
+  folder_ids_and_roles = [
+    for pair in setproduct(var.app_folder_roles, var.external_folder_ids) : {
+      folder_role = pair[0]
+      folder_id = pair[1]
+    }
+  ]
+}
+
 resource "google_service_account" "jade-api-service-account" {
   account_id   = "jade-api-sa"
   display_name = "jade-api server service account"
@@ -45,6 +72,14 @@ resource "google_project_iam_member" "jade-api-sa-roles" {
   role       = each.key
   member     = "serviceAccount:${google_service_account.jade-api-service-account.email}"
   depends_on = [google_service_account.jade-api-service-account]
+}
+
+resource "google_folder_iam_member" "app_folder_roles" {
+  count    = length(local.folder_ids_and_roles)
+  provider = google
+  folder   = local.folder_ids_and_roles[count.index].folder_id
+  role     = local.folder_ids_and_roles[count.index].folder_role
+  member   = "serviceAccount:${google_service_account.jade-api-service-account.email}"
 }
 
 resource "vault_generic_secret" "jade-api-sa-key-secret" {
