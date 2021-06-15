@@ -33,6 +33,12 @@ locals {
   ]
 }
 
+variable external_folder_ids {
+  type        = list(string)
+  description = "Folder ids used by RBS"
+  default     = []
+}
+
 locals {
   api_sa_roles = [
     "roles/bigquery.admin",
@@ -54,11 +60,8 @@ locals {
     "roles/resourcemanager.projectCreator",
     "roles/resourcemanager.projectDeleter",
   ]
-  external_folder_ids = [
-    "270278425081" # data.test-terra.bio/repos/jade-dev
-  ]
   folder_ids_and_roles = [
-    for pair in setproduct(local.app_folder_roles, local.external_folder_ids) : {
+    for pair in setproduct(local.app_folder_roles, var.external_folder_ids) : {
       folder_role = pair[0]
       folder_id = pair[1]
   }]
