@@ -18,10 +18,9 @@ resource "google_project_iam_member" "api_sa_role" {
 
 resource "google_folder_iam_member" "app_folder_roles" {
   // Skip if folder_ids_and_roles variable is not present.
-  count = var.enable ? length(local.folder_ids_and_roles): 0
+  count = var.enable ? length(local.folder_ids_and_roles) : 0
 
   provider = google.target
-  project  = var.google_project
   folder   = local.folder_ids_and_roles[count.index].folder_id
   role     = local.folder_ids_and_roles[count.index].folder_role
   member   = "serviceAccount:${google_service_account.datarepo_api_sa[0].email}"

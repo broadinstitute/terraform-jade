@@ -58,9 +58,9 @@ locals {
     "270278425081" # data.test-terra.bio/repos/jade-dev
   ]
   folder_ids_and_roles = [
-  for pair in setproduct(local.app_folder_roles, local.external_folder_ids) : {
-    folder_role = pair[0]
-    folder_id = pair[1]
+    for pair in setproduct(local.app_folder_roles, local.external_folder_ids) : {
+      folder_role = pair[0]
+      folder_id = pair[1]
   }]
 
 }
