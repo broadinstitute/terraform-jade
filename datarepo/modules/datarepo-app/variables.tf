@@ -48,6 +48,21 @@ locals {
     "roles/container.admin",
     "roles/resourcemanager.projectIamAdmin"
   ]
+  # Roles used to manage projects created by the resource buffer service
+  app_folder_roles = [
+    "roles/resourcemanager.folderAdmin",
+    "roles/resourcemanager.projectCreator",
+    "roles/resourcemanager.projectDeleter",
+  ]
+  external_folder_ids = [
+    "270278425081" # data.test-terra.bio/repos/jade-dev
+  ]
+  folder_ids_and_roles = [
+  for pair in setproduct(local.app_folder_roles, local.external_folder_ids) : {
+    folder_role = pair[0]
+    folder_id = pair[1]
+  }]
+
 }
 
 locals {
