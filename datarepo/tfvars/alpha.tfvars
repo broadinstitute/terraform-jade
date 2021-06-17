@@ -16,4 +16,3 @@ external_folder_ids = [
 host     = "data.alpha.envs-terra.bio"
 gsa_name = "prometheus-sa"
 ksa_name = "datarepomonitoring-kube-pr-prometheus"
-
