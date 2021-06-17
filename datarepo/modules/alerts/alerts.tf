@@ -26,7 +26,7 @@ resource "google_monitoring_notification_channel" "notification_channel" {
   labels = {
     "channel_name" = var.slackchannel
   }
-  sensitive_labels = {
+  sensitive_labels {
     auth_token = data.vault_generic_secret.slack_token.data["key"]
   }
 }
