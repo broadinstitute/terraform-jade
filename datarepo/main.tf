@@ -67,6 +67,7 @@ module "datarepo-app" {
   cloudsql_tier             = var.cloudsql_tier
   datarepo_namespace        = var.datarepo_namespace
   sql_ksa_name              = var.sql_ksa_name
+  external_folder_ids       = var.external_folder_ids
 
   providers = {
     google.target            = google

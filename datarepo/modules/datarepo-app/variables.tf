@@ -33,6 +33,12 @@ locals {
   ]
 }
 
+variable external_folder_ids {
+  type        = list(string)
+  description = "Folder ids used by RBS"
+  default     = []
+}
+
 locals {
   api_sa_roles = [
     "roles/bigquery.admin",
@@ -48,6 +54,18 @@ locals {
     "roles/container.admin",
     "roles/resourcemanager.projectIamAdmin"
   ]
+  # Roles used to manage projects created by the resource buffer service
+  app_folder_roles = [
+    "roles/resourcemanager.folderAdmin",
+    "roles/resourcemanager.projectCreator",
+    "roles/resourcemanager.projectDeleter",
+  ]
+  folder_ids_and_roles = [
+    for pair in setproduct(local.app_folder_roles, var.external_folder_ids) : {
+      folder_role = pair[0]
+      folder_id = pair[1]
+  }]
+
 }
 
 locals {

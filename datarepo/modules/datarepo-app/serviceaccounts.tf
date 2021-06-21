@@ -16,6 +16,16 @@ resource "google_project_iam_member" "api_sa_role" {
   member   = "serviceAccount:${google_service_account.datarepo_api_sa[0].email}"
 }
 
+resource "google_folder_iam_member" "app_folder_roles" {
+  // Skip if folder_ids_and_roles variable is not present.
+  count = var.enable ? length(local.folder_ids_and_roles) : 0
+
+  provider = google.target
+  folder   = local.folder_ids_and_roles[count.index].folder_id
+  role     = local.folder_ids_and_roles[count.index].folder_role
+  member   = "serviceAccount:${google_service_account.datarepo_api_sa[0].email}"
+}
+
 ##
 # vault write api
 resource "google_service_account_key" "api_sa_key" {
