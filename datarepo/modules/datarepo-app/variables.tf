@@ -59,6 +59,7 @@ locals {
     "roles/resourcemanager.folderAdmin",
     "roles/resourcemanager.projectCreator",
     "roles/resourcemanager.projectDeleter",
+    "roles/owner"
   ]
   folder_ids_and_roles = [
     for pair in setproduct(local.app_folder_roles, var.external_folder_ids) : {

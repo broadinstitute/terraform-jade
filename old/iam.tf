@@ -37,6 +37,7 @@ variable "app_folder_roles" {
     "roles/resourcemanager.folderAdmin",
     "roles/resourcemanager.projectCreator",
     "roles/resourcemanager.projectDeleter",
+    "roles/owner"
   ]
 }
 
