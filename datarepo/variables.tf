@@ -180,7 +180,7 @@ variable "enable_monitoring" {
   type    = bool
 }
 
-variable external_folder_ids {
+variable "external_folder_ids" {
   type        = list(string)
   description = "Folder ids used by RBS"
   default     = []
