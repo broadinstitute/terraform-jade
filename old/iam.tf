@@ -31,19 +31,20 @@ variable "jadeteam-roles" {
 }
 
 variable "app_folder_roles" {
-  type = list(string)
+  type        = list(string)
   description = "Roles used to manage projects created by the resource buffer service"
   default = [
     "roles/resourcemanager.folderAdmin",
     "roles/resourcemanager.projectCreator",
     "roles/resourcemanager.projectDeleter",
+    "roles/owner"
   ]
 }
 
 variable "external_folder_ids" {
   type        = list(string)
   description = "Folder ids used by RBS"
-  default     = [
+  default = [
     "270278425081" # data.test-terra.bio/repos/jade-dev
   ]
 }
@@ -52,7 +53,7 @@ locals {
   folder_ids_and_roles = [
     for pair in setproduct(var.app_folder_roles, var.external_folder_ids) : {
       folder_role = pair[0]
-      folder_id = pair[1]
+      folder_id   = pair[1]
     }
   ]
 }
