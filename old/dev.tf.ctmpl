@@ -166,7 +166,7 @@ locals {
     },
     jade-az = {
       type = "CNAME"
-      rrdatas = "jade-global-nu.datarepo-{{$environment}}.broadinstitute.org."
+      rrdatas = "jade-global-az.datarepo-{{$environment}}.broadinstitute.org."
     }
   }
 }
