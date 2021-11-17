@@ -32,6 +32,18 @@ variable "slackchannel" {
   default     = "#jade-alerts"
 }
 
+variable "workbenchalertname" {
+  type        = string
+  description = "The workbench alert name"
+  default     = "workbench-oncall"
+}
+
+variable "workbenchslackchannel" {
+  type        = string
+  description = "The workbench slack channel to report to"
+  default     = "#workbench-oncall"
+}
+
 variable "token_secret_path" {
   type        = string
   description = "The vault path for the slack token"
