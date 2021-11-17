@@ -25,7 +25,7 @@ resource "google_monitoring_notification_channel" "notification_channel" {
   display_name = var.environment
   type         = "slack"
   labels = {
-    "channel_name" = var.slackchannel
+    "channel_name" = var.slack_channel
   }
   sensitive_labels {
     auth_token = data.vault_generic_secret.slack_token.data["key"]
@@ -35,10 +35,10 @@ resource "google_monitoring_notification_channel" "notification_channel" {
 resource "google_monitoring_notification_channel" "workbench_notification_channel" {
   count        = var.enable ? 1 : 0
   provider     = google-beta.target
-  display_name = var.workbenchalertname
+  display_name = var.workbench_alert_name
   type         = "slack"
   labels = {
-    "channel_name" = var.workbenchslackchannel
+    "channel_name" = var.workbench_slack_channel
   }
   sensitive_labels {
     auth_token = data.vault_generic_secret.slack_token.data["key"]

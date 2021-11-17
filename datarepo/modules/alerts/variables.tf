@@ -26,19 +26,19 @@ variable "path" {
   default     = "/"
 }
 
-variable "slackchannel" {
+variable "slack_channel" {
   type        = string
   description = "The slack channel to report to"
   default     = "#jade-alerts"
 }
 
-variable "workbenchalertname" {
+variable "workbench_alert_name" {
   type        = string
   description = "The workbench alert name"
   default     = "workbench-oncall"
 }
 
-variable "workbenchslackchannel" {
+variable "workbench_slack_channel" {
   type        = string
   description = "The workbench slack channel to report to"
   default     = "#workbench-oncall"
