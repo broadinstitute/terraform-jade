@@ -80,3 +80,9 @@ variable "dns_zone" {
   default     = ""
   description = "dns zone for grafana or prometheus"
 }
+
+variable "dns_zone_name" {
+  type        = string
+  description = "dns zone name when creating the dns zone via this terraform"
+  default     = ""
+}
