@@ -197,3 +197,9 @@ variable "sql_ksa_name" {
   type        = string
   description = "kubernetes service ccount for sql"
 }
+
+variable "dns_zone_name" {
+  type        = string
+  description = "dns zone name when creating the dns zone via this terraform"
+  default     = ""
+}
