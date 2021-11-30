@@ -62,6 +62,7 @@ module "datarepo-app" {
   environment               = var.environment
   enable_private_services   = var.enable_private_services
   private_network_self_link = module.core-infrastructure.network-self-link
+  dns_zone_name             = module.core-infrastructure.dns-zone-name
   ip_only                   = var.ip_only
   dns_zone                  = var.dns_zone
   cloudsql_tier             = var.cloudsql_tier
@@ -94,6 +95,7 @@ module "datarepo-alerts" {
   monitoring_namespace = var.monitoring_namespace
   ip_only              = var.ip_only
   dns_zone             = var.dns_zone
+  dns_zone_name        = module.core-infrastructure.dns-zone-name
 
   providers = {
     google.target            = google
