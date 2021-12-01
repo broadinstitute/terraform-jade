@@ -52,7 +52,10 @@ locals {
     "roles/storage.admin",
     "roles/pubsub.admin",
     "roles/container.admin",
-    "roles/resourcemanager.projectIamAdmin"
+    "roles/resourcemanager.projectIamAdmin",
+    # Allow exporting metrics, profiling, and tracing for monitoring.
+    "roles/cloudprofiler.agent",
+    "roles/cloudtrace.agent",
   ]
   # Roles used to manage projects created by the resource buffer service
   app_folder_roles = [
