@@ -176,3 +176,9 @@ variable "argocd_cidrs" {
 locals {
   broad_range_cidrs = var.argocd_cidrs != "" ? concat(var.broad_range_cidrs, var.argocd_cidrs) : var.broad_range_cidrs
 }
+
+variable "log_retention_days" {
+  type        = number
+  description = "Number of days to retain service logs"
+  default     = "30"
+}

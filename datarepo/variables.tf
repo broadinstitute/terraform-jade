@@ -63,6 +63,12 @@ variable "enable_flow_logs" {
   description = "flag for enabling flowlog"
 }
 
+variable "log_retention_days" {
+  type        = number
+  description = "Number of days to retain service logs"
+  default     = "30"
+}
+
 ## datarepo-app vars
 
 variable "cloudsql_tier" {

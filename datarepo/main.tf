@@ -32,17 +32,18 @@ module "core-infrastructure" {
 
   depends_on = [module.enable-services]
 
-  master_region    = var.region
-  node_regions     = var.node_regions
-  google_project   = var.google_project
-  k8_network_name  = var.k8_network_name
-  k8_subnet_name   = var.k8_subnet_name
-  node_count       = var.node_count
-  machine_type     = var.machine_type
-  version_prefix   = var.version_prefix
-  dns_zone_name    = var.dns_zone
-  argocd_cidrs     = var.argocd_cidrs
-  enable_flow_logs = var.enable_flow_logs
+  master_region      = var.region
+  node_regions       = var.node_regions
+  google_project     = var.google_project
+  k8_network_name    = var.k8_network_name
+  k8_subnet_name     = var.k8_subnet_name
+  node_count         = var.node_count
+  machine_type       = var.machine_type
+  version_prefix     = var.version_prefix
+  dns_zone_name      = var.dns_zone
+  argocd_cidrs       = var.argocd_cidrs
+  enable_flow_logs   = var.enable_flow_logs
+  log_retention_days = var.log_retention_days
 
   providers = {
     google.target      = google

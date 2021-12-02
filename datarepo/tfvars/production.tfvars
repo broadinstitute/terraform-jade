@@ -11,6 +11,7 @@ node_regions = {
     region = "us-central1"
   }
 }
+log_retention_days = "90"
 ## datarepo-app vars
 dns_name           = "data"
 environment        = "production"
