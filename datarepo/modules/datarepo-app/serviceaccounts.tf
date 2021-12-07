@@ -68,14 +68,14 @@ resource "google_project_iam_member" "test_runner_sa_role" {
 
 ## vault write test-runner-sa
 resource "google_service_account_key" "test_runner_sa_key" {
-  count = var.enable ? 1 : 0
+  count = (var.enable && !local.is_production) ? 1 : 0
 
   provider           = google.target
   service_account_id = google_service_account.datarepo_test_runner_sa[0].name
 }
 
 resource "vault_generic_secret" "test_runner_sa_key" {
-  count = var.enable ? 1 : 0
+  count = (var.enable && !local.is_production) ? 1 : 0
 
   provider = vault.target
   path     = "${local.vault_path}/test-runner-sa"
