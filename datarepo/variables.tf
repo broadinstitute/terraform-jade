@@ -155,8 +155,8 @@ variable "ksa_name" {
 
 variable "roles" {
   type        = list(string)
-  default     = ["roles/monitoring.admin", "roles/logging.admin", "roles/monitoring.metricWriter"]
-  description = "List of google roles to apply to service account"
+  default     = ["roles/monitoring.metricWriter"]
+  description = "List of google roles to apply to service account used for alerts and monitoring"
 }
 
 ## production monitoring
