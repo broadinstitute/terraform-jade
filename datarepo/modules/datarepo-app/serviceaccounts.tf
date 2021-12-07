@@ -50,7 +50,7 @@ EOT
 
 ## test-runner-sa
 resource "google_service_account" "datarepo_test_runner_sa" {
-  count        = var.enable ? 1 : 0
+  count        = (var.enable && !local.is_production) ? 1 : 0
   provider     = google.target
   project      = var.google_project
   account_id   = "${var.service}-${local.owner}-test-runner"
@@ -58,7 +58,7 @@ resource "google_service_account" "datarepo_test_runner_sa" {
 }
 
 resource "google_project_iam_member" "test_runner_sa_role" {
-  count = var.enable ? length(local.test_runner_roles) : 0
+  count = (var.enable && !local.is_production) ? length(local.test_runner_roles) : 0
 
   provider = google.target
   project  = var.google_project

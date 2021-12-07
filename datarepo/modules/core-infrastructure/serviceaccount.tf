@@ -30,8 +30,6 @@ locals {
     "roles/monitoring.viewer",
     "roles/monitoring.metricWriter",
     "roles/logging.logWriter",
-    "roles/container.admin",
-    "roles/compute.admin",
     "roles/cloudkms.cryptoKeyEncrypterDecrypter"
   ]
 }

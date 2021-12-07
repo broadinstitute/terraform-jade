@@ -40,23 +40,26 @@ variable external_folder_ids {
 }
 
 locals {
-  api_sa_roles = [
-    "roles/bigquery.admin",
-    "roles/cloudsql.admin",
+  is_production = var.environment == "production"
+}
+
+locals {
+  // If we are in production, the service account doesn't need k8s admin permissions
+  api_sa_k8s_roles = local.is_production ? [] : ["roles/container.admin"]
+  api_sa_roles = concat([
+    "roles/cloudsql.editor",
     "roles/datastore.user",
     "roles/errorreporting.writer",
     "roles/logging.logWriter",
-    "roles/monitoring.admin",
     "roles/servicemanagement.serviceController",
     "roles/stackdriver.accounts.viewer",
-    "roles/storage.admin",
-    "roles/pubsub.admin",
-    "roles/container.admin",
-    "roles/resourcemanager.projectIamAdmin",
+    "roles/storage.legacyBucketReader",
+    "roles/storage.legacyObjectReader",
+    "roles/pubsub.editor",
     # Allow exporting metrics, profiling, and tracing for monitoring.
     "roles/cloudprofiler.agent",
     "roles/cloudtrace.agent",
-  ]
+  ], local.api_sa_k8s_roles)
   # Roles used to manage projects created by the resource buffer service
   app_folder_roles = [
     "roles/resourcemanager.folderAdmin",
