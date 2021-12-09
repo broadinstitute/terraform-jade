@@ -3,6 +3,7 @@ env:
   terraform_directory: "./datarepo"
   terraform_version: "0.14.5"
 on:
+  workflow_dispatch: {}
   push:
     branches:
       - master
