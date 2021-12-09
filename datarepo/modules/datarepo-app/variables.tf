@@ -53,8 +53,7 @@ locals {
     "roles/logging.logWriter",
     "roles/servicemanagement.serviceController",
     "roles/stackdriver.accounts.viewer",
-    "roles/storage.legacyBucketReader",
-    "roles/storage.legacyObjectReader",
+    "roles/viewer",
     "roles/pubsub.editor",
     # Allow exporting metrics, profiling, and tracing for monitoring.
     "roles/cloudprofiler.agent",
