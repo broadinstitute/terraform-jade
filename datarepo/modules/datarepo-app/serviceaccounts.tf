@@ -46,6 +46,10 @@ resource "vault_generic_secret" "api_sa_key" {
   "key": "${google_service_account_key.api_sa_key[0].private_key}"
 }
 EOT
+
+  lifecycle {
+    ignore_changes = [data_json] # Ignore changes since this key is automatically rotated
+  }
 }
 
 ## test-runner-sa
