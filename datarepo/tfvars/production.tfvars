@@ -19,7 +19,8 @@ argocd_cidrs       = ["34.68.105.207/32", "35.184.212.129/32"]
 datarepo_namespace = "terra-prod"
 sql_ksa_name       = "datarepo-gcloud-sqlproxy"
 external_folder_ids = [
-  "815384374864" # firecloud.org/terra-datarepo
+  "815384374864", # firecloud.org/terra-datarepo
+  "43241207445" # firecloud.org/terra-datarepo-secure
 ]
 ## alerting
 host     = "data.terra.bio"

@@ -12,7 +12,8 @@ cloudsql_tier      = "db-custom-16-32768"
 datarepo_namespace = "perf"
 sql_ksa_name       = "perf-jade-gcloud-sqlproxy"
 external_folder_ids = [
-"270278425081" # data.test-terra.bio/repos/jade-dev
+  "270278425081", # data.test-terra.bio/repos/jade-dev
+  "753276429356", # data.test-terra.bio/repos/jade-dev/jade-dev-refoldering-test
 ]
 ## alerting
 host     = "jade-perf.datarepo-perf.broadinstitute.org"
