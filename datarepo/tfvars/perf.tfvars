@@ -8,7 +8,6 @@ environment        = "perf"
 ip_only            = "false"
 dns_zone           = "datarepo-perf"
 argocd_cidrs       = ["35.202.125.180/32", "34.70.76.7/32"]
-cloudsql_tier      = "db-custom-16-32768"
 datarepo_namespace = "perf"
 sql_ksa_name       = "perf-jade-gcloud-sqlproxy"
 external_folder_ids = [
