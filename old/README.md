@@ -21,10 +21,21 @@ re-render the templates. To render the templates, first `cd` into the root direc
 of this repo in the environment you want to modify, then run:
 
 ```
-docker run --rm -it -v "$PWD":/working -v ${HOME}/.vault-token:/root/.vault-token broadinstitute/dsde-toolbox ./mkEnv.sh -e <env> [-s <suffix>]
+docker run --rm -it -v "$PWD":/working \
+  -v ${HOME}/.vault-token:/root/.vault-token broadinstitute/dsde-toolbox \
+  ./mkEnv.sh -e <env> [-s <suffix>]
 ```
 
-where `<env>` is the environment used to pull secrets from valut (either `dev` or `prod`) and where the optional `<suffix>` is set to the project suffix (e.g. `integration` when the project is broad-jade-integration). When the suffix is the same as the env, you do not need to specify the -s parameter (e.g. broad-jade-dev). For our terra production instance, the suffix is terra (i.e. broad-jade-terra).
+Usage guidance:
+
+`<env>` - the environment used to pull secrets from Vault (`dev` or `prod`).
+
+[Optional] `<suffix>` - matches GCP project with naming convention
+`broad-jade-<suffix>`.
+- When unspecified, defaults to `<env>` (e.g. project broad-jade-dev)
+- For our Terra production instance, the suffix is terra
+  (e.g. project broad-jade-terra)
+
 
 ### Run Terraform Init
 
@@ -39,38 +50,29 @@ specific version of Terraform installed. To run it, use the `./terraform.sh`
 script. Any arguments you pass to the script will be passed to Terraform,
 so you can use it exactly as you would the `terraform` command.
 
-### New Team member process
+### New Team Member Process
 
 [Edit this file](https://github.com/broadinstitute/terraform-jade/blob/master/old/dev.tf.ctmpl)
 
-#### Users initials: nu
+Following these instructions will allow a new Jade team member
+to generate the static resources needed to deploy their personal development environment.
+
+#### User's initials: nu
 - name: New User
 
-#### Add blocks for initials, Add blocks for IP and DNS
-https://github.com/broadinstitute/terraform-jade/blob/master/old/dev.tf.ctmpl#L10-L28
+#### Add your initials to the [default list](https://github.com/broadinstitute/terraform-jade/blob/ddf15bd875fdab66f6545f73e4322c1ff6f49a36/old/dev.tf.ctmpl#L10-L31)
 ```
 variable "initials" {
   type = list(string)
   default = [
   "ms",
   "mk",
-  "rc",
-  "mm",
-  "fb",
-  "my",
-  "jh",
-  "dd",
-  "sh",
-  "nm",
-  "ps",
-  "se",
-  "tn",
-  "tl",
+  ...
   "nu"
   ]
 }
 ```
-https://github.com/broadinstitute/terraform-jade/blob/master/old/dev.tf.ctmpl#L30-L145
+#### Add your IP and DNS blocks to [locals.initialrecords](https://github.com/broadinstitute/terraform-jade/blob/ddf15bd875fdab66f6545f73e4322c1ff6f49a36/old/dev.tf.ctmpl#L33-L172)
 ```
 jade-global-nu = {
   type = "A"
@@ -82,9 +84,11 @@ jade-nu = {
 }
 ```
 
-#### Commands
+#### Run Commands
 ```
-docker run --rm -it -v "$PWD":/working -v ${HOME}/.vault-token:/root/.vault-token broadinstitute/dsde-toolbox:consul-0.20.0 ./mkEnv.sh -e dev
+docker run --rm -it -v "$PWD":/working \
+  -v ${HOME}/.vault-token:/root/.vault-token broadinstitute/dsde-toolbox:consul-0.20.0 \
+  ./mkEnv.sh -e dev
 ./terraform.sh init
 ./terraform.sh plan
 ./terraform.sh apply
