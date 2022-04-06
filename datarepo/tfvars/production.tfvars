@@ -11,6 +11,8 @@ node_regions = {
     region = "us-central1"
   }
 }
+cloudsql_tier      = "db-custom-4-15360"
+postgres_max_connections = 400
 ## datarepo-app vars
 dns_name           = "data"
 environment        = "production"
