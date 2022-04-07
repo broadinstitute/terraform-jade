@@ -93,3 +93,14 @@ docker run --rm -it -v "$PWD":/working \
 ./terraform.sh plan
 ./terraform.sh apply
 ```
+
+#### Verifying Outcomes
+
+For each [instance](https://console.cloud.google.com/sql/instances?project=broad-jade-dev)
+in GCP SQL with project `broad-jade-dev`,
+list all databases (you may need to expand rows per page).
+
+You should see yours in there with name `datarepo-nu`.
+
+Here is a [concrete example](https://console.cloud.google.com/sql/instances/jade-postgres-11-8a00fd4d3b/databases?project=broad-jade-dev)
+for our existing Postgres 11 instance.
