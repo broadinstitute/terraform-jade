@@ -11,7 +11,7 @@ datarepo_namespace = "terra-alpha"
 sql_ksa_name       = "datarepo-gcloud-sqlproxy"
 external_folder_ids = [
   "270278425081", # data.test-terra.bio/repos/jade-dev
-  "753276429356"  # data.test-terra.bio/repos/jade-dev/jade-dev-refoldering-test
+  "753276429356" # data.test-terra.bio/repos/jade-dev/jade-dev-refoldering-test
 ]
 ## alerting
 host     = "data.alpha.envs-terra.bio"

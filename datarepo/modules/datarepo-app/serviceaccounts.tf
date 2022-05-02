@@ -54,7 +54,7 @@ EOT
 
 ## test-runner-sa
 resource "google_service_account" "datarepo_test_runner_sa" {
-  count        = (var.enable && ! local.is_production) ? 1 : 0
+  count        = (var.enable && !local.is_production) ? 1 : 0
   provider     = google.target
   project      = var.google_project
   account_id   = "${var.service}-${local.owner}-test-runner"
@@ -62,7 +62,7 @@ resource "google_service_account" "datarepo_test_runner_sa" {
 }
 
 resource "google_project_iam_member" "test_runner_sa_role" {
-  count = (var.enable && ! local.is_production) ? length(local.test_runner_roles) : 0
+  count = (var.enable && !local.is_production) ? length(local.test_runner_roles) : 0
 
   provider = google.target
   project  = var.google_project
@@ -72,14 +72,14 @@ resource "google_project_iam_member" "test_runner_sa_role" {
 
 ## vault write test-runner-sa
 resource "google_service_account_key" "test_runner_sa_key" {
-  count = (var.enable && ! local.is_production) ? 1 : 0
+  count = (var.enable && !local.is_production) ? 1 : 0
 
   provider           = google.target
   service_account_id = google_service_account.datarepo_test_runner_sa[0].name
 }
 
 resource "vault_generic_secret" "test_runner_sa_key" {
-  count = (var.enable && ! local.is_production) ? 1 : 0
+  count = (var.enable && !local.is_production) ? 1 : 0
 
   provider = vault.target
   path     = "${local.vault_path}/test-runner-sa"

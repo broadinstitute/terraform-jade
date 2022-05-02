@@ -11,7 +11,7 @@ node_regions = {
     region = "us-central1"
   }
 }
-cloudsql_tier            = "db-custom-4-15360"
+cloudsql_tier      = "db-custom-4-15360"
 postgres_max_connections = 400
 ## datarepo-app vars
 dns_name           = "data"
@@ -22,7 +22,7 @@ datarepo_namespace = "terra-prod"
 sql_ksa_name       = "datarepo-gcloud-sqlproxy"
 external_folder_ids = [
   "815384374864", # firecloud.org/terra-datarepo
-  "43241207445"   # firecloud.org/terra-datarepo-secure
+  "43241207445" # firecloud.org/terra-datarepo-secure
 ]
 ## alerting
 host     = "data.terra.bio"

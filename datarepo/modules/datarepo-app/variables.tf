@@ -70,7 +70,7 @@ locals {
   folder_ids_and_roles = [
     for pair in setproduct(local.app_folder_roles, var.external_folder_ids) : {
       folder_role = pair[0]
-      folder_id   = pair[1]
+      folder_id = pair[1]
   }]
 
 }
