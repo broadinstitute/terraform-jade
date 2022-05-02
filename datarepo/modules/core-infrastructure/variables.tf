@@ -181,5 +181,5 @@ locals {
 variable "enable_os_login" {
   description = "Whether to enable OS Login PROJECT-WIDE (https://cloud.google.com/compute/docs/oslogin/set-up-oslogin)"
   type        = bool
-  default     = false
+  default     = true
 }

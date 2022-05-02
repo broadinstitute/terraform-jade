@@ -2,7 +2,6 @@
 google_project  = "broad-jade-perf"
 k8_network_name = "perf-network"
 k8_subnet_name  = "perf-subnet"
-enable_os_login = true
 ## datarepo-app vars
 dns_name           = "jade-perf"
 environment        = "perf"
