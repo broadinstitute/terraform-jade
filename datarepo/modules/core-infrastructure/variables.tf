@@ -176,10 +176,3 @@ variable "argocd_cidrs" {
 locals {
   broad_range_cidrs = var.argocd_cidrs != "" ? concat(var.broad_range_cidrs, var.argocd_cidrs) : var.broad_range_cidrs
 }
-
-
-variable "enable_os_login" {
-  description = "Whether to enable OS Login PROJECT-WIDE (https://cloud.google.com/compute/docs/oslogin/set-up-oslogin)"
-  type        = bool
-  default     = true
-}
