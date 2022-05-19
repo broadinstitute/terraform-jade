@@ -17,5 +17,5 @@ jobs:
         uses: bridgecrewio/checkov-action@master
         with:
           directory: datarepo/
-          output_format: sarif
           framework: terraform
+          quiet: true
