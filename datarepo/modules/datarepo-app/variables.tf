@@ -55,6 +55,7 @@ locals {
     "roles/stackdriver.accounts.viewer",
     "roles/viewer",
     "roles/pubsub.editor",
+    "roles/iam.serviceAccountTokenCreator",
     # Allow exporting metrics, profiling, and tracing for monitoring.
     "roles/cloudprofiler.agent",
     "roles/cloudtrace.agent",
