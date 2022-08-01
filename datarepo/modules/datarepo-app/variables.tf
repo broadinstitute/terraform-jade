@@ -55,6 +55,7 @@ locals {
     "roles/stackdriver.accounts.viewer",
     "roles/viewer",
     "roles/pubsub.editor",
+    "roles/iam.serviceAccountTokenCreator",
     # Allow exporting metrics, profiling, and tracing for monitoring.
     "roles/cloudprofiler.agent",
     "roles/cloudtrace.agent",
@@ -65,7 +66,8 @@ locals {
     "roles/resourcemanager.projectCreator",
     "roles/resourcemanager.projectDeleter",
     "roles/resourcemanager.projectMover",
-    "roles/owner"
+    "roles/owner",
+    "roles/iam.serviceAccountTokenCreator",
   ]
   folder_ids_and_roles = [
     for pair in setproduct(local.app_folder_roles, var.external_folder_ids) : {
