@@ -19,3 +19,5 @@ jobs:
           directory: datarepo/
           framework: terraform
           quiet: true
+          soft_fail: true
+          
