@@ -27,7 +27,8 @@ variable "initials" {
   "tc",
   "cl",
   "az",
-  "ok"
+  "ok",
+  "eo"
   ]
 }
 
@@ -176,6 +177,14 @@ locals {
     jade-ok = {
       type = "CNAME"
       rrdatas = "jade-global-ok.datarepo-{{$environment}}.broadinstitute.org."
+    },
+    jade-global-eo = {
+      type = "A"
+      rrdatas = "${google_compute_global_address.jade-initials-ip["eo"].address}"
+    },
+    jade-eo = {
+      type = "CNAME"
+      rrdatas = "jade-global-eo.datarepo-{{$environment}}.broadinstitute.org."
     }
   }
 }
