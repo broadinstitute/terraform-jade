@@ -1,8 +1,8 @@
 #!/bin/bash
 
-DEFAULT_TERRAFORM_VERSION="0.13.6"
+DEFAULT_TERRAFORM_VERSION="0.14.5"
 #DOCKER_IMAGE='broadinstitute/terraform:latest'
-DOCKER_IMAGE="${DOCKER_IMAGE:-gcr.io/broad-dsp-gcr-public/terraform0.13:${TERRAFORM_VERSION:-${DEFAULT_TERRAFORM_VERSION}}}"
+DOCKER_IMAGE="${DOCKER_IMAGE:-gcr.io/broad-dsp-gcr-public/terraform0.14:${TERRAFORM_VERSION:-${DEFAULT_TERRAFORM_VERSION}}}"
 SUDO=
 
 SCRIPT_DIR="$( cd -P "$( dirname "$BASH_SOURCE[0]" )" && pwd )"
@@ -37,4 +37,4 @@ if [ ! -d "${DATA_FQP}" ];
 fi
 
 $SUDO docker run $TTY --rm -v ${HOME}/.vault-token:/root/.vault-token -v $DATA_FQP:/data $EXTRA_ENV $DOCKER_IMAGE  $@
-#$SUDO docker run $TTY --rm -v ${HOME}/.vault-token:/root/.vault-token -v $DATA_FQP:/data -e TF_LOG=DEBUG $EXTRA_ENV $DOCKER_IMAGE  $@
+#$SUDO docker run $TTY --rm -v ${HOME}/.vault-token:/root/.vault-token -v $DATA_FQP:/data -e TF_LOG=TRACE $EXTRA_ENV $DOCKER_IMAGE  $@
