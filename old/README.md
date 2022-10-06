@@ -72,17 +72,6 @@ variable "initials" {
   ]
 }
 ```
-#### Add your IP and DNS blocks to [locals.initialrecords](https://github.com/broadinstitute/terraform-jade/blob/ddf15bd875fdab66f6545f73e4322c1ff6f49a36/old/dev.tf.ctmpl#L33-L172)
-```
-jade-global-nu = {
-  type = "A"
-  rrdatas = "${google_compute_global_address.jade-initials-ip["nu"].address}"
-},
-jade-nu = {
-  type = "CNAME"
-  rrdatas = "jade-global-nu.datarepo-{{$environment}}.broadinstitute.org."
-}
-```
 
 #### Run Commands
 ```
