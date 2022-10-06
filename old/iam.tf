@@ -2,7 +2,6 @@
 variable "api-roles" {
   type = list(string)
   default = [
-    "roles/bigquery.admin",
     "roles/cloudsql.admin",
     "roles/datastore.user",
     "roles/errorreporting.writer",
@@ -21,7 +20,6 @@ variable "jadeteam-roles" {
     "roles/container.admin",
     "roles/container.clusterAdmin",
     "roles/container.hostServiceAgentUser",
-    "roles/bigquery.admin",
     "roles/cloudsql.admin",
     "roles/monitoring.admin",
     "roles/servicemanagement.serviceController",
