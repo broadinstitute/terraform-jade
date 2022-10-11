@@ -14,6 +14,8 @@ docker run --rm -it -v "$PWD":/working -v ${HOME}/.vault-token:/root/.vault-toke
 ./terraform.sh plan -var-file=tfvars/<env>.tfvars
 ./terraform.sh apply -var-file=tfvars/<env>.tfvars
 ```
+
+Note: for dev, don't worry about the `google_project_iam_binding` service account changes.  Those seem to just swap every time you apply.  Not really worth fixing 
 ## Variables
 - `<env>` should correspond to the environment to deploy (typically either `dev`
 or `prod`)

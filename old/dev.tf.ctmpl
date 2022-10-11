@@ -27,157 +27,22 @@ variable "initials" {
   "tc",
   "cl",
   "az",
-  "ok"
+  "ok",
+  "eo"
   ]
 }
 
 locals {
-  initialrecords = {
-    jade-global-ms = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["ms"].address}"
+  initialrecords = merge(
+    {
+      for initial in var.initials:
+        "jade-global-${initial}" => { type = "A", rrdatas = "${google_compute_global_address.jade-initials-ip[initial].address}" }
     },
-    jade-ms = {
-      type = "CNAME"
-      rrdatas = "jade-global-ms.datarepo-{{$environment}}.broadinstitute.org."
+    {
+      for initial in var.initials:
+        "jade-${initial}" => { type = "CNAME", rrdatas = "jade-global-${initial}.datarepo-{{$environment}}.broadinstitute.org." }
     },
-    jade-global-mk = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["mk"].address}"
-    },
-    jade-mk = {
-      type = "CNAME"
-      rrdatas = "jade-global-mk.datarepo-{{$environment}}.broadinstitute.org."
-    },
-    jade-global-rc = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["rc"].address}"
-    },
-    jade-rc = {
-      type = "CNAME"
-      rrdatas = "jade-global-rc.datarepo-{{$environment}}.broadinstitute.org."
-    },
-    jade-global-mm = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["mm"].address}"
-    },
-    jade-mm = {
-      type = "CNAME"
-      rrdatas = "jade-global-mm.datarepo-{{$environment}}.broadinstitute.org."
-    },
-    jade-global-fb = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["fb"].address}"
-    },
-    jade-fb = {
-      type = "CNAME"
-      rrdatas = "jade-global-fb.datarepo-{{$environment}}.broadinstitute.org."
-    },
-    jade-global-my = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["my"].address}"
-    },
-    jade-my = {
-      type = "CNAME"
-      rrdatas = "jade-global-my.datarepo-{{$environment}}.broadinstitute.org."
-    },
-    jade-global-jh = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["jh"].address}"
-    },
-    jade-jh = {
-      type = "CNAME"
-      rrdatas = "jade-global-jh.datarepo-{{$environment}}.broadinstitute.org."
-    },
-    jade-global-dd = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["dd"].address}"
-    },
-    jade-dd = {
-      type = "CNAME"
-      rrdatas = "jade-global-dd.datarepo-{{$environment}}.broadinstitute.org."
-    },
-    jade-global-sh = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["sh"].address}"
-    },
-    jade-sh = {
-      type = "CNAME"
-      rrdatas = "jade-global-sh.datarepo-{{$environment}}.broadinstitute.org."
-    },
-    jade-global-nm = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["nm"].address}"
-    },
-    jade-nm = {
-      type = "CNAME"
-      rrdatas = "jade-global-nm.datarepo-{{$environment}}.broadinstitute.org."
-    },
-    jade-global-ps = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["ps"].address}"
-    },
-    jade-ps = {
-      type = "CNAME"
-      rrdatas = "jade-global-ps.datarepo-{{$environment}}.broadinstitute.org."
-    },
-    jade-global-se = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["se"].address}"
-    },
-    jade-se = {
-      type = "CNAME"
-      rrdatas = "jade-global-se.datarepo-{{$environment}}.broadinstitute.org."
-    },
-    jade-global-tn = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["tn"].address}"
-    },
-    jade-tn = {
-      type = "CNAME"
-      rrdatas = "jade-global-tn.datarepo-{{$environment}}.broadinstitute.org."
-    },
-    jade-global-tl = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["tl"].address}"
-    },
-    jade-tl = {
-      type = "CNAME"
-      rrdatas = "jade-global-tl.datarepo-{{$environment}}.broadinstitute.org."
-    },
-    jade-global-tc = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["tc"].address}"
-    },
-    jade-tc = {
-      type = "CNAME"
-      rrdatas = "jade-global-tc.datarepo-{{$environment}}.broadinstitute.org."
-    },
-    jade-global-cl = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["cl"].address}"
-    },
-    jade-cl = {
-      type = "CNAME"
-      rrdatas = "jade-global-tc.datarepo-{{$environment}}.broadinstitute.org."
-    },
-    jade-global-az = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["az"].address}"
-    },
-    jade-az = {
-      type = "CNAME"
-      rrdatas = "jade-global-az.datarepo-{{$environment}}.broadinstitute.org."
-    },
-    jade-global-ok = {
-      type = "A"
-      rrdatas = "${google_compute_global_address.jade-initials-ip["ok"].address}"
-    },
-    jade-ok = {
-      type = "CNAME"
-      rrdatas = "jade-global-ok.datarepo-{{$environment}}.broadinstitute.org."
-    }
-  }
+  )
 }
 
 module "initials-dns-set" {
