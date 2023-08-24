@@ -28,7 +28,8 @@ variable "initials" {
   "cl",
   "az",
   "ok",
-  "eo"
+  "eo",
+  "sr"
   ]
 }
 
