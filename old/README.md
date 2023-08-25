@@ -83,6 +83,10 @@ docker run --rm -it -v "$PWD":/working \
 ./terraform.sh apply
 ```
 
+Common issues:
+
+Sometimes it will say: "INITIALS" not defined. That is okay. You can still continue.
+
 #### Verifying Outcomes
 
 For each [instance](https://console.cloud.google.com/sql/instances?project=broad-jade-dev)
