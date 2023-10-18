@@ -63,7 +63,13 @@ variable "broad_range_cidrs" {
   "69.173.96.0/20",
   "69.173.64.0/19",
   "69.173.127.192/27",
-  "69.173.124.0/23"
+  "69.173.124.0/23",
+  # These last two are actually for DevOps's dsp-tools-k8s cluster, which
+  # should be able to access old jade-dev resources as if they were on VPN.
+  # Allowing dsp-tools-k8s to access clusters this way is actually the same
+  # thing DevOps configures for all the clusters it directly manages.
+  "34.68.105.207/32",
+  "35.184.212.129/32"
   ]
 }
 
