@@ -22,7 +22,8 @@ module "enable-services" {
     "servicenetworking.googleapis.com",
     "stackdriver.googleapis.com",
     "logging.googleapis.com",
-    "cloudkms.googleapis.com"
+    "cloudkms.googleapis.com",
+    "appengine.googleapis.com"
   ]
 }
 
