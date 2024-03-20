@@ -63,7 +63,22 @@ variable "broad_range_cidrs" {
   "69.173.96.0/20",
   "69.173.64.0/19",
   "69.173.127.192/27",
-  "69.173.124.0/23"
+  "69.173.124.0/23",
+
+  # The following are actually for DevOps's ArgoCD. It should
+  # be able to access the clusters as if it were behind VPN.
+  # We have an old ArgoCD with the following addresses:
+  "34.68.105.207/32",
+  "35.184.212.129/32"
+  # And a new ArgoCD with the following addresses:
+  "35.225.151.25/32",
+  "23.236.61.36/32",
+  "104.154.107.181/32",
+  "35.238.212.142/32",
+  "34.121.179.0/32",
+  "34.66.158.169/32",
+  "35.188.147.45/32",
+  "35.222.192.6/32"
   ]
 }
 
