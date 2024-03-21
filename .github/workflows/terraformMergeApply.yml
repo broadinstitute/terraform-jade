@@ -4,14 +4,15 @@ env:
   terraform_version: "0.14.5"
 on:
   workflow_dispatch: {}
-  push:
-    branches:
-      - master
-    paths:
-      - '!old/**'
-      - '!.github/**'
-      - '.github/workflows/terraformMergeApply.yml'
-      - 'datarepo/**'
+  # Disabled due to https://broadinstitute.slack.com/archives/CD4HBRFMG/p1711028587106809?thread_ts=1710966242.660759&cid=CD4HBRFMG
+  # push:
+  #   branches:
+  #     - master
+  #   paths:
+  #     - '!old/**'
+  #     - '!.github/**'
+  #     - '.github/workflows/terraformMergeApply.yml'
+  #     - 'datarepo/**'
 jobs:
   terraform_apply:
     timeout-minutes: 180
